@@ -19,7 +19,7 @@
       <PasswordField layoutX="75.0" layoutY="323.0" prefHeight="26.0" prefWidth="179.0" promptText="Contraseña" />
       <TextField layoutX="75.0" layoutY="282.0" prefHeight="26.0" prefWidth="179.0" promptText="Usuario" />
       <Button layoutX="106.0" layoutY="381.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="36.0" prefWidth="117.0" style="-fx-background-radius: 90; -fx-background-color: #2196F3;" text="Iniciar sesión" textFill="WHITE" />
-      <Hyperlink layoutX="125.0" layoutY="425.0" text="Registrarse" />
+      <Hyperlink layoutX="71.0" layoutY="430.0" text="¿No tienes cuenta?, Registrate!" />
       <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="20.0" layoutY="357.0" prefHeight="18.0" prefWidth="288.0" textFill="RED" />
    </children>
 </AnchorPane>
