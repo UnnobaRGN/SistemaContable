@@ -8,6 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.File;
@@ -35,6 +36,13 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField CampoContraseña;
 
+    @FXML
+    private AnchorPane parent;
+
+    private double xOffSet = 0;
+    private double yOffSet = 0;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         File brandingFile = new File("Imagenes/Captura.PNG");
@@ -44,9 +52,27 @@ public class LoginController implements Initializable {
         File brandingFile2 = new File("Imagenes/faa3172dd52035d0c227d7ecab4d6024-doodle-cruzado-x-by-vexels.png");
         Image brandingImage2 = new Image(brandingFile2.toURI().toString());
         ImagenCerrar.setImage(brandingImage2);
+        makeStageDragable();
 
     }
 
+    private void makeStageDragable() {
+        parent.setOnMousePressed((event) -> {
+            xOffSet = event.getSceneX();
+            yOffSet = event.getSceneY();
+        });
+        parent.setOnMouseDragged((event) -> {
+            Main.primaryStage.setX(event.getScreenX() - xOffSet);
+            Main.primaryStage.setY(event.getScreenY() - yOffSet);
+            Main.primaryStage.setOpacity(0.8f);
+        });
+        parent.setOnDragDone((event) -> {
+            Main.primaryStage.setOpacity(1.0f);
+        });
+        parent.setOnMouseReleased((event) -> {
+            Main.primaryStage.setOpacity(1.0f);
+        });
+    }
 
     public void cancelButtonAction(ActionEvent event) {
         Stage stage = (Stage) BotonCerrar.getScene().getWindow();
