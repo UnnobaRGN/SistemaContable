@@ -18,8 +18,8 @@
             <Image url="@../../Imagenes/Captura.PNG" />
          </image>
       </ImageView>
-      <PasswordField layoutX="75.0" layoutY="323.0" prefHeight="26.0" prefWidth="179.0" promptText="Contraseña" />
-      <TextField layoutX="75.0" layoutY="282.0" prefHeight="26.0" prefWidth="179.0" promptText="Usuario" />
+      <PasswordField fx:id="CampoContraseña" layoutX="75.0" layoutY="323.0" prefHeight="26.0" prefWidth="179.0" promptText="Contraseña" />
+      <TextField fx:id="CampoUsuario" layoutX="75.0" layoutY="282.0" prefHeight="26.0" prefWidth="179.0" promptText="Usuario" />
       <Button layoutX="106.0" layoutY="381.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="36.0" prefWidth="117.0" style="-fx-background-radius: 90; -fx-background-color: #2196F3;" text="Iniciar sesión" textFill="WHITE">
          <font>
             <Font size="15.0" />
@@ -33,5 +33,13 @@
          <font>
             <Font size="14.0" />
          </font></Text>
+      <Button fx:id="BotonCerrar" layoutX="275.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="42.0" prefWidth="55.0" style="-fx-background-color: #3792;">
+         <graphic>
+            <ImageView fx:id="ImagenCerrar" fitHeight="34.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Imagenes/faa3172dd52035d0c227d7ecab4d6024-doodle-cruzado-x-by-vexels.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
    </children>
 </AnchorPane>
