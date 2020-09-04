@@ -1,5 +1,4 @@
 package sample;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,6 +12,9 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.File;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 
@@ -82,15 +84,37 @@ public class LoginController implements Initializable {
     public void loginButtonAction(ActionEvent event) {
         if (CampoUsuario.getText().isBlank() == false && CampoContraseña.getText().isBlank() == false) {
             loginMessageLabel.setText("");
-            validateLogin();
+            validarLogin();
         } else {
             loginMessageLabel.setText("Por favor, ingrese usuario y contraseña");
         }
 
     }
 
-    public void validateLogin() {
+    public void validarLogin() {
 
+        ConexionBD conectarAhora = new ConexionBD();
+        Connection conectarBD = conectarAhora.getConnection();
+
+        String VerificarLogin = "SELECT count(1) FROM usuario WHERE usuario =  " + CampoUsuario.getText() + "AND contrasenia = " + CampoContraseña.getText() ;
+
+        try{
+            Statement statement = conectarBD.createStatement();
+            ResultSet queryResult = statement.executeQuery(VerificarLogin);
+
+            while (queryResult.next()){
+                if(queryResult.getInt(1) == 1){
+                    loginMessageLabel.setText("Bien crack, anda!");
+                }else{
+                    loginMessageLabel.setText("Contrasenia o usuario invalido");
+                }
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
 
 
     }
