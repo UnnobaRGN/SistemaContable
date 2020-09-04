@@ -82,11 +82,12 @@ public class LoginController implements Initializable {
     }
 
     public void loginButtonAction(ActionEvent event) {
-        if (CampoUsuario.getText().isBlank() == false && CampoContraseña.getText().isBlank() == false) {
+        if (!CampoUsuario.getText().isBlank() && !CampoContraseña.getText().isBlank()) {
             loginMessageLabel.setText("");
             validarLogin();
         } else {
             loginMessageLabel.setText("Por favor, ingrese usuario y contraseña");
+
         }
 
     }
@@ -96,14 +97,16 @@ public class LoginController implements Initializable {
         ConexionBD conectarAhora = new ConexionBD();
         Connection conectarBD = conectarAhora.getConnection();
 
-        String VerificarLogin = "SELECT count(1) FROM usuario WHERE usuario =  " + CampoUsuario.getText() + "AND contrasenia = " + CampoContraseña.getText() ;
+        String VerificarLogin = "SELECT COUNT(1) FROM usuario WHERE usuario ='" +  CampoUsuario.getText() + "'AND contrasenia ='" + CampoContraseña.getText() + "'";
+
 
         try{
             Statement statement = conectarBD.createStatement();
-            ResultSet queryResult = statement.executeQuery(VerificarLogin);
+            ResultSet  ResultadoDeQuery =  statement.executeQuery(VerificarLogin);
 
-            while (queryResult.next()){
-                if(queryResult.getInt(1) == 1){
+
+            while (ResultadoDeQuery.next()){
+                if(ResultadoDeQuery.getInt(1) == 1){
                     loginMessageLabel.setText("Bien crack, anda!");
                 }else{
                     loginMessageLabel.setText("Contrasenia o usuario invalido");
