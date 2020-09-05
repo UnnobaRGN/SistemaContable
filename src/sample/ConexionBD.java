@@ -10,9 +10,9 @@ public class ConexionBD {
 
     public Connection getConnection(){
 
-        String nombreBD = "pruebaSistemaContable";
+        String nombreBD = "SistemaContable";
         String usuarioBD = "postgres";
-        String contraseniaBD = "1234";
+        String contraseniaBD = "Diegoseal1";
         String url = "jdbc:postgresql://localhost/" + nombreBD;
 
         try{
