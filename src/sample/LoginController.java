@@ -41,6 +41,8 @@ public class LoginController implements Initializable {
     @FXML
     private AnchorPane parent;
 
+    private UsuarioLogeado u;
+
     private double xOffSet = 0;
     private double yOffSet = 0;
 
@@ -97,7 +99,8 @@ public class LoginController implements Initializable {
         ConexionBD conectarAhora = new ConexionBD();
         Connection conectarBD = conectarAhora.getConnection();
 
-        String VerificarLogin = "SELECT COUNT(1) FROM usuario WHERE usuario ='" +  CampoUsuario.getText() + "'AND contrasenia ='" + CampoContraseña.getText() + "'";
+
+        String VerificarLogin = "SELECT * FROM usuario WHERE usuario ='" +  CampoUsuario.getText() + "'AND contrasenia ='" + CampoContraseña.getText() + "'";
 
 
         try{
@@ -105,14 +108,17 @@ public class LoginController implements Initializable {
             ResultSet  ResultadoDeQuery =  statement.executeQuery(VerificarLogin);
 
 
-            while (ResultadoDeQuery.next()){
-                if(ResultadoDeQuery.getInt(1) == 1){
-                    loginMessageLabel.setText("Bien crack, anda!");
-                }else{
-                    loginMessageLabel.setText("Contrasenia o usuario invalido");
-                }
+            if(ResultadoDeQuery.next()) {
+                u.setId(ResultadoDeQuery.getInt("id"));
+                u.setUsuario(ResultadoDeQuery.getString("usuario"));
+                u.setRol(ResultadoDeQuery.getString("rol"));
 
+
+
+            }else {
+                loginMessageLabel.setText("usuario o contrasenia invalido");
             }
+
 
         }catch (Exception e){
             e.printStackTrace();
