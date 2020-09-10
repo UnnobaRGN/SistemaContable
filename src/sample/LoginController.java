@@ -1,6 +1,12 @@
 package sample;
 import javafx.fxml.FXML;
+
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -10,7 +16,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.stage.StageStyle;
+import sample.ConexionBD;
+import sample.Main;
+import sample.UsuarioLogeado;
+
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,7 +53,7 @@ public class LoginController implements Initializable {
     @FXML
     private AnchorPane parent;
 
-    private UsuarioLogeado u;
+    private UsuarioLogeado u = UsuarioLogeado.getInstance();
 
     private double xOffSet = 0;
     private double yOffSet = 0;
@@ -83,10 +95,19 @@ public class LoginController implements Initializable {
         stage.close();
     }
 
-    public void loginButtonAction(ActionEvent event) {
+    public void loginButtonAction(ActionEvent event) throws IOException {
         if (!CampoUsuario.getText().isBlank() && !CampoContraseña.getText().isBlank()) {
             loginMessageLabel.setText("");
-            validarLogin();
+            if(validarLogin()){
+
+                Parent part = FXMLLoader.load(getClass().getResource("Principal.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.show();
+
+                ((Node)event.getSource()).getScene().getWindow().hide();
+            }
         } else {
             loginMessageLabel.setText("Por favor, ingrese usuario y contraseña");
 
@@ -94,7 +115,7 @@ public class LoginController implements Initializable {
 
     }
 
-    public void validarLogin() {
+    public boolean validarLogin() {
 
         ConexionBD conectarAhora = new ConexionBD();
         Connection conectarBD = conectarAhora.getConnection();
@@ -112,7 +133,7 @@ public class LoginController implements Initializable {
                 u.setId(ResultadoDeQuery.getInt("idusuario"));
                 u.setUsuario(ResultadoDeQuery.getString("usuario"));
                 u.setRol(ResultadoDeQuery.getString("rol"));
-
+                    return true;
 
 
             }else {
@@ -126,5 +147,6 @@ public class LoginController implements Initializable {
         }
 
 
+        return false;
     }
 }

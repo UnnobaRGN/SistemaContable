@@ -2,13 +2,26 @@ package sample;
 
 public class UsuarioLogeado {
 
+    private static UsuarioLogeado usuarioLog;
+
     private int id;
     private String usuario;
     private String rol;
 
-    public UsuarioLogeado() {
+    private UsuarioLogeado() {
 
     }
+
+
+    public static UsuarioLogeado getInstance(){
+
+        if(usuarioLog == null){
+            usuarioLog = new UsuarioLogeado();
+        }
+        return usuarioLog;
+    }
+
+
 
     public int getId() {
         return id;
