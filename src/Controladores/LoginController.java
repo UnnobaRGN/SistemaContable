@@ -99,7 +99,7 @@ public class LoginController implements Initializable {
             loginMessageLabel.setText("");
             if(validarLogin()){
 
-                Parent part = FXMLLoader.load(getClass().getResource("/sample/Principal.fxml"));
+                Parent part = FXMLLoader.load(getClass().getResource("/Vista/Principal.fxml"));
                 Stage stage = new Stage();
                 Scene scene = new Scene(part);
                 stage.setScene(scene);
