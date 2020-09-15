@@ -1,4 +1,4 @@
-package sample;
+package Controladores;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -16,10 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import javafx.stage.StageStyle;
 import sample.ConexionBD;
 import sample.Main;
-import sample.UsuarioLogeado;
+import Modelo.UsuarioLogeado;
 
 import java.io.File;
 import java.io.IOException;
@@ -100,7 +99,7 @@ public class LoginController implements Initializable {
             loginMessageLabel.setText("");
             if(validarLogin()){
 
-                Parent part = FXMLLoader.load(getClass().getResource("Principal.fxml"));
+                Parent part = FXMLLoader.load(getClass().getResource("/sample/Principal.fxml"));
                 Stage stage = new Stage();
                 Scene scene = new Scene(part);
                 stage.setScene(scene);

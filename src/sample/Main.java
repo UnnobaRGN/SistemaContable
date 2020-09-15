@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+
+
 public class Main extends Application {
     public static Stage primaryStage = null;
     @Override
@@ -13,6 +15,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
+
 
         primaryStage.setScene(new Scene(root, 329, 484));
         this.primaryStage = primaryStage;

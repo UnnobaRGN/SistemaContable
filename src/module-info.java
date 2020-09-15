@@ -7,4 +7,6 @@ module SistemaContable {
     requires org.postgresql.jdbc;
 
     opens sample;
+    opens Controladores;
+
 }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.LoginController">
    <children>
       <ImageView fx:id="ImagenPrincipal" fitHeight="484.0" fitWidth="329.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -13,7 +12,7 @@
          </image>
       </ImageView>
       <PasswordField fx:id="CampoContraseña" layoutX="75.0" layoutY="331.0" prefHeight="26.0" prefWidth="179.0" promptText="Contraseña" />
-      <TextField fx:id="CampoUsuario" layoutX="75.0" layoutY="289.0" prefHeight="26.0" prefWidth="179.0" promptText="Usuario" />
+      <TextField fx:id="CampoUsuario" layoutX="75.0" layoutY="289.0" prefHeight="26.0" prefWidth="179.0" promptText="Modelo" />
       <Button layoutX="106.0" layoutY="390.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="36.0" prefWidth="117.0" style="-fx-background-radius: 90; -fx-background-color: #2196F3;" text="Iniciar sesión" textFill="WHITE">
          <font>
             <Font size="15.0" />
