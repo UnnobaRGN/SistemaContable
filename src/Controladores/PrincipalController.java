@@ -25,11 +25,7 @@ public class PrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Boton1.setVisible(u.getRol().equals("admin"));
-
-
-
-
+        Boton1.setVisible(u.getIdperfil() == 1);
     }
 
 

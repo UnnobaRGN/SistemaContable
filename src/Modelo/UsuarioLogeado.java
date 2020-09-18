@@ -6,7 +6,7 @@ public class UsuarioLogeado {
 
     private int id;
     private String usuario;
-    private String rol;
+    private int idperfil;
 
     private UsuarioLogeado() {
 
@@ -39,15 +39,11 @@ public class UsuarioLogeado {
         this.usuario = usuario;
     }
 
-    public String getRol() {
-        return rol;
+    public int getIdperfil() {
+        return idperfil;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setIdperfil(int idperfil) {
+        this.idperfil = idperfil;
     }
-
-
-
-
 }

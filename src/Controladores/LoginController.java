@@ -131,7 +131,7 @@ public class LoginController implements Initializable {
             if(ResultadoDeQuery.next()) {
                 u.setId(ResultadoDeQuery.getInt("idusuario"));
                 u.setUsuario(ResultadoDeQuery.getString("usuario"));
-                u.setRol(ResultadoDeQuery.getString("rol"));
+                u.setIdperfil(ResultadoDeQuery.getInt("idperfil"));
                     return true;
 
 
