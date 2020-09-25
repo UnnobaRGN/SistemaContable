@@ -65,7 +65,7 @@ public class PrincipalController implements Initializable {
         Image brandingImage4 = new Image(brandingFile4.toURI().toString());
         Imagen4.setImage(brandingImage4);
 
-
+        AgregarCuenta.setVisible(u.getIdperfil() == 1);
     }
 
 
