@@ -102,8 +102,10 @@ public class LoginController implements Initializable {
                 Parent part = FXMLLoader.load(getClass().getResource("/Vista/Principal.fxml"));
                 Stage stage = new Stage();
                 Scene scene = new Scene(part);
+                stage.setResizable(false);
                 stage.setScene(scene);
                 stage.show();
+
 
                 ((Node)event.getSource()).getScene().getWindow().hide();
             }

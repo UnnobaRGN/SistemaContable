@@ -3,9 +3,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import Modelo.UsuarioLogeado;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 import java.io.File;
@@ -63,7 +66,6 @@ public class PrincipalController implements Initializable {
         Imagen4.setImage(brandingImage4);
 
 
-        AgregarCuenta.setVisible(u.getIdperfil() == 1);
     }
 
 
