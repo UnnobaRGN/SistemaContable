@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.stage.StageStyle;
 import sample.ConexionBD;
 import sample.Main;
 import Modelo.UsuarioLogeado;
@@ -54,8 +55,9 @@ public class LoginController implements Initializable {
 
     private UsuarioLogeado u = UsuarioLogeado.getInstance();
 
-    private double xOffSet = 0;
-    private double yOffSet = 0;
+    private static double xOffSet = 0;
+    private static double yOffSet = 0;
+
 
 
     @Override
@@ -71,7 +73,7 @@ public class LoginController implements Initializable {
 
     }
 
-    private void makeStageDragable() {
+    public void makeStageDragable() {
         parent.setOnMousePressed((event) -> {
             xOffSet = event.getSceneX();
             yOffSet = event.getSceneY();
@@ -89,6 +91,8 @@ public class LoginController implements Initializable {
         });
     }
 
+
+
     public void cancelButtonAction(ActionEvent event) {
         Stage stage = (Stage) BotonCerrar.getScene().getWindow();
         stage.close();
@@ -102,8 +106,8 @@ public class LoginController implements Initializable {
                 Parent part = FXMLLoader.load(getClass().getResource("/Vista/Principal.fxml"));
                 Stage stage = new Stage();
                 Scene scene = new Scene(part);
-                stage.setResizable(false);
                 stage.setScene(scene);
+                stage.setResizable(false);
                 stage.show();
 
 

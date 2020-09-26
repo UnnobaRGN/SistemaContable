@@ -8,5 +8,6 @@ module SistemaContable {
 
     opens sample;
     opens Controladores;
+    opens Modelo;
 
 }
