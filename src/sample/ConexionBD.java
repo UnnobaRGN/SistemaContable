@@ -36,7 +36,7 @@ public class ConexionBD {
         ObservableList<Cuentas> list = FXCollections.observableArrayList();
         try {
 
-            String datos = "SELECT *, t.cuenta as tipo FROM cuenta AS c INNER JOIN tipocuenta as t ON t.idtipo = c.idtipo ";
+            String datos = "SELECT *, t.cuenta as tipo FROM cuenta AS c INNER JOIN tipocuenta as t ON t.idtipo = c.idtipo ORDER BY c.idcuenta ";
 
             Statement statement = conn.createStatement();
             ResultSet  rs =  statement.executeQuery(datos);

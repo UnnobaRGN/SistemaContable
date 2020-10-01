@@ -16,7 +16,7 @@
         </columns>
       </TableView>
       <Button fx:id="AgregarCuenta" layoutX="36.0" layoutY="368.0" mnemonicParsing="false" text="Nueva Cuenta" />
-      <Button fx:id="EliminarCuenta" layoutX="136.0" layoutY="368.0" mnemonicParsing="false" text="Borrar" />
+      <Button fx:id="DesabilitarCuenta" layoutX="136.0" layoutY="368.0" mnemonicParsing="false" text="Borrar" />
       <Button fx:id="ModificarCuenta" layoutX="197.0" layoutY="368.0" mnemonicParsing="false" text="Modificar" />
       <Button fx:id="BotonSalir" layoutX="471.0" layoutY="368.0" mnemonicParsing="false" onAction="#Salir" text="Salir" />
    </children>

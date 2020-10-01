@@ -43,7 +43,7 @@ public class PlanDeCuentaController implements Initializable {
     private Button AgregarCuenta;
 
     @FXML
-    private Button EliminarCuenta;
+    private Button DesabilitarCuenta;
 
     @FXML
     private Button ModificarCuenta;
@@ -60,7 +60,7 @@ public class PlanDeCuentaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AgregarCuenta.setVisible(u.getIdperfil() == 1);
-        EliminarCuenta.setVisible(u.getIdperfil() == 1);
+        DesabilitarCuenta.setVisible(u.getIdperfil() == 1);
         ModificarCuenta.setVisible(u.getIdperfil() == 1);
         Nro_Cuenta.setCellValueFactory(new PropertyValueFactory<Cuentas, Integer>("codigo_cuenta"));
         Cuenta.setCellValueFactory(new PropertyValueFactory<Cuentas, String>("cuenta"));
