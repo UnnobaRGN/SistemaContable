@@ -65,6 +65,21 @@ public class PlanDeCuentaController implements Initializable {
     ObservableList<Cuentas> lista;
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        AgregarCuenta.setVisible(u.getIdperfil() == 1);
+        EliminarCuenta.setVisible(u.getIdperfil() == 1);
+        ModificarCuenta.setVisible(u.getIdperfil() == 1);
+        Nro_Cuenta.setCellValueFactory(new PropertyValueFactory<Cuentas, Integer>("codigo_cuenta"));
+        Cuenta.setCellValueFactory(new PropertyValueFactory<Cuentas, String>("cuenta"));
+        Recibe_Saldo.setCellValueFactory(new PropertyValueFactory<Cuentas, Integer>("recibe_saldo"));
+        Tipo.setCellValueFactory(new PropertyValueFactory<Cuentas, String>("tipo"));
+
+        lista = getCuentas();
+        cuentasTableView.setItems(lista);
+
+    }
+
     public static ObservableList<Cuentas> getCuentas(){
         Connection conn = ConexionBD.getConnection();
         ObservableList<Cuentas> list = FXCollections.observableArrayList();
@@ -85,21 +100,6 @@ public class PlanDeCuentaController implements Initializable {
 
         }
         return list;
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        AgregarCuenta.setVisible(u.getIdperfil() == 1);
-        EliminarCuenta.setVisible(u.getIdperfil() == 1);
-        ModificarCuenta.setVisible(u.getIdperfil() == 1);
-        Nro_Cuenta.setCellValueFactory(new PropertyValueFactory<Cuentas, Integer>("codigo_cuenta"));
-        Cuenta.setCellValueFactory(new PropertyValueFactory<Cuentas, String>("cuenta"));
-        Recibe_Saldo.setCellValueFactory(new PropertyValueFactory<Cuentas, Integer>("recibe_saldo"));
-        Tipo.setCellValueFactory(new PropertyValueFactory<Cuentas, String>("tipo"));
-
-        lista = getCuentas();
-        cuentasTableView.setItems(lista);
-
     }
 
     public void Salir(ActionEvent event) {
