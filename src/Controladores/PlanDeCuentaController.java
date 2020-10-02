@@ -2,6 +2,7 @@ package Controladores;
 
 import Modelo.Cuentas;
 import Modelo.UsuarioLogeado;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +65,28 @@ public class PlanDeCuentaController implements Initializable {
     ObservableList<Cuentas> lista;
 
 
+    public static ObservableList<Cuentas> getCuentas(){
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<Cuentas> list = FXCollections.observableArrayList();
+        try {
+
+            String datos = "SELECT *, t.cuenta as tipo FROM cuenta AS c INNER JOIN tipocuenta as t ON t.idtipo = c.idtipo ORDER BY c.idcuenta ";
+
+            Statement statement = conn.createStatement();
+            ResultSet  rs =  statement.executeQuery(datos);
+
+            while (rs.next()){
+
+                list.add(new Cuentas(rs.getInt("codigo_cuenta"),rs.getString("cuenta"),rs.getInt("recibe_saldo"),rs.getString("tipo"),rs.getInt("idcuenta"),rs.getInt("saldo_actual")));
+
+            }
+        }catch (Exception e){
+
+
+        }
+        return list;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AgregarCuenta.setVisible(u.getIdperfil() == 1);
@@ -74,7 +97,7 @@ public class PlanDeCuentaController implements Initializable {
         Recibe_Saldo.setCellValueFactory(new PropertyValueFactory<Cuentas, Integer>("recibe_saldo"));
         Tipo.setCellValueFactory(new PropertyValueFactory<Cuentas, String>("tipo"));
 
-        lista = ConexionBD.getCuentas();
+        lista = getCuentas();
         cuentasTableView.setItems(lista);
 
     }
