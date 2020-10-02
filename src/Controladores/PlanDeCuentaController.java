@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.w3c.dom.events.MouseEvent;
 import sample.ConexionBD;
 
 import java.io.IOException;
@@ -67,6 +68,11 @@ public class PlanDeCuentaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MostrarDatos();
+
+    }
+
+    public void MostrarDatos(){
         AgregarCuenta.setVisible(u.getIdperfil() == 1);
         EliminarCuenta.setVisible(u.getIdperfil() == 1);
         ModificarCuenta.setVisible(u.getIdperfil() == 1);
@@ -77,7 +83,6 @@ public class PlanDeCuentaController implements Initializable {
 
         lista = getCuentas();
         cuentasTableView.setItems(lista);
-
     }
 
     public static ObservableList<Cuentas> getCuentas(){
@@ -107,6 +112,8 @@ public class PlanDeCuentaController implements Initializable {
         stage.close();
     }
 
+
+
     public void AgregarCuentaBoton(ActionEvent event) throws IOException {
 
         Parent padre = FXMLLoader.load(getClass().getResource("/Vista/AgregarCuenta.fxml"));
@@ -118,6 +125,7 @@ public class PlanDeCuentaController implements Initializable {
         ((Node)event.getSource()).getScene().getWindow().hide();
 
     }
+
 
     public void EliminarCuentaBoton(ActionEvent actionEvent) throws IOException{
         Connection conn = ConexionBD.getConnection();
@@ -133,7 +141,7 @@ public class PlanDeCuentaController implements Initializable {
             int n = s.executeUpdate(sql);
 
             if(n>=0){
-                System.out.println("Registro eliminado");
+                MostrarDatos();
             }
 
         }catch(Exception e) {
@@ -143,4 +151,9 @@ public class PlanDeCuentaController implements Initializable {
     }
 
 
+
+    public void MouseAction(javafx.scene.input.MouseEvent mouseEvent) {
+        Cuentas cuentas = cuentasTableView.getSelectionModel().getSelectedItem();
+        System.out.println("id" + cuentas.getId_cuenta());
+    }
 }
