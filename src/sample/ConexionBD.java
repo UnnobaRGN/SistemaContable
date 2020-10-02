@@ -26,7 +26,6 @@ public class ConexionBD {
             e.printStackTrace();
             e.getCause();
         }
-
         return BaseDatosLink;
 
     }

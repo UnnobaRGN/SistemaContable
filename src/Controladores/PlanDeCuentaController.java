@@ -127,7 +127,7 @@ public class PlanDeCuentaController implements Initializable {
     }
 
 
-    public void EliminarCuentaBoton(ActionEvent actionEvent) throws IOException{
+    public void EliminarCuentaBoton(ActionEvent actionEvent){
         Connection conn = ConexionBD.getConnection();
         Cuentas cuenta = cuentasTableView.getSelectionModel().getSelectedItem();
 
@@ -150,10 +150,4 @@ public class PlanDeCuentaController implements Initializable {
 
     }
 
-
-
-    public void MouseAction(javafx.scene.input.MouseEvent mouseEvent) {
-        Cuentas cuentas = cuentasTableView.getSelectionModel().getSelectedItem();
-        System.out.println("id" + cuentas.getId_cuenta());
-    }
 }

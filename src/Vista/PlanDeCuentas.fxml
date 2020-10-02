@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="parent" prefHeight="417.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.PlanDeCuentaController">
    <children>
-      <TableView fx:id="cuentasTableView" onMouseClicked="#MouseAction" prefHeight="352.0" prefWidth="537.0">
+      <TableView fx:id="cuentasTableView" prefHeight="352.0" prefWidth="537.0">
         <columns>
           <TableColumn fx:id="Nro_Cuenta" prefWidth="75.0" text="Nro cuenta" />
           <TableColumn fx:id="Cuenta" prefWidth="292.0" text="Cuenta" />
