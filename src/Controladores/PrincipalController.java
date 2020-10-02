@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import Modelo.UsuarioLogeado;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -85,6 +86,7 @@ public class PrincipalController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+
     }
 
 }
