@@ -40,7 +40,11 @@ public class PrincipalController implements Initializable {
     @FXML
     private ImageView Imagen4 = new ImageView();
 
+    @FXML
+    private Button Asiento;
+
     private UsuarioLogeado u = UsuarioLogeado.getInstance();
+
     
 
     @Override
@@ -70,10 +74,13 @@ public class PrincipalController implements Initializable {
 
 
 
-    public void aCasa(ActionEvent event) {
-
-        System.out.println("hola");
-
+    public void abrirAsientos(ActionEvent event) throws IOException {
+        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Asiento.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(asiento);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
 
