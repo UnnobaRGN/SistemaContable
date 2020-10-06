@@ -25,7 +25,7 @@
                 <TableColumn prefWidth="93.0" text="Número" />
               </columns>
             </TableView>
-            <Text layoutX="312.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asientos" textAlignment="CENTER">
+            <Text layoutX="312.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asientos" textAlignment="CENTER">
                <effect>
                   <Bloom />
                </effect>
