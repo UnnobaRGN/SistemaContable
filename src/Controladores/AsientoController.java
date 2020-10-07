@@ -12,9 +12,10 @@ import java.util.ResourceBundle;
 public class AsientoController implements Initializable {
 
     @FXML
-    private ImageView ImagenAsiento = new ImageView();                 
+    private ImageView ImagenAsiento = new ImageView();
 
-
+    @FXML
+    private ImageView FondoAsiento = new ImageView();
 
 
 
@@ -27,6 +28,10 @@ public class AsientoController implements Initializable {
         File fileAsiento = new File("Imagenes/2 - copia.jpg");
         Image brandingImageAsiento = new Image(fileAsiento.toURI().toString());
         ImagenAsiento.setImage(brandingImageAsiento);
+
+        File fileFondoAsiento = new File("Imagenes/grisAsiento.png");
+        Image brandingFondoAsiento = new Image(fileFondoAsiento.toURI().toString());
+        FondoAsiento.setImage(brandingFondoAsiento);
     }
 
 }
