@@ -12,7 +12,12 @@ import java.util.ResourceBundle;
 public class AsientoController implements Initializable {
 
     @FXML
-    private ImageView ImagenAsiento = new ImageView();
+    private ImageView ImagenAsiento = new ImageView();                 
+
+
+
+
+
 
     @FXML
     private Button ButtonVer;
