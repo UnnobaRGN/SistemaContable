@@ -21,7 +21,7 @@
                 <TableColumn prefWidth="93.0" text="Número" />
               </columns>
             </TableView>
-            <Text layoutX="312.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asientos" textAlignment="CENTER">
+            <Text layoutX="312.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asientos" textAlignment="CENTER">
                <effect>
                   <Bloom />
                </effect>
@@ -29,27 +29,17 @@
                   <Font name="Arial Bold Italic" size="23.0" />
                </font>
             </Text>
-            <Button layoutX="323.0" layoutY="100.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" text="Nuevo">
+            <Button layoutX="323.0" layoutY="144.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" text="Nuevo">
                <font>
                   <Font name="Arial Bold Italic" size="13.0" />
                </font>
             </Button>
-            <Button layoutX="323.0" layoutY="59.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" text="Ver">
+            <Button fx:id="ButtonVer" layoutX="323.0" layoutY="101.0" mnemonicParsing="false" onAction="#expandirAsiento" prefHeight="26.0" prefWidth="76.0" text="Ver">
                <font>
                   <Font name="Arial Bold Italic" size="13.0" />
                </font>
             </Button>
-            <Button layoutX="323.0" layoutY="144.0" mnemonicParsing="false" text="Modificar">
-               <font>
-                  <Font name="Arial Bold Italic" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="323.0" layoutY="184.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" text="Borrar">
-               <font>
-                  <Font name="Arial Bold Italic" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="323.0" layoutY="223.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" text="Salir">
+            <Button layoutX="323.0" layoutY="187.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" text="Salir">
                <font>
                   <Font name="Arial Bold Italic" size="13.0" />
                </font>
