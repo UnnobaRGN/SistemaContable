@@ -1,5 +1,5 @@
 # Project exclude paths
 /out/
-src/sample/ConexionBD.java
-.idea
+*src/sample/ConexionBD.java
+
 
