@@ -22,6 +22,8 @@ public class ConexionBD {
             Class.forName("org.postgresql.Driver");
             BaseDatosLink = DriverManager.getConnection(url,usuarioBD,contraseniaBD);
 
+
+            
         }catch (Exception e){
             e.printStackTrace();
             e.getCause();
