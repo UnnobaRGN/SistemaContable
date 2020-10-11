@@ -62,7 +62,7 @@ public class AsientoController implements Initializable {
         stage.show();
     }
 
-    public void salirAsientos(ActionEvent event) {
+    public void salirAsientos(ActionEvent event) throws IOException{
         Stage stage = (Stage) ButtonSalir.getScene().getWindow();
         stage.close();
     }
