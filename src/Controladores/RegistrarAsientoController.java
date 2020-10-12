@@ -77,8 +77,8 @@ public class RegistrarAsientoController implements Initializable {
 
     }
 
-    public void guardarAsiento(ActionEvent actionEvent){
-
+    public Cuentas retornarCuenta(){
+        Cuentas cuenta = null;
         Connection conn = ConexionBD.getConnection();
         String s = CuentasSeleccion.getSelectionModel().getSelectedItem().toString();
         try{
@@ -87,7 +87,7 @@ public class RegistrarAsientoController implements Initializable {
             ResultSet rs = statement.executeQuery(SQL);
             while(rs.next()){
 
-                Cuentas cuenta = new Cuentas(rs.getInt("codigo_cuenta"),rs.getString("cuenta"),rs.getInt("recibe_saldo"),rs.getString("idtipo"),rs.getInt("idcuenta"),rs.getInt("saldo_actual"));
+                cuenta = new Cuentas(rs.getInt("codigo_cuenta"),rs.getString("cuenta"),rs.getInt("recibe_saldo"),rs.getString("idtipo"),rs.getInt("idcuenta"),rs.getInt("saldo_actual"));
 
 
             }
@@ -96,7 +96,9 @@ public class RegistrarAsientoController implements Initializable {
 
         }
 
-
+        return cuenta;
 
     }
+
+    
 }
