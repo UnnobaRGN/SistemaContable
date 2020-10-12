@@ -15,7 +15,7 @@ public class ConexionBD {
 
         String nombreBD = "pruebaSistemaContable";
         String usuarioBD = "postgres";
-        String contraseniaBD = "1234";
+        String contraseniaBD = "Diegoseal1";
         String url = "jdbc:postgresql://localhost/" + nombreBD;
 
         try{

@@ -44,6 +44,7 @@ public class AgregarCuentaController implements Initializable {
 
     @FXML
     public ToggleGroup toggleGroup;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         File brandingFile = new File("Imagenes/2.jpg");

@@ -80,15 +80,15 @@ public class RegistrarAsientoController implements Initializable {
     }
 
     public void guardarAsiento(ActionEvent actionEvent){
+
         Connection conn = ConexionBD.getConnection();
         String s = CuentasSeleccion.getSelectionModel().getSelectedItem().toString();
-        try{
 
+        try{
             String SQL = "SELECT * FROM cuenta WHERE cuenta= '"+ s + "'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
-            System.out.println(rs.getString("codigo_cuenta"));
             if(rs.next()){
                 Cuentas cuenta = new Cuentas(rs.getInt("codigo_cuenta"),rs.getString("cuenta"),rs.getInt("recibe_saldo"),rs.getString("idtipo"),rs.getInt("idcuenta"),rs.getInt("saldo_actual"));
                 System.out.println(cuenta.getCodigo_cuenta());
