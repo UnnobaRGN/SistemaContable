@@ -36,8 +36,6 @@ public class RegistrarAsientoController implements Initializable {
     @FXML
     private Button ButtonCancelar;
 
-    @FXML
-    private TextField Texto;
 
     ObservableList<String> list = FXCollections.observableArrayList();
 
@@ -80,18 +78,19 @@ public class RegistrarAsientoController implements Initializable {
     }
 
     public void guardarAsiento(ActionEvent actionEvent){
+
         Connection conn = ConexionBD.getConnection();
         String s = CuentasSeleccion.getSelectionModel().getSelectedItem().toString();
         try{
 
-            String SQL = "SELECT * FROM cuenta WHERE cuenta= '"+ s + "'";
+            String SQL = "SELECT * FROM cuenta WHERE cuenta='" + s + "'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
+            while(rs.next()){
 
-            System.out.println(rs.getString("codigo_cuenta"));
-            if(rs.next()){
                 Cuentas cuenta = new Cuentas(rs.getInt("codigo_cuenta"),rs.getString("cuenta"),rs.getInt("recibe_saldo"),rs.getString("idtipo"),rs.getInt("idcuenta"),rs.getInt("saldo_actual"));
-                System.out.println(cuenta.getCodigo_cuenta());
+
+
             }
 
         }catch(Exception e){

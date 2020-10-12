@@ -72,7 +72,6 @@
             <RadioButton layoutX="457.0" layoutY="141.0" mnemonicParsing="false" text="Debe" />
             <RadioButton layoutX="536.0" layoutY="141.0" mnemonicParsing="false" text="Haber" />
             <ComboBox fx:id="CuentasSeleccion" layoutX="132.0" layoutY="138.0" prefWidth="150.0" promptText="Seleccione" />
-            <TextField fx:id="Texto" layoutX="78.0" layoutY="175.0" />
             </children>
         </AnchorPane>
     </children>
