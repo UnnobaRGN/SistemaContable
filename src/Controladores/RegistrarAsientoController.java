@@ -18,8 +18,8 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class RegistrarAsientoController implements Initializable {
@@ -28,10 +28,16 @@ public class RegistrarAsientoController implements Initializable {
     private ImageView FondoRegistrarAsiento = new ImageView();
 
     @FXML
-    private DatePicker FechaRegistrarAsiento = new DatePicker();
+    private DatePicker FechaRegistrarAsiento;
 
     @FXML
     private ComboBox CuentasSeleccion;
+
+    @FXML
+    private TextField fecha;
+
+    @FXML
+    private TextField numeroAsiento;
 
     @FXML
     private Button ButtonCancelar;
@@ -45,8 +51,12 @@ public class RegistrarAsientoController implements Initializable {
         Image brandingFondoRegistrarAsiento = new Image(fileFondoRegistrarAsiento.toURI().toString());
         FondoRegistrarAsiento.setImage(brandingFondoRegistrarAsiento);
         traerCuentasAcomboBox();
-        ///////DatePicker FechaRegistrarAsiento = new DatePicker(LocalDate.now());
-        ///////FechaRegistrarAsiento.setEditable(false);
+
+        Date ahora = new Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+        fecha.setText(formateador.format(ahora));
+        fecha.setDisable(true);
+
 
     }
 
@@ -100,5 +110,24 @@ public class RegistrarAsientoController implements Initializable {
 
     }
 
+    /*public void numAsiento(){
+
+        try{
+            Connection conn = ConexionBD.getConnection();
+            Statement s = conn.createStatement();
+            String SQL = "SELECT COUNT(*) FROM asiento";
+            ResultSet  rs =  s.executeQuery(SQL);
+            int p = rs.getInt("count");
+
+            while (rs.next()){
+                numeroAsiento.setText((String) p+1);
+            }
+
+        }catch(Exception e){
+
+        }
+
+
+    }*/
     
 }
