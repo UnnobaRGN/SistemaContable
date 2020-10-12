@@ -56,7 +56,7 @@ public class RegistrarAsientoController implements Initializable {
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
         fecha.setText(formateador.format(ahora));
         fecha.setDisable(true);
-
+        numAsiento();
 
     }
 
@@ -110,17 +110,18 @@ public class RegistrarAsientoController implements Initializable {
 
     }
 
-    /*public void numAsiento(){
+    public void numAsiento(){
 
         try{
             Connection conn = ConexionBD.getConnection();
             Statement s = conn.createStatement();
-            String SQL = "SELECT COUNT(*) FROM asiento";
+            String SQL = "SELECT COUNT(*) as asientonum FROM asiento";
             ResultSet  rs =  s.executeQuery(SQL);
-            int p = rs.getInt("count");
 
             while (rs.next()){
-                numeroAsiento.setText((String) p+1);
+                int p = rs.getInt("asientonum");
+                numeroAsiento.setText(String.valueOf(p+1));
+                numeroAsiento.setDisable(true);
             }
 
         }catch(Exception e){
@@ -128,6 +129,6 @@ public class RegistrarAsientoController implements Initializable {
         }
 
 
-    }*/
+    }
     
 }
