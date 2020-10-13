@@ -8,8 +8,8 @@ public class Asiento {
     private String descripcion;
     private int id_usuario;
 
-    public Asiento(int idasiento, Date fecha, String descripcion, int id_usuario) {
-        this.idasiento = idasiento;
+    public Asiento(Date fecha, String descripcion, int id_usuario) {
+
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.id_usuario = id_usuario;

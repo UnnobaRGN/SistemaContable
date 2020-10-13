@@ -1,12 +1,16 @@
 package Controladores;
 
+import Modelo.Asiento;
+import Modelo.Cuenta_Asiento;
 import Modelo.Cuentas;
+import Modelo.UsuarioLogeado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -21,14 +25,13 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 public class RegistrarAsientoController implements Initializable {
 
     @FXML
     private ImageView FondoRegistrarAsiento = new ImageView();
 
-    @FXML
-    private DatePicker FechaRegistrarAsiento;
 
     @FXML
     private ComboBox CuentasSeleccion;
@@ -42,6 +45,29 @@ public class RegistrarAsientoController implements Initializable {
     @FXML
     private Button ButtonCancelar;
 
+    @FXML
+    private RadioButton BotonDebe;
+
+
+    @FXML
+    public ToggleGroup toggleGroup;
+
+    @FXML
+    private TableView<Cuenta_Asiento> CuentaAsientoTableView;
+
+    @FXML
+    private TableColumn<Cuentas,String> Cuenta;
+
+    @FXML
+    private TableColumn<Cuenta_Asiento, Float> Debe;
+
+    @FXML
+    private TableColumn<Cuenta_Asiento, Float> Haber;
+
+    @FXML
+    private TextArea Descripcion;
+
+    private UsuarioLogeado u = UsuarioLogeado.getInstance();
 
     ObservableList<String> list = FXCollections.observableArrayList();
 
@@ -51,14 +77,18 @@ public class RegistrarAsientoController implements Initializable {
         Image brandingFondoRegistrarAsiento = new Image(fileFondoRegistrarAsiento.toURI().toString());
         FondoRegistrarAsiento.setImage(brandingFondoRegistrarAsiento);
         traerCuentasAcomboBox();
+        fechaActual();
+        numAsiento();
 
+    }
+
+    public void fechaActual(){
         Date ahora = new Date();
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
         fecha.setText(formateador.format(ahora));
         fecha.setDisable(true);
-        numAsiento();
-
     }
+
 
     public void cancelarRegistrarAsiento(ActionEvent event) throws IOException {
         Stage stage = (Stage) ButtonCancelar.getScene().getWindow();
@@ -129,6 +159,24 @@ public class RegistrarAsientoController implements Initializable {
         }
 
 
+
     }
-    
+
+
+    public void GuardarAsiento(ActionEvent actionEvent){
+
+
+        Debe.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("debe"));
+        Haber.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("haber"));
+
+
+    }
+
+    public ObservableList<Cuenta_Asiento> retornarLista(){
+
+        ObservableList<Cuentas> list = FXCollections.observableArrayList();
+
+
+    }
+
 }
