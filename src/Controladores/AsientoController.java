@@ -158,10 +158,10 @@ public class AsientoController implements Initializable {
     public boolean compararFechas(Date dd, Date dh){
 
         if (0 == dd.compareTo(dh)){
-            return true;
+            return false;
         }
         else{
-            return false;
+            return true;
         }
 
     }
