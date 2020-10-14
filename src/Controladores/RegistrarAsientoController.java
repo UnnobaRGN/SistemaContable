@@ -82,6 +82,7 @@ public class RegistrarAsientoController implements Initializable {
 
     }
 
+
     public void fechaActual(){
         Date ahora = new Date();
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
@@ -172,11 +173,11 @@ public class RegistrarAsientoController implements Initializable {
 
     }
 
-    public ObservableList<Cuenta_Asiento> retornarLista(){
+    /*public ObservableList<Cuenta_Asiento> retornarLista(){
 
         ObservableList<Cuentas> list = FXCollections.observableArrayList();
 
 
-    }
+    }*/
 
 }
