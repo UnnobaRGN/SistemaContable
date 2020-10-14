@@ -173,12 +173,12 @@ public class AsientoController implements Initializable {
 
         try {
 
-            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as asientodescripcion FROM asiento as a WHERE fecha BETWEEN '" + dd + "' AND " + dh + "";
+            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as descripcion FROM asiento as a WHERE fecha BETWEEN '" + dd + "' AND " + dh + "";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(new Asiento(rs.getDate("fecha"), rs.getString("asientodescripcion")));
+                list.add(new Asiento(rs.getDate("fecha"), rs.getString("descripcion")));
             }
 
             } catch (Exception e) {
