@@ -1,23 +1,28 @@
 package Modelo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Cuenta_Asiento {
 
     private int idcuenta;
+    private String cuenta;
     private int idasiento;
     private float debe;
     private float haber;
     private float saldo;
 
-    public Cuenta_Asiento(int idcuenta, int idasiento, float debe, float haber, float saldo) {
-        this.idcuenta = idcuenta;
-        this.idasiento = idasiento;
-        this.debe = debe;
-        this.haber = haber;
-        this.saldo = saldo;
+    public Cuenta_Asiento() {
+
+
     }
 
+    public String getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
 
     public int getIdcuenta() {
         return idcuenta;

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.VerAsientoController">
    <children>
@@ -13,17 +17,17 @@
       </ImageView>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <TableView layoutX="33.0" layoutY="38.0" prefHeight="294.0" prefWidth="560.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="38.0">
+            <TableView fx:id="tablaAsiento" layoutX="33.0" layoutY="38.0" prefHeight="294.0" prefWidth="560.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="38.0">
               <columns>
-                <TableColumn prefWidth="82.0" text="Fecha" />
-                <TableColumn prefWidth="312.0" text="Cuenta" />
-                  <TableColumn prefWidth="82.0" text="Debe" />
-                  <TableColumn minWidth="0.0" prefWidth="82.0" text="Haber" />
+                <TableColumn fx:id="columnaFecha" prefWidth="82.0" text="Fecha" />
+                <TableColumn fx:id="columnaAsiento" prefWidth="312.0" text="Cuenta" />
+                  <TableColumn fx:id="columnaDebe" prefWidth="82.0" text="Debe" />
+                  <TableColumn fx:id="columnaHaber" minWidth="0.0" prefWidth="82.0" text="Haber" />
               </columns>
             </TableView>
-            <Button layoutX="413.0" layoutY="351.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="73.0" style="-fx-background-radius: 90;" text="Imprimir" />
-            <Button layoutX="498.0" layoutY="351.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="73.0" style="-fx-background-radius: 90;" text="Salir" />
-            <TextField layoutX="20.0" layoutY="13.0" prefHeight="25.0" prefWidth="132.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="7.0" />
+            <Button fx:id="botonImprimir" layoutX="413.0" layoutY="351.0" mnemonicParsing="false" onAction="#imprimirVerAsiento" prefHeight="33.0" prefWidth="73.0" style="-fx-background-radius: 90;" text="Imprimir" />
+            <Button fx:id="botonSalir" layoutX="498.0" layoutY="351.0" mnemonicParsing="false" onAction="#salirVerAsiento" prefHeight="33.0" prefWidth="73.0" style="-fx-background-radius: 90;" text="Salir" />
+            <TextField fx:id="numeroAsiento" layoutX="20.0" layoutY="13.0" prefHeight="25.0" prefWidth="132.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="7.0" />
          </children>
       </AnchorPane>
    </children>

@@ -1,18 +1,16 @@
 package Modelo;
-import java.util.Date;
+import java.sql.Date;
 
 public class Asiento {
 
     private int idasiento;
     private Date fecha;
     private String descripcion;
-    private int id_usuario;
 
-    public Asiento(Date fecha, String descripcion, int id_usuario) {
+    public Asiento(Date fecha, String descripcion) {
 
         this.fecha = fecha;
         this.descripcion = descripcion;
-        this.id_usuario = id_usuario;
     }
 
     public int getIdasiento() {
@@ -39,12 +37,5 @@ public class Asiento {
         this.descripcion = descripcion;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
 
 }

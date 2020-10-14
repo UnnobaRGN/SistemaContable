@@ -1,19 +1,30 @@
 package Controladores;
 
+import Modelo.Asiento;
+import Modelo.Cuenta_Asiento;
+import Modelo.Cuentas;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import sample.ConexionBD;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class AsientoController implements Initializable {
@@ -33,6 +44,29 @@ public class AsientoController implements Initializable {
     @FXML
     private Button ButtonSalir;
 
+    @FXML
+    private Button ButtonFiltrar;
+
+    @FXML
+    private Button ButtonLimpiarFiltro;
+
+    @FXML
+    private DatePicker fechaDesde;
+
+    @FXML
+    private DatePicker fechaHasta;
+
+    @FXML
+    private TableView<Asiento> tablaAsientos;
+
+    @FXML
+    private TableColumn<Asiento, Date> columnaFecha;
+
+    @FXML
+    private TableColumn<Asiento, String> columnDescripcion;
+
+    ObservableList<Asiento> list = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         File fileAsiento = new File("Imagenes/2 - copia.jpg");
@@ -42,7 +76,11 @@ public class AsientoController implements Initializable {
         File fileFondoAsiento = new File("Imagenes/grisAsiento.png");
         Image brandingFondoAsiento = new Image(fileFondoAsiento.toURI().toString());
         FondoAsiento.setImage(brandingFondoAsiento);
+
+        //mostrarAsientos();////////////////ACTIVAR CUANDO HAYA DATOS
+
     }
+
 
     public void registrarNuevoAsiento(ActionEvent event) throws IOException {
         Parent registrarAsiento = FXMLLoader.load(getClass().getResource("/Vista/RegistrarAsiento.fxml"));
@@ -62,9 +100,101 @@ public class AsientoController implements Initializable {
         stage.show();
     }
 
-    public void salirAsientos(ActionEvent event) throws IOException{
+    public void salirAsientos(ActionEvent event){
         Stage stage = (Stage) ButtonSalir.getScene().getWindow();
         stage.close();
     }
+
+    public void mostrarAsientos(){
+
+        columnaFecha.setCellValueFactory(new PropertyValueFactory<Asiento, Date>("fecha"));
+        columnDescripcion.setCellValueFactory(new PropertyValueFactory<Asiento, String>("descripcion"));
+
+        list = getAsientos();
+        tablaAsientos.setItems(list);
+
+    }
+
+
+    public static ObservableList<Asiento> getAsientos(){
+
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<Asiento> list = FXCollections.observableArrayList();
+
+        try {
+
+            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as asientodescripcion FROM asiento as a ";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while (rs.next()) {
+                list.add(new Asiento(rs.getDate("fecha"), rs.getString("asientodescripcion")));
+            }
+
+        } catch (Exception e) {
+
+        }
+        return list;
+
+    }
+
+    public void filtrarFechas(ActionEvent event){
+        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
+            Date fechaD = Date.valueOf(fechaDesde.getValue());
+            Date fechaH = Date.valueOf(fechaHasta.getValue());
+            list = mostrarAsientosFiltraros(fechaD, fechaH);
+            tablaAsientos.setItems(list);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Ingrese ambas fechas para el filtrado.");
+            alert.showAndWait();
+        }
+
+    }
+
+    public boolean compararFechas(Date dd, Date dh){
+
+        if (0 == dd.compareTo(dh)){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public static ObservableList<Asiento> mostrarAsientosFiltraros(Date dd, Date dh){
+
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<Asiento> list = FXCollections.observableArrayList();
+
+        try {
+
+            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as asientodescripcion FROM asiento as a WHERE fecha BETWEEN '" + dd + "' AND " + dh + "";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while (rs.next()) {
+                list.add(new Asiento(rs.getDate("fecha"), rs.getString("asientodescripcion")));
+            }
+
+            } catch (Exception e) {
+
+            }
+        return list;
+    }
+
+    public void limpiarFiltro(ActionEvent event){
+
+        fechaDesde.setValue(null);
+        fechaHasta.setValue(null);
+        mostrarAsientos();
+
+
+    }
+
 
 }
