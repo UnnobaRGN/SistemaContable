@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class AsientoController implements Initializable {
@@ -63,7 +64,7 @@ public class AsientoController implements Initializable {
     private TableColumn<Asiento, Date> columnaFecha;
 
     @FXML
-    private TableColumn<Asiento, String> columnDescripcion;
+    private TableColumn<Asiento, String> columnaDescripcion;
 
     ObservableList<Asiento> list = FXCollections.observableArrayList();
 
@@ -77,7 +78,9 @@ public class AsientoController implements Initializable {
         Image brandingFondoAsiento = new Image(fileFondoAsiento.toURI().toString());
         FondoAsiento.setImage(brandingFondoAsiento);
 
-        //mostrarAsientos();
+
+        mostrarAsientos();////////////////ACTIVAR CUANDO HAYA DATOS
+
 
     }
 
@@ -107,8 +110,9 @@ public class AsientoController implements Initializable {
 
     public void mostrarAsientos(){
 
+
         columnaFecha.setCellValueFactory(new PropertyValueFactory<Asiento, Date>("fecha"));
-        columnDescripcion.setCellValueFactory(new PropertyValueFactory<Asiento, String>("descripcion"));
+        columnaDescripcion.setCellValueFactory(new PropertyValueFactory<Asiento, String>("descripcion"));
 
         list = getAsientos();
         tablaAsientos.setItems(list);
@@ -123,7 +127,9 @@ public class AsientoController implements Initializable {
 
         try {
 
+
             String SQL = "SELECT * FROM asiento ";
+
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -139,10 +145,12 @@ public class AsientoController implements Initializable {
     }
 
     public void filtrarFechas(ActionEvent event){
-        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && compararFechas(Date.valueOf(fechaDesde.getValue().toString()), Date.valueOf(fechaHasta.getValue()))){
-            Date fechaD = Date.valueOf(fechaDesde.getValue());
-            Date fechaH = Date.valueOf(fechaHasta.getValue());
-            list = mostrarAsientosFiltraros(fechaD, fechaH);
+
+        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
+
+            Date fechaDe = Date.valueOf(fechaDesde.getValue());
+            Date fechaHas = Date.valueOf(fechaHasta.getValue());
+            list = mostrarAsientosFiltraros(fechaDe, fechaHas);
             tablaAsientos.setItems(list);
 
         }
@@ -174,7 +182,7 @@ public class AsientoController implements Initializable {
 
         try {
 
-            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as descripcion FROM asiento as a WHERE fecha BETWEEN '" + dd + "' AND " + dh + "";
+            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as descripcion FROM asiento as a WHERE fecha BETWEEN '" + dd + "'AND'" + dh + "'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -186,6 +194,8 @@ public class AsientoController implements Initializable {
 
             }
         return list;
+
+
     }
 
     public void limpiarFiltro(ActionEvent event){
