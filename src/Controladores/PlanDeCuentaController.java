@@ -149,5 +149,4 @@ public class PlanDeCuentaController implements Initializable {
         }
 
     }
-
 }

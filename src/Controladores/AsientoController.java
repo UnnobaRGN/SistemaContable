@@ -77,7 +77,7 @@ public class AsientoController implements Initializable {
         Image brandingFondoAsiento = new Image(fileFondoAsiento.toURI().toString());
         FondoAsiento.setImage(brandingFondoAsiento);
 
-        //mostrarAsientos();////////////////ACTIVAR CUANDO HAYA DATOS
+        //mostrarAsientos();
 
     }
 
@@ -123,12 +123,12 @@ public class AsientoController implements Initializable {
 
         try {
 
-            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as asientodescripcion FROM asiento as a ";
+            String SQL = "SELECT * FROM asiento ";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(new Asiento(rs.getDate("fecha"), rs.getString("asientodescripcion")));
+                list.add(new Asiento(rs.getDate("fecha"), rs.getString("descripcion")));
             }
 
         } catch (Exception e) {
@@ -139,11 +139,12 @@ public class AsientoController implements Initializable {
     }
 
     public void filtrarFechas(ActionEvent event){
-        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
+        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && compararFechas(Date.valueOf(fechaDesde.getValue().toString()), Date.valueOf(fechaHasta.getValue()))){
             Date fechaD = Date.valueOf(fechaDesde.getValue());
             Date fechaH = Date.valueOf(fechaHasta.getValue());
             list = mostrarAsientosFiltraros(fechaD, fechaH);
             tablaAsientos.setItems(list);
+
         }
         else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
