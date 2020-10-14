@@ -58,25 +58,32 @@ public class AgregarCuentaController implements Initializable {
 
     public void AgregarCuentaBoton(ActionEvent actionEvent){
         Connection conn = ConexionBD.getConnection();
+        if(!NombreCuenta.getText().isBlank() && !CodigoCuenta.getText().isBlank() && !comboBox.getSelectionModel().isEmpty()) {
+            try {
 
-        try{
+                String sql = "INSERT INTO CUENTA(cuenta,codigo_cuenta,recibe_saldo,saldo_actual,idtipo) VALUES (?,?,?,?,?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
 
-            String sql = "INSERT INTO CUENTA(cuenta,codigo_cuenta,recibe_saldo,saldo_actual,idtipo) VALUES (?,?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, NombreCuenta.getText());
+                ps.setInt(2, Integer.parseInt(CodigoCuenta.getText()));
+                ps.setInt(3, recibeSaldoSioNo(BotonSi));
+                ps.setInt(4, 0);
+                String s = comboBox.getSelectionModel().getSelectedItem().toString();
+                ps.setInt(5, verificarTipoCuenta(s));
 
-            ps.setString(1,NombreCuenta.getText());
-            ps.setInt(2, Integer.parseInt(CodigoCuenta.getText()));
-            ps.setInt(3,recibeSaldoSioNo(BotonSi));
-            ps.setInt(4, 0);
-            String s = comboBox.getSelectionModel().getSelectedItem().toString();
-            ps.setInt(5,verificarTipoCuenta(s));
+                ps.execute();
 
-            ps.execute();
+            } catch (Exception e) {
 
-        }catch (Exception e) {
-
+            }
+            ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Complete todos los campos");
+            alert.showAndWait();
         }
-        ((Node)actionEvent.getSource()).getScene().getWindow().hide();
     }
 
 
