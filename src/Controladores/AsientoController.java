@@ -2,7 +2,6 @@ package Controladores;
 
 import Modelo.Asiento;
 import Modelo.Cuenta_Asiento;
-import Modelo.Cuentas;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +19,7 @@ import javafx.stage.Stage;
 import sample.ConexionBD;
 
 
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,10 +27,10 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class AsientoController implements Initializable {
+
 
 
     @FXML
@@ -70,6 +70,24 @@ public class AsientoController implements Initializable {
     private TableColumn<Asiento, String> columnaDescripcion;
 
     ObservableList<Asiento> list = FXCollections.observableArrayList();
+    //ObservableList<Cuenta_Asiento> list2 = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<Cuenta_Asiento> tablaCuentaAsientos;
+
+    @FXML
+    private TableColumn<Cuenta_Asiento,Date> ColumnaFecha;
+
+    @FXML
+    private TableColumn<Cuenta_Asiento,String> ColumnaCuenta;
+
+    @FXML
+    private TableColumn<Cuenta_Asiento,Float> ColumnaDebe;
+
+    @FXML
+    private TableColumn<Cuenta_Asiento,Float> ColumnaHaber;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,13 +118,9 @@ public class AsientoController implements Initializable {
 
     public void verAsiento(ActionEvent event) throws IOException{
             if(!tablaAsientos.getSelectionModel().isEmpty()) {
+                mostrarDatos(tablaAsientos.getSelectionModel().getSelectedItem().getIdasiento());
 
-                Parent registrarAsiento = FXMLLoader.load(getClass().getResource("/Vista/VerAsiento.fxml"));
-                Stage stage = new Stage();
-                Scene scene = new Scene(registrarAsiento);
-                stage.setScene(scene);
-                stage.setResizable(false);
-                stage.show();
+
             }else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
@@ -123,7 +137,6 @@ public class AsientoController implements Initializable {
     }
 
     public void mostrarAsientos(){
-
 
         columnaFecha.setCellValueFactory(new PropertyValueFactory<Asiento, Date>("fecha"));
         columnaDescripcion.setCellValueFactory(new PropertyValueFactory<Asiento, String>("descripcion"));
@@ -148,7 +161,9 @@ public class AsientoController implements Initializable {
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(new Asiento(rs.getDate("fecha"), rs.getString("descripcion")));
+                Asiento a = new Asiento(rs.getDate("fecha"), rs.getString("descripcion"));
+                a.setIdasiento(rs.getInt("idasiento"));
+                list.add(a);
             }
 
         } catch (Exception e) {
@@ -221,10 +236,42 @@ public class AsientoController implements Initializable {
 
     }
 
-    public Asiento seleccionAsiento(){
-        Asiento a = tablaAsientos.getSelectionModel().getSelectedItem();
-        return a;
+    public ObservableList<Cuenta_Asiento> obtenerDatos(int i){
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
 
-   }
+        try {
+            String datos ="SELECT a.fecha,cu.cuenta,c.haber,c.debe FROM asiento a INNER JOIN cuenta_asiento c ON a.idasiento = c.id_asiento INNER JOIN cuenta as cu ON cu.idcuenta = c.id_cuenta WHERE a.idasiento=" + i + "ORDER BY c.debe DESC";
+
+
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(datos);
+
+            while (rs.next()) {
+                Cuenta_Asiento c = new Cuenta_Asiento();
+                c.setFecha(rs.getDate("fecha"));
+                c.setCuenta(rs.getString("cuenta"));
+                c.setDebe(rs.getFloat("debe"));
+                c.setHaber(rs.getFloat("haber"));
+                list.add(c);
+
+            }
+        } catch (Exception e) {
+
+
+        }
+        return list;
+    }
+
+    public void mostrarDatos(int i){
+        ColumnaFecha.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento,Date>("fecha"));
+        ColumnaCuenta.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("cuenta"));
+        ColumnaDebe.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("debe"));
+        ColumnaHaber.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("haber"));
+
+        tablaCuentaAsientos.setItems(obtenerDatos(i));
+    }
+
+
 
 }

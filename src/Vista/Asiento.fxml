@@ -11,16 +11,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.AsientoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="1046.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.AsientoController">
    <children>
-      <ImageView fx:id="ImagenAsiento" fitHeight="399.0" fitWidth="591.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-23.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-18.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="ImagenAsiento" fitHeight="693.0" fitWidth="1101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-316.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="376.0" prefWidth="573.0">
+      <AnchorPane prefHeight="438.0" prefWidth="1046.0">
          <children>
-            <TableView fx:id="tablaAsientos" layoutX="21.0" layoutY="17.0" prefHeight="342.0" prefWidth="276.0">
+            <TableView fx:id="tablaAsientos" layoutX="21.0" layoutY="17.0" prefHeight="351.0" prefWidth="276.0">
                <columns>
                   <TableColumn fx:id="columnaFecha" prefWidth="86.0" text="Fecha" />
                   <TableColumn fx:id="columnaDescripcion" prefWidth="189.0" text="Descripcion" />
@@ -82,6 +82,14 @@
                   <Image url="@../../Imagenes/grisAsiento.png" />
                </image>
             </ImageView>
+            <TableView fx:id="tablaCuentaAsientos" layoutX="567.0" layoutY="16.0" prefHeight="351.0" prefWidth="468.0">
+              <columns>
+                <TableColumn fx:id="ColumnaFecha" prefWidth="75.0" text="Fecha" />
+                <TableColumn fx:id="ColumnaCuenta" prefWidth="203.0" text="Cuenta" />
+                  <TableColumn fx:id="ColumnaDebe" prefWidth="102.0" text="Debe" />
+                  <TableColumn fx:id="ColumnaHaber" prefWidth="87.0" text="Haber" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
    </children>

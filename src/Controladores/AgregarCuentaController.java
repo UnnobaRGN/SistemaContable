@@ -70,13 +70,18 @@ public class AgregarCuentaController implements Initializable {
                 ps.setFloat(4, 0);
                 String s = comboBox.getSelectionModel().getSelectedItem().toString();
                 ps.setInt(5, verificarTipoCuenta(s));
-                ps.setInt(6,1);
+                ps.setString(6,"Si");
 
                 ps.execute();
 
             } catch (Exception e) {
 
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion");
+            alert.setHeaderText("Operacion exitosa!");
+            alert.setContentText("Se ha agregado con exito la cuenta");
+            alert.showAndWait();
             ((Node) actionEvent.getSource()).getScene().getWindow().hide();
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

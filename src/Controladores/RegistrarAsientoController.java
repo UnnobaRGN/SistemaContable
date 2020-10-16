@@ -319,7 +319,7 @@ public class RegistrarAsientoController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Atencion");
                     alert.setHeaderText("Operacion Exitosa!");
-                    alert.setContentText("Se ha agregado el registro!");
+                    alert.setContentText("Se ha registrado el asiento!");
                     alert.showAndWait();
                     ((Node) event.getSource()).getScene().getWindow().hide();
 
