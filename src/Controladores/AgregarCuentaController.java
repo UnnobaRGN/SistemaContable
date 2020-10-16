@@ -61,15 +61,16 @@ public class AgregarCuentaController implements Initializable {
         if(!NombreCuenta.getText().isBlank() && !CodigoCuenta.getText().isBlank() && !comboBox.getSelectionModel().isEmpty()) {
             try {
 
-                String sql = "INSERT INTO CUENTA(cuenta,codigo_cuenta,recibe_saldo,saldo_actual,idtipo) VALUES (?,?,?,?,?)";
+                String sql = "INSERT INTO CUENTA(cuenta,codigo_cuenta,recibe_saldo,saldo_actual,idtipo,habilitada_no) VALUES (?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
 
                 ps.setString(1, NombreCuenta.getText());
                 ps.setInt(2, Integer.parseInt(CodigoCuenta.getText()));
                 ps.setInt(3, recibeSaldoSioNo(BotonSi));
-                ps.setInt(4, 0);
+                ps.setFloat(4, 0);
                 String s = comboBox.getSelectionModel().getSelectedItem().toString();
                 ps.setInt(5, verificarTipoCuenta(s));
+                ps.setInt(6,1);
 
                 ps.execute();
 

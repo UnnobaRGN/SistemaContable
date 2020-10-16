@@ -10,14 +10,15 @@
       <TableView fx:id="cuentasTableView" prefHeight="352.0" prefWidth="537.0">
         <columns>
           <TableColumn fx:id="Nro_Cuenta" prefWidth="75.0" text="Nro cuenta" />
-          <TableColumn fx:id="Cuenta" prefWidth="292.0" text="Cuenta" />
-            <TableColumn fx:id="Recibe_Saldo" prefWidth="82.0" text="Recibe Saldo" />
-            <TableColumn fx:id="Tipo" prefWidth="87.0" text="Tipo" />
+          <TableColumn fx:id="Cuenta" prefWidth="212.0" text="Cuenta" />
+            <TableColumn fx:id="Recibe_Saldo" prefWidth="96.0" text="Recibe Saldo" />
+            <TableColumn fx:id="Tipo" prefWidth="78.0" text="Tipo" />
+            <TableColumn fx:id="Habilitada" prefWidth="75.0" text="Habilitada" />
         </columns>
       </TableView>
       <Button fx:id="AgregarCuenta" layoutX="14.0" layoutY="368.0" mnemonicParsing="false" onAction="#AgregarCuentaBoton" text="Nueva Cuenta" />
-      <Button fx:id="EliminarCuenta" layoutX="111.0" layoutY="368.0" mnemonicParsing="false" onAction="#EliminarCuentaBoton" text="Eliminar Cuenta" />
-      <Button fx:id="ModificarCuenta" layoutX="218.0" layoutY="368.0" mnemonicParsing="false" text="Modificar Cuenta" />
+      <Button fx:id="EliminarCuenta" layoutX="111.0" layoutY="368.0" mnemonicParsing="false" onAction="#DeshabilitarCuentaBoton" text="Deshabilitar Cuenta" />
+      <Button fx:id="HabilitarCuenta" layoutX="238.0" layoutY="368.0" mnemonicParsing="false" onAction="#HabilitarCuentaBoton" text="Habilitar Cuenta" />
       <Button fx:id="BotonSalir" layoutX="484.0" layoutY="368.0" mnemonicParsing="false" onAction="#Salir" text="Salir" />
    </children>
 </AnchorPane>

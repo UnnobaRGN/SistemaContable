@@ -6,17 +6,27 @@ public class Cuentas {
     private String cuenta;
     private int codigo_cuenta;
     private int recibe_saldo;
-    private int saldo_actual;
+    private float saldo_actual;
     private String tipo;
+    private String habilitadaOno;
 
-    public Cuentas(int codigo_cuenta, String cuenta, int recibe_saldo, String tipo,int id_cuenta,int saldo_actual) {
+    public Cuentas(int codigo_cuenta, String cuenta, int recibe_saldo, String tipo,int id_cuenta,float saldo_actual,String habilitadaOno) {
         this.codigo_cuenta = codigo_cuenta;
         this.cuenta = cuenta;
         this.recibe_saldo = recibe_saldo;
         this.tipo = tipo;
         this.id_cuenta = id_cuenta;
         this.saldo_actual = saldo_actual;
+        this.habilitadaOno = habilitadaOno;
 
+    }
+
+    public String getHabilitadaOno() {
+        return habilitadaOno;
+    }
+
+    public void setHabilitadaOno(String habilitadaOno) {
+        this.habilitadaOno = habilitadaOno;
     }
 
     public int getId_cuenta() {
@@ -51,11 +61,11 @@ public class Cuentas {
         this.recibe_saldo = recibe_saldo;
     }
 
-    public int getSaldo_actual() {
+    public float getSaldo_actual() {
         return saldo_actual;
     }
 
-    public void setSaldo_actual(int saldo_actual) {
+    public void setSaldo_actual(float saldo_actual) {
         this.saldo_actual = saldo_actual;
     }
 

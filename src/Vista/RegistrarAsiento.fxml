@@ -64,7 +64,7 @@
                 <TableColumn fx:id="Haber" minWidth="0.0" prefWidth="141.0" text="Haber" />
               </columns>
             </TableView>
-            <Button layoutX="514.0" layoutY="397.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="115.0" style="-fx-background-radius: 90;" text="Registrar Asiento" />
+            <Button layoutX="514.0" layoutY="397.0" mnemonicParsing="false" onAction="#registrarAsiento" prefHeight="33.0" prefWidth="115.0" style="-fx-background-radius: 90;" text="Registrar Asiento" />
             <Button fx:id="ButtonCancelar" layoutX="391.0" layoutY="397.0" mnemonicParsing="false" onAction="#cancelarRegistrarAsiento" prefHeight="33.0" prefWidth="115.0" style="-fx-background-radius: 90;" text="Cancelar" />
             <RadioButton fx:id="BotonDebe" layoutX="457.0" layoutY="141.0" mnemonicParsing="false" text="Debe">
                <toggleGroup>
