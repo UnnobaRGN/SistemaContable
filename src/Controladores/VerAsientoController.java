@@ -5,10 +5,7 @@ import Modelo.Cuenta_Asiento;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -29,6 +26,7 @@ public class VerAsientoController implements Initializable {
 
     @FXML
     private Button botonSalir;
+
 
     @FXML
     private TextField numeroAsiento;
