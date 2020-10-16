@@ -243,7 +243,7 @@ public class RegistrarAsientoController implements Initializable {
 
 
     public void chequearDebeYhaber(Cuentas c) {
-        if (c.getSaldo_actual() > Float.parseFloat(Monto.getText())) {
+        if (c.getSaldo_actual() >= Float.parseFloat(Monto.getText())) {
             CuentaAsientoTableView.getItems().add(GuardarEnTabla(new Cuenta_Asiento()));
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -263,7 +263,7 @@ public class RegistrarAsientoController implements Initializable {
 
 
     public void realizarCalculos() {
-        java.sql.Date hoy=java.sql.Date.valueOf(fecha.getText());
+
         for (int i = 0; i <= CuentaAsientoTableView.getItems().size(); i++) {
 
             try {
@@ -275,14 +275,16 @@ public class RegistrarAsientoController implements Initializable {
                 while (rs.next()) {
                     Cuentas cuenta = new Cuentas(rs.getInt("codigo_cuenta"), rs.getString("cuenta"), rs.getInt("recibe_saldo"), rs.getString("idtipo"), rs.getInt("idcuenta"), rs.getFloat("saldo_actual"),rs.getString("habilitada_no"));
                     if(CuentaAsientoTableView.getItems().get(i).getDebe()!=0.0) {
-                        realizarCalculoDebe(cuenta.getSaldo_actual(),cuenta.getTipo(),cuenta.getId_cuenta());
+                        realizarCalculoDebe(cuenta.getSaldo_actual(),cuenta.getTipo(),cuenta.getId_cuenta(),cuenta.getCuenta());
+
 
                     }
                     if(CuentaAsientoTableView.getItems().get(i).getHaber()!=0.0) {
-                        realizarCalculoHaber(cuenta.getSaldo_actual(),cuenta.getTipo(),cuenta.getId_cuenta());
+                        realizarCalculoHaber(cuenta.getSaldo_actual(),cuenta.getTipo(),cuenta.getId_cuenta(),cuenta.getCuenta());
+
 
                     }
-                    //crearCuentaAsiento(cuenta.getId_cuenta(),CuentaAsientoTableView.getItems().get(i).getDebe(),CuentaAsientoTableView.getItems().get(i).getHaber(),cuenta.getSaldo_actual());
+                    crearCuentaAsiento(cuenta.getId_cuenta(),obteneridAsiento(),CuentaAsientoTableView.getItems().get(i).getDebe(),CuentaAsientoTableView.getItems().get(i).getHaber(),cuenta.getSaldo_actual());
 
 
                 }
@@ -291,7 +293,7 @@ public class RegistrarAsientoController implements Initializable {
             }
 
         }
-        //crearAsiento(hoy,Descripcion.getText());
+
     }
 
 
@@ -310,6 +312,8 @@ public class RegistrarAsientoController implements Initializable {
     public void registrarAsiento(ActionEvent event) {
 
         if (sumarDebeYhaber() && CuentaAsientoTableView.getItems().size() > 1) {
+            java.sql.Date hoy=java.sql.Date.valueOf(fecha.getText());
+            crearAsiento(hoy,Descripcion.getText());
             realizarCalculos();
 
 
@@ -323,42 +327,46 @@ public class RegistrarAsientoController implements Initializable {
         }
     }
 
-    public void realizarCalculoDebe(float saldo_actual, String tipo,int idcuenta){
+    public void realizarCalculoDebe(float saldo_actual, String tipo,int idcuenta,String cuenta){
 
             if(tipo.equals("1")){
-                saldo_actual+=sumaDebe();
+                saldo_actual+=sumaDebe(cuenta);
                 actualizarSaldoActual(saldo_actual,idcuenta);
             }
             if(tipo.equals("2") || tipo.equals("5")) {
-                saldo_actual-=sumaDebe();
+                saldo_actual-=sumaDebe(cuenta);
                 actualizarSaldoActual(saldo_actual,idcuenta);
             }
     }
 
-    public void realizarCalculoHaber(float saldo_actual, String tipo,int idcuenta){
+    public void realizarCalculoHaber(float saldo_actual, String tipo,int idcuenta,String cuenta){
 
         if(tipo.equals("1")){
-            saldo_actual-=sumahaber();
+            saldo_actual-=sumahaber(cuenta);
             actualizarSaldoActual(saldo_actual,idcuenta);
         }
         if(tipo.equals("2") || tipo.equals("4")) {
-            saldo_actual+=sumahaber();
+            saldo_actual+=sumahaber(cuenta);
             actualizarSaldoActual(saldo_actual,idcuenta);
         }
     }
 
-    public float sumaDebe(){
+    public float sumaDebe(String cuenta){
         float totalDebe = 0f;
         for (Cuenta_Asiento a : CuentaAsientoTableView.getItems()) {
-            totalDebe += a.getDebe();
+            if(a.getCuenta().equals(cuenta)) {
+                totalDebe += a.getDebe();
+            }
         }
         return totalDebe;
     }
 
-    public float sumahaber(){
+    public float sumahaber(String cuenta){
         float totalhaber = 0f;
         for (Cuenta_Asiento a : CuentaAsientoTableView.getItems()) {
-            totalhaber += a.getHaber();
+            if(a.getCuenta().equals(cuenta)) {
+                totalhaber += a.getHaber();
+            }
         }
         return totalhaber;
     }
@@ -389,19 +397,37 @@ public class RegistrarAsientoController implements Initializable {
 
     }
 
-    public void crearCuentaAsiento(int idcuenta,int idasiento,float debe,float haber,float saldo){
-        try{
-            Connection conn = ConexionBD.getConnection();
-            String SQL = "INSERT INTO cuenta_asiento(idcuenta,idasiento,debe,haber,saldo) VALUES (?,?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(SQL);
-            ps.setInt(1,idcuenta);
-            ps.setInt(2,idasiento);
-            ps.setFloat(3,debe);
-            ps.setFloat(4,haber);
-            ps.setFloat(5,saldo);
-            ps.execute();
-        }catch (Exception e){
+    public void crearCuentaAsiento(int idcuenta,int idasiento,float debe,float haber,float saldo) {
+        Connection conn = ConexionBD.getConnection();
+        try {
 
+            String SQL = "INSERT INTO cuenta_asiento(id_cuenta,id_asiento,debe,haber,saldo) VALUES (?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setInt(1, idcuenta);
+            ps.setInt(2, idasiento);
+            ps.setFloat(3, debe);
+            ps.setFloat(4, haber);
+            ps.setFloat(5, saldo);
+            ps.execute();
+        } catch (Exception e) {
+
+        }
+    }
+
+        public int obteneridAsiento(){
+            Connection conn = ConexionBD.getConnection();
+            int id=0;
+            try {
+                String SQL = "SELECT idasiento FROM asiento ORDER BY idasiento DESC LIMIT 1";
+                Statement s = conn.createStatement();
+                ResultSet rs = s.executeQuery(SQL);
+                while (rs.next()){
+                    id=rs.getInt("idasiento");
+                }
+            }catch (Exception e){
+
+            }
+            return id;
         }
     }
 
@@ -418,4 +444,4 @@ public class RegistrarAsientoController implements Initializable {
     //
     //        }catch (Exception e){
 
-}
+
