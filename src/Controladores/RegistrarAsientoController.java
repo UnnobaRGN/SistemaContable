@@ -28,6 +28,8 @@ import java.util.Date;
 
 import java.util.ResourceBundle;
 
+import static Controladores.AsientoController.getAsientos;
+
 //java.sql.Date hoy=java.sql.Date.valueOf("2010-03-04"); NO TOCAR!!!!!!!!!
 public class RegistrarAsientoController implements Initializable {
 
@@ -309,26 +311,36 @@ public class RegistrarAsientoController implements Initializable {
 
     public void registrarAsiento(ActionEvent event) {
 
-        if (sumarDebeYhaber() && CuentaAsientoTableView.getItems().size() > 1) {
-            java.sql.Date hoy = java.sql.Date.valueOf(fecha.getText());
-            crearAsiento(hoy, Descripcion.getText());
-            realizarCalculos();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Atencion");
-            alert.setHeaderText("Operacion Exitosa!");
-            alert.setContentText("Se ha agregado el registro!");
-            alert.showAndWait();
-            ((Node) event.getSource()).getScene().getWindow().hide();
+            if (sumarDebeYhaber() && CuentaAsientoTableView.getItems().size() > 1) {
+                if(!Descripcion.getText().isBlank()) {
+                    java.sql.Date hoy = java.sql.Date.valueOf(fecha.getText());
+                    crearAsiento(hoy, Descripcion.getText());
+                    realizarCalculos();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Atencion");
+                    alert.setHeaderText("Operacion Exitosa!");
+                    alert.setContentText("Se ha agregado el registro!");
+                    alert.showAndWait();
+                    ((Node) event.getSource()).getScene().getWindow().hide();
 
-        } else {
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Por favor,");
+                    alert.setContentText("Ingrese descripcion del asiento antes de continuar");
+                    alert.showAndWait();
+                }
+
+        }   else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Atencion!");
+            alert.setTitle("Error");
             alert.setHeaderText("Ha surgido un problema");
             alert.setContentText("La suma del Debe NO es igual a la del Haber o no hay los registros necesarios para realizar el asiento");
             alert.showAndWait();
 
         }
-    }
+        }
+
 
     public float realizarCalculoDebe(float saldo_actual, String tipo, int idcuenta, String cuenta) {
         float saldo=0f;
@@ -453,18 +465,12 @@ public class RegistrarAsientoController implements Initializable {
         return saldo;
     }
 
+    public void EliminarBoton(ActionEvent actionEvent){
+       CuentaAsientoTableView.getItems().removeAll(CuentaAsientoTableView.getSelectionModel().getSelectedItems());
+
+    }
+
 }
 
-    //try{
-    //            Connection conn = ConexionBD.getConnection();
-    //            String SQL = "SELECT * FROM asiento";
-    //            PreparedStatement ps = conn.prepareStatement(SQL);
-    //            ResultSet rs = ps.executeQuery(SQL);
-    //            while(rs.next()){
-    //                int idasiento = rs.getInt("idasiento");
-    //                System.out.println(idasiento);
-    //            }
-    //
-    //
-    //        }catch (Exception e){
+
 

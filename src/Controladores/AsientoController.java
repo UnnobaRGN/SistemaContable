@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import sample.ConexionBD;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class AsientoController implements Initializable {
+
 
     @FXML
     private ImageView ImagenAsiento = new ImageView();
@@ -92,15 +95,26 @@ public class AsientoController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     public void verAsiento(ActionEvent event) throws IOException{
-        Parent registrarAsiento = FXMLLoader.load(getClass().getResource("/Vista/VerAsiento.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(registrarAsiento);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+            if(!tablaAsientos.getSelectionModel().isEmpty()) {
+
+                Parent registrarAsiento = FXMLLoader.load(getClass().getResource("/Vista/VerAsiento.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(registrarAsiento);
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText("Ha surgido un problema");
+                alert.setContentText("Seleccione el registro a ver");
+                alert.showAndWait();
+            }
+
     }
 
     public void salirAsientos(ActionEvent event){
@@ -207,5 +221,10 @@ public class AsientoController implements Initializable {
 
     }
 
+    public Asiento seleccionAsiento(){
+        Asiento a = tablaAsientos.getSelectionModel().getSelectedItem();
+        return a;
+
+   }
 
 }

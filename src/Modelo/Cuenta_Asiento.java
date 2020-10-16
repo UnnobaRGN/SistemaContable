@@ -10,10 +10,19 @@ public class Cuenta_Asiento {
     private float debe;
     private float haber;
     private float saldo;
+    private Date fecha;
 
     public Cuenta_Asiento() {
 
 
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public String getCuenta() {

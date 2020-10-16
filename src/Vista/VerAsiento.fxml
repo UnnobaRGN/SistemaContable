@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.VerAsientoController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.VerAsientoController">
    <children>
       <ImageView fx:id="ImagenVerAsiento" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,7 +22,7 @@
             <TableView fx:id="tablaAsiento" layoutX="33.0" layoutY="38.0" prefHeight="300.0" prefWidth="560.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="38.0">
               <columns>
                 <TableColumn fx:id="columnaFecha" prefWidth="78.0" text="Fecha" />
-                <TableColumn fx:id="columnaAsiento" prefWidth="316.0" text="Cuenta" />
+                <TableColumn fx:id="columnaCuenta" prefWidth="316.0" text="Cuenta" />
                   <TableColumn fx:id="columnaDebe" prefWidth="82.0" text="Debe" />
                   <TableColumn fx:id="columnaHaber" minWidth="0.0" prefWidth="82.0" text="Haber" />
               </columns>
