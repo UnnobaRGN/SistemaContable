@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -197,14 +198,12 @@ public class RegistrarAsientoController implements Initializable {
             cuenta.setDebe(Float.parseFloat(Monto.getText()));
             cuenta.setHaber(0);
             cuenta.setCuenta(retornarCuenta().getCuenta());
-            cuenta.setSaldo(retornarCuenta().getSaldo_actual());
             cuenta.setIdcuenta(retornarCuenta().getId_cuenta());
         }
         if (BotonHaber.isSelected()) {
             cuenta.setHaber(Float.parseFloat(Monto.getText()));
             cuenta.setDebe(0);
             cuenta.setCuenta(retornarCuenta().getCuenta());
-            cuenta.setSaldo(retornarCuenta().getSaldo_actual());
             cuenta.setIdcuenta(retornarCuenta().getId_cuenta());
         }
         return cuenta;
@@ -225,7 +224,7 @@ public class RegistrarAsientoController implements Initializable {
 
 
     public void tieneSaldoDebe(Cuentas c) {
-        if (c.getTipo().equals("2") || c.getTipo().equals("5")) {
+        if (c.getTipo().equals("2") || c.getTipo().equals("5") || c.getTipo().equals("3")) {
             chequearDebeYhaber(c);
         } else {
             CuentaAsientoTableView.getItems().add(GuardarEnTabla(new Cuenta_Asiento()));
@@ -315,7 +314,12 @@ public class RegistrarAsientoController implements Initializable {
             java.sql.Date hoy=java.sql.Date.valueOf(fecha.getText());
             crearAsiento(hoy,Descripcion.getText());
             realizarCalculos();
-
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion");
+            alert.setHeaderText("Operacion Exitosa!");
+            alert.setContentText("Se ha agregado el registro!");
+            alert.showAndWait();
+            ((Node) event.getSource()).getScene().getWindow().hide();
 
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -333,7 +337,7 @@ public class RegistrarAsientoController implements Initializable {
                 saldo_actual+=sumaDebe(cuenta);
                 actualizarSaldoActual(saldo_actual,idcuenta);
             }
-            if(tipo.equals("2") || tipo.equals("5")) {
+            if(tipo.equals("2") || tipo.equals("5") || tipo.equals("3")) {
                 saldo_actual-=sumaDebe(cuenta);
                 actualizarSaldoActual(saldo_actual,idcuenta);
             }
@@ -345,7 +349,7 @@ public class RegistrarAsientoController implements Initializable {
             saldo_actual-=sumahaber(cuenta);
             actualizarSaldoActual(saldo_actual,idcuenta);
         }
-        if(tipo.equals("2") || tipo.equals("4")) {
+        if(tipo.equals("2") || tipo.equals("4") || tipo.equals("3") ) {
             saldo_actual+=sumahaber(cuenta);
             actualizarSaldoActual(saldo_actual,idcuenta);
         }
