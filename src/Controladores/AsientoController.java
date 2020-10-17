@@ -100,7 +100,7 @@ public class AsientoController implements Initializable {
         FondoAsiento.setImage(brandingFondoAsiento);
 
 
-        mostrarAsientos();////////////////ACTIVAR CUANDO HAYA DATOS
+        mostrarAsientos();
 
 
     }
