@@ -344,12 +344,12 @@ public class RegistrarAsientoController implements Initializable {
 
     public float realizarCalculoDebe(float saldo_actual, String tipo, int idcuenta, String cuenta) {
         float saldo=0f;
-        if (tipo.equals("1")) {
+        if (tipo.equals("1") || tipo.equals("5")) {
             saldo_actual += sumaDebe(cuenta);
             saldo=actualizarSaldoActual(saldo_actual, idcuenta);
 
         }
-        if (tipo.equals("2") || tipo.equals("5") || tipo.equals("3")) {
+        if (tipo.equals("2") || tipo.equals("3")) {
             saldo_actual -= sumaDebe(cuenta);
             saldo=actualizarSaldoActual(saldo_actual, idcuenta);
         }
