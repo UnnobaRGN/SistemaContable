@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.LibroDiarioController">
    <children>
@@ -16,16 +20,55 @@
       </ImageView>
       <AnchorPane prefHeight="462.0" prefWidth="790.0">
          <children>
-            <TableView layoutX="40.0" layoutY="142.0" prefHeight="280.0" prefWidth="760.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="142.0">
+            <TableView fx:id="TableLibroDiario" layoutX="40.0" layoutY="145.0" prefHeight="267.0" prefWidth="760.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="145.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-                  <TableColumn prefWidth="75.0" text="Column X" />
-                  <TableColumn prefWidth="75.0" text="Column X" />
-                  <TableColumn prefWidth="75.0" text="Column X" />
-                  <TableColumn prefWidth="75.0" text="Column X" />
+                <TableColumn prefWidth="75.0" text="Fecha" />
+                <TableColumn prefWidth="75.0" text="Nro Asiento" />
+                  <TableColumn prefWidth="75.0" text="Nro Cuenta" />
+                  <TableColumn prefWidth="75.0" text="Cuenta" />
+                  <TableColumn prefWidth="278.0" text="Descripcion" />
+                  <TableColumn prefWidth="90.0" text="Debe" />
+                  <TableColumn prefWidth="90.0" text="Haber" />
               </columns>
             </TableView>
+            <Button fx:id="ButtonImprimir" layoutX="96.0" layoutY="423.0" mnemonicParsing="false" onAction="#imprimirLibroDiario" prefHeight="25.0" prefWidth="86.0" text="Imprimir" AnchorPane.leftAnchor="96.0" />
+            <Button fx:id="ButtonSalir" layoutX="575.0" layoutY="423.0" mnemonicParsing="false" onAction="#salirLibroDiario" prefHeight="25.0" prefWidth="86.0" text="Salir" AnchorPane.rightAnchor="96.0" />
+            <Label layoutX="279.0" layoutY="38.0" prefHeight="53.0" prefWidth="233.0" text="Libro Diario">
+               <font>
+                  <Font name="Arial Black" size="35.0" />
+               </font>
+            </Label>
+            <Label layoutX="191.0" layoutY="118.0" text="Fecha Desde: ">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="395.0" layoutY="118.0" text="Fecha Desde: ">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="FechaDesdeLibroDiario" layoutX="293.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="402.0" />
+            <DatePicker fx:id="FechaHastaLibroDiario" layoutX="497.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" />
+            <TextField layoutX="102.0" layoutY="22.0" prefHeight="25.0" prefWidth="147.0" AnchorPane.rightAnchor="541.0" AnchorPane.topAnchor="22.0" />
+            <Label layoutX="33.0" layoutY="26.0" text="Empresa:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="33.0" layoutY="56.0" text="Fecha Emision:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="FechaEmision" layoutX="147.0" layoutY="52.0" prefHeight="25.0" prefWidth="102.0" AnchorPane.rightAnchor="541.0" AnchorPane.topAnchor="52.0" />
+            <Label layoutX="33.0" layoutY="88.0" text="Ejercicio:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="NombreEmpresa" layoutX="102.0" layoutY="84.0" prefHeight="25.0" prefWidth="147.0" AnchorPane.topAnchor="22.0" />
+            <TextField fx:id="EjercicioLibroDiario" layoutX="102.0" layoutY="84.0" prefHeight="25.0" prefWidth="147.0" />
          </children>
       </AnchorPane>
    </children>
