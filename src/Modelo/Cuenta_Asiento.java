@@ -12,10 +12,19 @@ public class Cuenta_Asiento {
     private float saldo;
     private Date fecha;
 
-    public Cuenta_Asiento() {
+    /*public Cuenta_Asiento(int idc, String cuenta, int ida, float d, float h, Date f) {
 
+        this.idcuenta = idc;
+        this.idasiento = ida;
+        this.debe = d;
+        this.haber = h;
+        this.fecha = f;
 
     }
+
+     */
+
+    public Cuenta_Asiento(){}
 
     public Date getFecha() {
         return fecha;

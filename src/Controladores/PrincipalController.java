@@ -43,6 +43,9 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button Asiento;
 
+    @FXML
+    private Button ButtonLibroDiario;
+
     private UsuarioLogeado u = UsuarioLogeado.getInstance();
 
     
@@ -88,6 +91,17 @@ public class PrincipalController implements Initializable {
 
 
         Parent padre = FXMLLoader.load(getClass().getResource("/Vista/PlanDeCuentas.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(padre);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+
+    }
+
+    public void abrirLibroDiario(ActionEvent event) throws IOException{
+
+        Parent padre = FXMLLoader.load(getClass().getResource("/Vista/LibroDiario.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(padre);
         stage.setScene(scene);
