@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 public class LibroDiarioController implements Initializable {
 
     @FXML
-    private ImageView ImagenLibroAsiento;
+    private ImageView ImagenLibroAsiento = new ImageView();
 
     @FXML
     private Button ButtonImprimir;
