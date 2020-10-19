@@ -112,7 +112,7 @@ public class LibroDiarioController implements Initializable {
         try {
 
 
-            String SQL = "SELECT DISTINCT a.fecha as fecha, a.descripcion as descripcion, ca.id_cuenta as idcuenta, ca.numero_asiento as num_asiento, ca.debe as debe, ca.haber as haber  FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.id_asiento=a.idasiento INNER JOIN cuenta AS c ON ca.id_cuenta = c.idcuenta";
+            String SQL = "SELECT a.fecha as fecha, a.descripcion as descripcion, ca.id_cuenta as idcuenta, a.numero_asiento as numero, ca.debe as debe, ca.haber as haber, c.cuenta as cuenta FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.id_asiento=a.idasiento INNER JOIN cuenta as c ON c.idcuenta = ca.id_cuenta ORDER BY ca.id_asiento, ca.debe DESC";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -121,7 +121,7 @@ public class LibroDiarioController implements Initializable {
                 ca.setFecha(rs.getDate("fecha"));
                 ca.setIdcuenta(rs.getInt("idcuenta"));
                 ca.setCuenta(rs.getString("cuenta"));
-                ca.setIdasiento(rs.getInt("num_asiento"));
+                ca.setNum_asiento(rs.getInt("numero"));
                 ca.setDebe(rs.getFloat("debe"));
                 ca.setDescrip(rs.getString("descripcion"));
                 ca.setHaber(rs.getFloat("haber"));
