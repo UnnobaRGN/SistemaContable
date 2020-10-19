@@ -85,7 +85,7 @@ public class LibroDiarioController implements Initializable {
         nombreEmpresa();
     }
 
-    public void mostrarLibroDiario(){
+   public void mostrarLibroDiario(){
 
         TablaFecha.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Date>("fecha"));
         TablaDescripcion.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("descrip"));
@@ -99,6 +99,8 @@ public class LibroDiarioController implements Initializable {
         tablaAsientos.setItems(list);
 
     }
+
+
 
     public static ObservableList<Cuenta_Asiento> getLibroDiario(){
 
