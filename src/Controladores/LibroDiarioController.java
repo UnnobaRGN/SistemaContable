@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class LibroDiarioController implements Initializable {
@@ -33,7 +34,7 @@ public class LibroDiarioController implements Initializable {
     private Button ButtonSalir;
 
     @FXML
-    private DatePicker FechaEmision;
+    private TextField FechaEmision;
 
     @FXML
     private DatePicker FechaDesdeLibroDiario;
@@ -79,6 +80,20 @@ public class LibroDiarioController implements Initializable {
         File fileLibroDiario = new File("Imagenes/2 - copia.jpg");
         Image brandingImageLibroDiarioAsiento = new Image(fileLibroDiario.toURI().toString());
         ImagenLibroAsiento.setImage(brandingImageLibroDiarioAsiento);
+        fechaActual();
+        nombreEmpresa();
+    }
+
+    public void fechaActual() {
+        java.util.Date ahora = new java.util.Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+        FechaEmision.setText(formateador.format(ahora));
+        FechaEmision.setDisable(true);
+    }
+
+    public void nombreEmpresa() {
+        NombreEmpresa.setText("TODOS RE MIL PUTOS LPM");
+        NombreEmpresa.setDisable(true);
 
     }
 

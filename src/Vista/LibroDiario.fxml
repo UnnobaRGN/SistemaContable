@@ -61,7 +61,6 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <DatePicker fx:id="FechaEmision" layoutX="147.0" layoutY="52.0" prefHeight="25.0" prefWidth="102.0" AnchorPane.rightAnchor="541.0" AnchorPane.topAnchor="52.0" />
             <Label layoutX="33.0" layoutY="88.0" text="Ejercicio:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
@@ -69,6 +68,7 @@
             </Label>
             <TextField fx:id="NombreEmpresa" layoutX="102.0" layoutY="84.0" prefHeight="25.0" prefWidth="147.0" AnchorPane.topAnchor="22.0" />
             <TextField fx:id="EjercicioLibroDiario" layoutX="102.0" layoutY="84.0" prefHeight="25.0" prefWidth="147.0" />
+            <TextField fx:id="FechaEmision" layoutX="147.0" layoutY="52.0" prefHeight="25.0" prefWidth="102.0" />
          </children>
       </AnchorPane>
    </children>
