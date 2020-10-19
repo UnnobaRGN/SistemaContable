@@ -11,6 +11,8 @@ public class Cuenta_Asiento {
     private float haber;
     private float saldo;
     private Date fecha;
+    private int num_asiento;
+    private String descrip;
 
     /*public Cuenta_Asiento(int idc, String cuenta, int ida, float d, float h, Date f) {
 
@@ -25,6 +27,22 @@ public class Cuenta_Asiento {
      */
 
     public Cuenta_Asiento(){}
+
+    public String getDescrip() {
+        return descrip;
+    }
+
+    public void setDescrip(String descrip) {
+        this.descrip = descrip;
+    }
+
+    public int getNum_asiento() {
+        return num_asiento;
+    }
+
+    public void setNum_asiento(int num_asiento) {
+        this.num_asiento = num_asiento;
+    }
 
     public Date getFecha() {
         return fecha;

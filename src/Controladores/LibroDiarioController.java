@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -82,6 +83,44 @@ public class LibroDiarioController implements Initializable {
         ImagenLibroAsiento.setImage(brandingImageLibroDiarioAsiento);
         fechaActual();
         nombreEmpresa();
+    }
+
+    public void mostrarLibroDiario(){
+
+        TablaFecha.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Date>("fecha"));
+        TablaDescripcion.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("descrip"));
+        Tablacuenta.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("cuenta"));
+        TablaNumeroCuenta.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Integer>("idcuenta"));
+        TablaNumeroAsiento.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Integer>("idasiento"));
+        TablaDebe.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("debe"));
+        TablaHaber.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("haber"));
+
+        list = getLibroDiario();
+        tablaAsientos.setItems(list);
+
+    }
+
+    public static ObservableList<Cuenta_Asiento> getLibroDiario(){
+
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<Asiento> list = FXCollections.observableArrayList();
+
+        try {
+
+
+            String SQL = "SELECT *, ca.fecha as fecha, a.descripcion as descripcion, ca.idcuenta as idcuenta, ca.idasiento as idasiento, ca.debe as debe, ca.haber as haber  FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.idasiento=a.idasiento WHERE a.fecha BETWEEN '" + dd + "'AND'" + dh + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while (rs.next()) {
+                list.add(new Cuenta_Asiento(rs.getDate("fecha"),rs.getInt("idcuenta"), rs.getInt("idasiento"), rs.getString("cuenta"), rs.getString("TablaDescripcion"), rs.getFloat("debe"), rs.getFloat("haber")));
+            }
+
+        } catch (Exception e) {
+
+        }
+        return list;
+
     }
 
     public void fechaActual() {

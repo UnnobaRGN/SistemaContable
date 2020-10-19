@@ -177,6 +177,26 @@ public class RegistrarAsientoController implements Initializable {
 
     }
 
+    public int numAsientoEntero() {
+        int p = 0;
+        try {
+            Connection conn = ConexionBD.getConnection();
+            Statement s = conn.createStatement();
+            String SQL = "SELECT COUNT(*) as asientonum FROM asiento";
+            ResultSet rs = s.executeQuery(SQL);
+
+            while (rs.next()) {
+                p = rs.getInt("asientonum");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return p+1;
+
+
+    }
+
 
     public void GuardarAsiento(ActionEvent actionEvent) throws IOException {
 
@@ -405,10 +425,11 @@ public class RegistrarAsientoController implements Initializable {
 
         try {
             Connection conn = ConexionBD.getConnection();
-            String SQL = "INSERT INTO asiento(fecha,descripcion) VALUES(?,?)";
+            String SQL = "INSERT INTO asiento(fecha,descripcion, numero_asiento) VALUES(?,?,?)";
             PreparedStatement ps = conn.prepareStatement(SQL);
             ps.setDate(1, fecha);
             ps.setString(2, descripcion);
+            ps.setInt(3, numAsientoEntero());
             ps.execute();
         } catch (Exception e) {
 
