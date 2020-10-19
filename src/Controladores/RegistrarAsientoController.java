@@ -226,7 +226,7 @@ public class RegistrarAsientoController implements Initializable {
 
 
     public void tieneSaldoDebe(Cuentas c) {
-        if (c.getTipo().equals("2") || c.getTipo().equals("5") || c.getTipo().equals("3")) {
+        if (c.getTipo().equals("2") || c.getTipo().equals("3")) {
             chequearDebeYhaber(c);
         } else {
             CuentaAsientoTableView.getItems().add(GuardarEnTabla(new Cuenta_Asiento()));
