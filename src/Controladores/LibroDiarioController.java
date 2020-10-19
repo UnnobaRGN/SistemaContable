@@ -75,6 +75,7 @@ public class LibroDiarioController implements Initializable {
 
     ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -83,6 +84,7 @@ public class LibroDiarioController implements Initializable {
         ImagenLibroAsiento.setImage(brandingImageLibroDiarioAsiento);
         fechaActual();
         nombreEmpresa();
+        mostrarLibroDiario();
     }
 
    public void mostrarLibroDiario(){
@@ -91,12 +93,12 @@ public class LibroDiarioController implements Initializable {
         TablaDescripcion.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("descrip"));
         Tablacuenta.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("cuenta"));
         TablaNumeroCuenta.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Integer>("idcuenta"));
-        TablaNumeroAsiento.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Integer>("idasiento"));
+        TablaNumeroAsiento.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Integer>("num_asiento"));
         TablaDebe.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("debe"));
         TablaHaber.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("haber"));
 
         list = getLibroDiario();
-        tablaAsientos.setItems(list);
+        TablaLibroDiario.setItems(list);
 
     }
 
@@ -105,17 +107,25 @@ public class LibroDiarioController implements Initializable {
     public static ObservableList<Cuenta_Asiento> getLibroDiario(){
 
         Connection conn = ConexionBD.getConnection();
-        ObservableList<Asiento> list = FXCollections.observableArrayList();
+        ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
 
         try {
 
 
-            String SQL = "SELECT *, ca.fecha as fecha, a.descripcion as descripcion, ca.idcuenta as idcuenta, ca.idasiento as idasiento, ca.debe as debe, ca.haber as haber  FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.idasiento=a.idasiento WHERE a.fecha BETWEEN '" + dd + "'AND'" + dh + "'";
+            String SQL = "SELECT DISTINCT a.fecha as fecha, a.descripcion as descripcion, ca.id_cuenta as idcuenta, ca.numero_asiento as num_asiento, ca.debe as debe, ca.haber as haber  FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.id_asiento=a.idasiento INNER JOIN cuenta AS c ON ca.id_cuenta = c.idcuenta";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(new Cuenta_Asiento(rs.getDate("fecha"),rs.getInt("idcuenta"), rs.getInt("idasiento"), rs.getString("cuenta"), rs.getString("TablaDescripcion"), rs.getFloat("debe"), rs.getFloat("haber")));
+                Cuenta_Asiento ca= new Cuenta_Asiento();
+                ca.setFecha(rs.getDate("fecha"));
+                ca.setIdcuenta(rs.getInt("idcuenta"));
+                ca.setCuenta(rs.getString("cuenta"));
+                ca.setIdasiento(rs.getInt("num_asiento"));
+                ca.setDebe(rs.getFloat("debe"));
+                ca.setDescrip(rs.getString("descripcion"));
+                ca.setHaber(rs.getFloat("haber"));
+                list.add(ca);
             }
 
         } catch (Exception e) {
