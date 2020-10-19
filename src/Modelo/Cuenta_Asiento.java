@@ -14,13 +14,15 @@ public class Cuenta_Asiento {
     private int num_asiento;
     private String descrip;
 
-    /*public Cuenta_Asiento(int idc, String cuenta, int ida, float d, float h, Date f) {
+    /*public Cuenta_Asiento(int idc, String cuenta, int ida, float d, float h, Date f, String de, int num_a) {
 
         this.idcuenta = idc;
         this.idasiento = ida;
         this.debe = d;
         this.haber = h;
         this.fecha = f;
+        this.descrip = de;
+        this.num_asiento = num_a;
 
     }
 

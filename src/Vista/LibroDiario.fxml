@@ -20,12 +20,12 @@
       </ImageView>
       <AnchorPane prefHeight="462.0" prefWidth="790.0">
          <children>
-            <TableView fx:id="TableLibroDiario" layoutX="40.0" layoutY="145.0" prefHeight="267.0" prefWidth="760.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="145.0">
+            <TableView fx:id="TablaLibroDiario" layoutX="40.0" layoutY="145.0" prefHeight="267.0" prefWidth="760.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="145.0">
               <columns>
                 <TableColumn fx:id="TablaFecha" prefWidth="75.0" text="Fecha" />
                 <TableColumn fx:id="TablaNumeroAsiento" prefWidth="75.0" text="Nro Asiento" />
                   <TableColumn fx:id="TablaNumeroCuenta" prefWidth="75.0" text="Nro Cuenta" />
-                  <TableColumn fx:id="TablaCuenta" prefWidth="75.0" text="Cuenta" />
+                  <TableColumn fx:id="Tablacuenta" prefWidth="75.0" text="Cuenta" />
                   <TableColumn fx:id="TablaDescripcion" prefWidth="278.0" text="Descripcion" />
                   <TableColumn fx:id="TablaDebe" prefWidth="90.0" text="Debe" />
                   <TableColumn fx:id="TablaHaber" prefWidth="90.0" text="Haber" />
