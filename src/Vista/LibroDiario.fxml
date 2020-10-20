@@ -50,7 +50,6 @@
             </Label>
             <DatePicker fx:id="FechaDesdeLibroDiario" layoutX="293.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="402.0" />
             <DatePicker fx:id="FechaHastaLibroDiario" layoutX="497.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" />
-            <TextField layoutX="102.0" layoutY="22.0" prefHeight="25.0" prefWidth="147.0" AnchorPane.rightAnchor="541.0" AnchorPane.topAnchor="22.0" />
             <Label layoutX="33.0" layoutY="26.0" text="Empresa:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />

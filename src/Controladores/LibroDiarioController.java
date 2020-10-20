@@ -85,6 +85,7 @@ public class LibroDiarioController implements Initializable {
         fechaActual();
         nombreEmpresa();
         mostrarLibroDiario();
+        ejercicio();
     }
 
    public void mostrarLibroDiario(){
@@ -101,8 +102,6 @@ public class LibroDiarioController implements Initializable {
         TablaLibroDiario.setItems(list);
 
     }
-
-
 
     public static ObservableList<Cuenta_Asiento> getLibroDiario(){
 
@@ -142,8 +141,15 @@ public class LibroDiarioController implements Initializable {
         FechaEmision.setDisable(true);
     }
 
+    public void ejercicio() {
+        java.util.Date ahora = new java.util.Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
+        EjercicioLibroDiario.setText(formateador.format(ahora));
+        EjercicioLibroDiario.setDisable(true);
+    }
+
     public void nombreEmpresa() {
-        NombreEmpresa.setText("TODOS RE MIL PUTOS LPM");
+        NombreEmpresa.setText("Urano's contability");
         NombreEmpresa.setDisable(true);
 
     }

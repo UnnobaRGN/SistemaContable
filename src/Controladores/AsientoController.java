@@ -179,6 +179,7 @@ public class AsientoController implements Initializable {
 
             Date fechaDe = Date.valueOf(fechaDesde.getValue());
             Date fechaHas = Date.valueOf(fechaHasta.getValue());
+
             list = mostrarAsientosFiltraros(fechaDe, fechaHas);
             tablaAsientos.setItems(list);
 
@@ -211,12 +212,14 @@ public class AsientoController implements Initializable {
 
         try {
 
-            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as descripcion FROM asiento as a WHERE fecha BETWEEN '" + dd + "'AND'" + dh + "'";
+            String SQL = "SELECT * FROM asiento as a WHERE fecha BETWEEN '" + dd + "'AND'" + dh + "'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(new Asiento(rs.getDate("fecha"), rs.getString("descripcion")));
+                Asiento a = new Asiento(rs.getDate("fecha"), rs.getString("descripcion"));
+                a.setIdasiento(rs.getInt("idasiento"));
+                list.add(a);
             }
 
             } catch (Exception e) {
@@ -231,6 +234,7 @@ public class AsientoController implements Initializable {
 
         fechaDesde.setValue(null);
         fechaHasta.setValue(null);
+        tablaCuentaAsientos.setItems(null);
         mostrarAsientos();
 
 

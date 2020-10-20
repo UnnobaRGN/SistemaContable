@@ -89,7 +89,6 @@ public class RegistrarAsientoController implements Initializable {
         numAsiento();
         InicializarLaTabla();
 
-
     }
 
 
@@ -201,13 +200,29 @@ public class RegistrarAsientoController implements Initializable {
     public void GuardarAsiento(ActionEvent actionEvent) throws IOException {
 
         if (retornarCuenta() != null) {
-            AgregarAtabla();
-
-        } else {
+            if (Float.parseFloat(Monto.getText())>0){
+                if (BotonHaber.isSelected() || BotonDebe.isSelected()) {
+                    AgregarAtabla();
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Atencion!");
+                    alert.setHeaderText("Por favor,");
+                    alert.setContentText("Seleccione debe o haber.");
+                    alert.showAndWait();
+                }
+             }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion!");
+                alert.setHeaderText("Por favor,");
+                alert.setContentText("Ingrese un monto mayor a cero.");
+                alert.showAndWait();
+            }
+        }        else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Atencion!");
             alert.setHeaderText("Por favor,");
-            alert.setContentText("Ingrese una cuenta antes de continuar");
+            alert.setContentText("Ingrese una cuenta antes de continuar.");
             alert.showAndWait();
         }
 
@@ -261,7 +276,6 @@ public class RegistrarAsientoController implements Initializable {
             CuentaAsientoTableView.getItems().add(GuardarEnTabla(new Cuenta_Asiento()));
         }
     }
-
 
     public void chequearDebeYhaber(Cuentas c) {
         if (c.getSaldo_actual() >= Float.parseFloat(Monto.getText())) {
