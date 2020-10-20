@@ -95,15 +95,21 @@ public class LibroDiarioController implements Initializable {
     }
 
    public void filtrarLibroDiario(ActionEvent e){
+       if(FechaDesdeLibroDiario.getValue() != null && FechaHastaLibroDiario.getValue() != null){
+           if(compararFechas(Date.valueOf(FechaDesdeLibroDiario.getValue()), Date.valueOf(FechaHastaLibroDiario.getValue()))){
 
-       if(FechaDesdeLibroDiario.getValue() != null && FechaHastaLibroDiario.getValue() != null && compararFechas(Date.valueOf(FechaDesdeLibroDiario.getValue()), Date.valueOf(FechaHastaLibroDiario.getValue()))){
+               Date fechaDe = Date.valueOf(FechaDesdeLibroDiario.getValue());
+               Date fechaHas = Date.valueOf(FechaHastaLibroDiario.getValue());
 
-           Date fechaDe = Date.valueOf(FechaDesdeLibroDiario.getValue());
-           Date fechaHas = Date.valueOf(FechaHastaLibroDiario.getValue());
-
-           list = mostrarAsientosFiltraros(fechaDe, fechaHas);
-           TablaLibroDiario.setItems(list);
-
+               list = mostrarAsientosFiltraros(fechaDe, fechaHas);
+               TablaLibroDiario.setItems(list);
+           }else{
+               Alert alert = new Alert(Alert.AlertType.INFORMATION);
+               alert.setTitle("Atencion!");
+               alert.setHeaderText("Por favor,");
+               alert.setContentText("Ingrese un año valido.");
+               alert.showAndWait();
+           }
        }
        else {
            Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -147,17 +153,18 @@ public class LibroDiarioController implements Initializable {
     }
 
    public boolean compararFechas(Date dd, Date dh){
-
+        java.util.Date ahora = new java.util.Date();
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
-       java.util.Date ahora = new java.util.Date();
-        if (formateador.format(dd) == formateador.format(dh) && formateador.format(dh) == formateador.format(ahora)){
-            return false;
+        if (formateador.format(dd).equals(formateador.format(dh)) && formateador.format(dh).equals(formateador.format(ahora))){
+            return true;
         }
         else{
-            return true;
+            return false;
         }
 
     }
+
+
 
    public void mostrarLibroDiario(){
 
@@ -234,50 +241,6 @@ public class LibroDiarioController implements Initializable {
 
    }
 
-    /*public void fechaDesde(ActionEvent e){
-
-        if(FechaDesdeLibroDiario.getValue() != null && FechaHastaLibroDiario.getValue() != null){ //&& compararFechas(Date.valueOf(FechaDesdeLibroDiario.getValue()), Date.valueOf(FechaHastaLibroDiario.getValue()))){
-
-            Date fechaDe = Date.valueOf(FechaDesdeLibroDiario.getValue());
-            Date fechaHas = Date.valueOf(FechaHastaLibroDiario.getValue());
-            list = mostrarFiltrados(fechaDe, fechaHas);
-            TablaLibroDiario.setItems(list);
-
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Atencion!");
-            alert.setHeaderText("Por favor,");
-            alert.setContentText("Ingrese ambas fechas para el filtrado.");
-            alert.showAndWait();
-        }
-
-    }
-
-    public static ObservableList<Cuenta_Asiento> mostrarFiltrados(Date dd, Date dh){
-
-        Connection conn = ConexionBD.getConnection();
-        ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
-
-        try {
-
-            String SQL = "SELECT *, ca.fecha as fecha, a.descripcion as descripcion, ca.idcuenta as idcuenta, ca.idasiento as idasiento, ca.debe as debe, ca.haber as haber  FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.idasiento=a.idasiento WHERE a.fecha BETWEEN '" + dd + "'AND'" + dh + "'";
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(SQL);
-
-            while (rs.next()) {
-                list.add(new Cuenta_Asiento(rs.getDate("fecha"),rs.getInt("idcuenta"), rs.getInt("idasiento"), rs.getString("cuenta"), rs.getString("TablaDescripcion"), rs.getFloat("debe"), rs.getFloat("haber")));
-            }
-
-        } catch (Exception e) {
-
-        }
-        return list;
-
-
-    }
-
-     */
 
    public void salirLibroDiario(ActionEvent e){
 

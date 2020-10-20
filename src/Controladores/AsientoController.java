@@ -175,7 +175,7 @@ public class AsientoController implements Initializable {
 
     public void filtrarFechas(ActionEvent event){
 
-        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
+        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null){ //&& compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
 
             Date fechaDe = Date.valueOf(fechaDesde.getValue());
             Date fechaHas = Date.valueOf(fechaHasta.getValue());
@@ -194,7 +194,7 @@ public class AsientoController implements Initializable {
 
     }
 
-    public boolean compararFechas(Date dd, Date dh){
+    /*public boolean compararFechas(Date dd, Date dh){
 
         if (0 == dd.compareTo(dh)){
             return false;
@@ -204,6 +204,8 @@ public class AsientoController implements Initializable {
         }
 
     }
+
+     */
 
     public static ObservableList<Asiento> mostrarAsientosFiltraros(Date dd, Date dh){
 
