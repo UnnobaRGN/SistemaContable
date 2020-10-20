@@ -38,18 +38,18 @@
                   <Font name="Arial Black" size="35.0" />
                </font>
             </Label>
-            <Label layoutX="191.0" layoutY="118.0" text="Fecha Desde: ">
+            <Label layoutX="102.0" layoutY="118.0" text="Fecha Desde: " AnchorPane.leftAnchor="100.0">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="395.0" layoutY="118.0" text="Fecha Hasta: ">
+            <Label layoutX="307.0" layoutY="118.0" text="Fecha Hasta: ">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <DatePicker fx:id="FechaDesdeLibroDiario" layoutX="293.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="402.0" />
-            <DatePicker fx:id="FechaHastaLibroDiario" layoutX="497.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" />
+            <DatePicker fx:id="FechaDesdeLibroDiario" layoutX="202.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="493.0" />
+            <DatePicker fx:id="FechaHastaLibroDiario" layoutX="405.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" AnchorPane.rightAnchor="290.0" />
             <Label layoutX="33.0" layoutY="26.0" text="Empresa:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
@@ -68,6 +68,8 @@
             <TextField fx:id="NombreEmpresa" layoutX="102.0" layoutY="84.0" prefHeight="25.0" prefWidth="147.0" AnchorPane.topAnchor="22.0" />
             <TextField fx:id="EjercicioLibroDiario" layoutX="102.0" layoutY="84.0" prefHeight="25.0" prefWidth="147.0" />
             <TextField fx:id="FechaEmision" layoutX="147.0" layoutY="52.0" prefHeight="25.0" prefWidth="102.0" />
+            <Button fx:id="Filtrar" layoutX="508.0" layoutY="114.0" mnemonicParsing="false" onAction="#filtrarLibroDiario" prefHeight="25.0" prefWidth="86.0" text="Filtrar" />
+            <Button fx:id="LimpiarFiltro" layoutX="623.0" layoutY="114.0" mnemonicParsing="false" onAction="#limpiarFiltro" prefHeight="25.0" prefWidth="86.0" text="Limpiar filtro" AnchorPane.rightAnchor="100.0" />
          </children>
       </AnchorPane>
    </children>

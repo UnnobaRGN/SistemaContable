@@ -74,6 +74,9 @@ public class LibroDiarioController implements Initializable {
     private TableColumn<Cuenta_Asiento, Float> TablaHaber;
 
     @FXML
+    private Button LimpiarFiltro;
+
+    @FXML
     private Button Filtrar;
 
     ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
@@ -99,7 +102,7 @@ public class LibroDiarioController implements Initializable {
            Date fechaHas = Date.valueOf(FechaHastaLibroDiario.getValue());
 
            list = mostrarAsientosFiltraros(fechaDe, fechaHas);
-           tablaAsientos.setItems(list);
+           TablaLibroDiario.setItems(list);
 
        }
        else {
@@ -112,13 +115,42 @@ public class LibroDiarioController implements Initializable {
 
    }
 
-    public boolean compararFechas(Date dd, Date dh){
+   public static ObservableList<Cuenta_Asiento> mostrarAsientosFiltraros(Date dd, Date dh){
 
-        //java.util.Date ahora = new java.util.Date();
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
+
+       try {
+
+           String SQL = "SELECT a.fecha as fecha, a.descripcion as descripcion, ca.id_cuenta as idcuenta, a.numero_asiento as numero, ca.debe as debe, ca.haber as haber, c.cuenta as cuenta FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.id_asiento=a.idasiento INNER JOIN cuenta as c ON c.idcuenta = ca.id_cuenta WHERE fecha BETWEEN '" + dd + "'AND'" + dh + "' ORDER BY ca.id_asiento, ca.debe DESC";
+           Statement statement = conn.createStatement();
+           ResultSet rs = statement.executeQuery(SQL);
+
+           while (rs.next()) {
+               Cuenta_Asiento ca= new Cuenta_Asiento();
+               ca.setFecha(rs.getDate("fecha"));
+               ca.setIdcuenta(rs.getInt("idcuenta"));
+               ca.setCuenta(rs.getString("cuenta"));
+               ca.setNum_asiento(rs.getInt("numero"));
+               ca.setDebe(rs.getFloat("debe"));
+               ca.setDescrip(rs.getString("descripcion"));
+               ca.setHaber(rs.getFloat("haber"));
+               list.add(ca);
+           }
+
+        } catch (Exception e) {
+
+        }
+        return list;
+
+
+    }
+
+   public boolean compararFechas(Date dd, Date dh){
+
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
-        String d = formateador.format(dd);
-        String h = formateador.format(dh);
-        if (d == h){
+       java.util.Date ahora = new java.util.Date();
+        if (formateador.format(dd) == formateador.format(dh) && formateador.format(dh) == formateador.format(ahora)){
             return false;
         }
         else{
@@ -192,6 +224,15 @@ public class LibroDiarioController implements Initializable {
         NombreEmpresa.setDisable(true);
 
     }
+
+   public void limpiarFiltro(ActionEvent event){
+
+        FechaHastaLibroDiario.setValue(null);
+        FechaDesdeLibroDiario.setValue(null);
+        TablaLibroDiario.setItems(null);
+        mostrarLibroDiario();
+
+   }
 
     /*public void fechaDesde(ActionEvent e){
 
