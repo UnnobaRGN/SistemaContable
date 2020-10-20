@@ -73,6 +73,9 @@ public class LibroDiarioController implements Initializable {
     @FXML
     private TableColumn<Cuenta_Asiento, Float> TablaHaber;
 
+    @FXML
+    private Button Filtrar;
+
     ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
 
 
@@ -86,6 +89,42 @@ public class LibroDiarioController implements Initializable {
         nombreEmpresa();
         mostrarLibroDiario();
         ejercicio();
+    }
+
+   public void filtrarLibroDiario(ActionEvent e){
+
+       if(FechaDesdeLibroDiario.getValue() != null && FechaHastaLibroDiario.getValue() != null && compararFechas(Date.valueOf(FechaDesdeLibroDiario.getValue()), Date.valueOf(FechaHastaLibroDiario.getValue()))){
+
+           Date fechaDe = Date.valueOf(FechaDesdeLibroDiario.getValue());
+           Date fechaHas = Date.valueOf(FechaHastaLibroDiario.getValue());
+
+           list = mostrarAsientosFiltraros(fechaDe, fechaHas);
+           tablaAsientos.setItems(list);
+
+       }
+       else {
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert.setTitle("Atencion!");
+           alert.setHeaderText("Por favor,");
+           alert.setContentText("Ingrese ambas fechas para el filtrado.");
+           alert.showAndWait();
+       }
+
+   }
+
+    public boolean compararFechas(Date dd, Date dh){
+
+        //java.util.Date ahora = new java.util.Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
+        String d = formateador.format(dd);
+        String h = formateador.format(dh);
+        if (d == h){
+            return false;
+        }
+        else{
+            return true;
+        }
+
     }
 
    public void mostrarLibroDiario(){
@@ -103,7 +142,7 @@ public class LibroDiarioController implements Initializable {
 
     }
 
-    public static ObservableList<Cuenta_Asiento> getLibroDiario(){
+   public static ObservableList<Cuenta_Asiento> getLibroDiario(){
 
         Connection conn = ConexionBD.getConnection();
         ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
@@ -134,21 +173,21 @@ public class LibroDiarioController implements Initializable {
 
     }
 
-    public void fechaActual() {
+   public void fechaActual() {
         java.util.Date ahora = new java.util.Date();
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
         FechaEmision.setText(formateador.format(ahora));
         FechaEmision.setDisable(true);
     }
 
-    public void ejercicio() {
+   public void ejercicio() {
         java.util.Date ahora = new java.util.Date();
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
         EjercicioLibroDiario.setText(formateador.format(ahora));
         EjercicioLibroDiario.setDisable(true);
     }
 
-    public void nombreEmpresa() {
+   public void nombreEmpresa() {
         NombreEmpresa.setText("Urano's contability");
         NombreEmpresa.setDisable(true);
 
@@ -199,14 +238,14 @@ public class LibroDiarioController implements Initializable {
 
      */
 
-    public void salirLibroDiario(ActionEvent e){
+   public void salirLibroDiario(ActionEvent e){
 
         Stage stage = (Stage) ButtonSalir.getScene().getWindow();
         stage.close();
 
     }
 
-    public void imprimirLibroDiario(ActionEvent e){
+   public void imprimirLibroDiario(ActionEvent e){
 
         System.out.println("Ger se ocupa de esto");
 
