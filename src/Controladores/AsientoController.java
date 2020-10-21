@@ -100,7 +100,7 @@ public class AsientoController implements Initializable {
         FondoAsiento.setImage(brandingFondoAsiento);
 
 
-        mostrarAsientos();////////////////ACTIVAR CUANDO HAYA DATOS
+        mostrarAsientos();
 
 
     }
@@ -175,10 +175,11 @@ public class AsientoController implements Initializable {
 
     public void filtrarFechas(ActionEvent event){
 
-        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
+        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null){ //&& compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
 
             Date fechaDe = Date.valueOf(fechaDesde.getValue());
             Date fechaHas = Date.valueOf(fechaHasta.getValue());
+
             list = mostrarAsientosFiltraros(fechaDe, fechaHas);
             tablaAsientos.setItems(list);
 
@@ -193,7 +194,7 @@ public class AsientoController implements Initializable {
 
     }
 
-    public boolean compararFechas(Date dd, Date dh){
+    /*public boolean compararFechas(Date dd, Date dh){
 
         if (0 == dd.compareTo(dh)){
             return false;
@@ -204,6 +205,8 @@ public class AsientoController implements Initializable {
 
     }
 
+     */
+
     public static ObservableList<Asiento> mostrarAsientosFiltraros(Date dd, Date dh){
 
         Connection conn = ConexionBD.getConnection();
@@ -211,12 +214,14 @@ public class AsientoController implements Initializable {
 
         try {
 
-            String SQL = "SELECT *, a.fecha as fecha, a.descripcion as descripcion FROM asiento as a WHERE fecha BETWEEN '" + dd + "'AND'" + dh + "'";
+            String SQL = "SELECT * FROM asiento as a WHERE fecha BETWEEN '" + dd + "'AND'" + dh + "'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(new Asiento(rs.getDate("fecha"), rs.getString("descripcion")));
+                Asiento a = new Asiento(rs.getDate("fecha"), rs.getString("descripcion"));
+                a.setIdasiento(rs.getInt("idasiento"));
+                list.add(a);
             }
 
             } catch (Exception e) {
@@ -231,6 +236,7 @@ public class AsientoController implements Initializable {
 
         fechaDesde.setValue(null);
         fechaHasta.setValue(null);
+        tablaCuentaAsientos.setItems(null);
         mostrarAsientos();
 
 

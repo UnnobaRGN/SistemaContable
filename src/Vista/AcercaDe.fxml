@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.AcercaDe">
+   <children>
+      <ImageView fx:id="ImagenFondo" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagenes/2.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="7.0" layoutY="192.0" text="Creado por Ramiro Garcia Orsi, German Quiroga y Nicolas Di Pierro, para la cursada Sistemas Administrativos 2" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

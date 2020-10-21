@@ -89,7 +89,6 @@ public class RegistrarAsientoController implements Initializable {
         numAsiento();
         InicializarLaTabla();
 
-
     }
 
 
@@ -177,21 +176,38 @@ public class RegistrarAsientoController implements Initializable {
 
     }
 
+    public int numAsientoEntero() {
+        int p = 0;
+        try {
+            Connection conn = ConexionBD.getConnection();
+            Statement s = conn.createStatement();
+            String SQL = "SELECT COUNT(*) as asientonum FROM asiento";
+            ResultSet rs = s.executeQuery(SQL);
 
+            while (rs.next()) {
+                p = rs.getInt("asientonum");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return p+1;
+
+
+    }
     public void GuardarAsiento(ActionEvent actionEvent) throws IOException {
 
         if (retornarCuenta() != null) {
-            AgregarAtabla();
-
-        } else {
+            chequearMonto(Monto,BotonDebe,BotonHaber);
+        }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Atencion!");
             alert.setHeaderText("Por favor,");
-            alert.setContentText("Ingrese una cuenta antes de continuar");
+            alert.setContentText("Ingrese una cuenta antes de continuar.");
             alert.showAndWait();
         }
-
     }
+
 
 
     public Cuenta_Asiento GuardarEnTabla(Cuenta_Asiento cuenta) {
@@ -226,7 +242,7 @@ public class RegistrarAsientoController implements Initializable {
 
 
     public void tieneSaldoDebe(Cuentas c) {
-        if (c.getTipo().equals("2") || c.getTipo().equals("5") || c.getTipo().equals("3")) {
+        if (c.getTipo().equals("2") || c.getTipo().equals("3")) {
             chequearDebeYhaber(c);
         } else {
             CuentaAsientoTableView.getItems().add(GuardarEnTabla(new Cuenta_Asiento()));
@@ -241,7 +257,6 @@ public class RegistrarAsientoController implements Initializable {
             CuentaAsientoTableView.getItems().add(GuardarEnTabla(new Cuenta_Asiento()));
         }
     }
-
 
     public void chequearDebeYhaber(Cuentas c) {
         if (c.getSaldo_actual() >= Float.parseFloat(Monto.getText())) {
@@ -344,12 +359,12 @@ public class RegistrarAsientoController implements Initializable {
 
     public float realizarCalculoDebe(float saldo_actual, String tipo, int idcuenta, String cuenta) {
         float saldo=0f;
-        if (tipo.equals("1")) {
+        if (tipo.equals("1") || tipo.equals("5")) {
             saldo_actual += sumaDebe(cuenta);
             saldo=actualizarSaldoActual(saldo_actual, idcuenta);
 
         }
-        if (tipo.equals("2") || tipo.equals("5") || tipo.equals("3")) {
+        if (tipo.equals("2") || tipo.equals("3")) {
             saldo_actual -= sumaDebe(cuenta);
             saldo=actualizarSaldoActual(saldo_actual, idcuenta);
         }
@@ -405,10 +420,11 @@ public class RegistrarAsientoController implements Initializable {
 
         try {
             Connection conn = ConexionBD.getConnection();
-            String SQL = "INSERT INTO asiento(fecha,descripcion) VALUES(?,?)";
+            String SQL = "INSERT INTO asiento(fecha,descripcion, numero_asiento) VALUES(?,?,?)";
             PreparedStatement ps = conn.prepareStatement(SQL);
             ps.setDate(1, fecha);
             ps.setString(2, descripcion);
+            ps.setInt(3, numAsientoEntero());
             ps.execute();
         } catch (Exception e) {
 
@@ -469,6 +485,107 @@ public class RegistrarAsientoController implements Initializable {
        CuentaAsientoTableView.getItems().removeAll(CuentaAsientoTableView.getSelectionModel().getSelectedItems());
 
     }
+
+    public boolean chequearCuentaRepetida(){
+        for (int i = 0; i < CuentaAsientoTableView.getItems().size(); i++){
+            if(CuentasSeleccion.getSelectionModel().getSelectedItem().equals(CuentaAsientoTableView.getItems().get(i).getCuenta())){
+               return false;
+
+            }
+        }
+        return true;
+    }
+
+    public void chequearMonto(TextField monto, RadioButton d, RadioButton h){
+        if(!monto.getText().isBlank()){
+            chequearMontoMayorAcero(monto, d, h);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Ingrese un monto");
+            alert.showAndWait();
+        }
+    }
+    public void chequearMontoMayorAcero(TextField monto,RadioButton d, RadioButton h){
+        if(Float.parseFloat(monto.getText()) > 0){
+            DebeoHaber(d,h);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Ingrese un monto mayor a cero.");
+            alert.showAndWait();
+        }
+    }
+
+    public void DebeoHaber(RadioButton d, RadioButton h){
+        if(d.isSelected() || h.isSelected()){
+                if(chequearCuentaRepetida()){
+                    AgregarAtabla();
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Ha surgido un problema");
+                    alert.setContentText("Esta cuenta ya se encuentra en el registro");
+                    alert.showAndWait();
+                }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Seleccione debe o haber.");
+            alert.showAndWait();
+        }
+    }
+
+
+   /* public void GuardarAsiento(ActionEvent actionEvent) throws IOException {
+
+        if (retornarCuenta() != null) {
+            if (!Monto.getText().isBlank()) {
+                if (Float.parseFloat(Monto.getText()) > 0) {
+                    if (BotonHaber.isSelected() || BotonDebe.isSelected()) {
+                        if (chequearCuentaRepetida()) {
+                            AgregarAtabla();
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Error");
+                            alert.setHeaderText("Ha surgido un problema");
+                            alert.setContentText("Esta cuenta ya se encuentra en el registro");
+                            alert.showAndWait();
+                        }
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Atencion!");
+                        alert.setHeaderText("Por favor,");
+                        alert.setContentText("Seleccione debe o haber.");
+                        alert.showAndWait();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Atencion!");
+                    alert.setHeaderText("Por favor,");
+                    alert.setContentText("Ingrese un monto mayor a cero.");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion!");
+                alert.setHeaderText("Por favor,");
+                alert.setContentText("Ingrese un monto");
+                alert.showAndWait();
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Ingrese una cuenta antes de continuar.");
+            alert.showAndWait();
+        }
+    }
+*/
+
 
 }
 
