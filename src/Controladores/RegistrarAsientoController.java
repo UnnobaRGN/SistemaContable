@@ -540,6 +540,15 @@ public class RegistrarAsientoController implements Initializable {
     }
 
 
+
+
+
+
+
+
+
+
+
    /* public void GuardarAsiento(ActionEvent actionEvent) throws IOException {
 
         if (retornarCuenta() != null) {

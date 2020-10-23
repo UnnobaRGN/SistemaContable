@@ -58,8 +58,6 @@ public class LibroDiarioController implements Initializable {
     @FXML
     private TableColumn<Cuenta_Asiento, Integer> TablaNumeroAsiento;
 
-    @FXML
-    private TableColumn<Cuenta_Asiento, Integer> TablaNumeroCuenta;
 
     @FXML
     private TableColumn<Cuenta_Asiento, String> TablaDescripcion;
@@ -171,7 +169,6 @@ public class LibroDiarioController implements Initializable {
         TablaFecha.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Date>("fecha"));
         TablaDescripcion.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("descrip"));
         Tablacuenta.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("cuenta"));
-        TablaNumeroCuenta.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Integer>("idcuenta"));
         TablaNumeroAsiento.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Integer>("num_asiento"));
         TablaDebe.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("debe"));
         TablaHaber.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("haber"));
@@ -189,14 +186,13 @@ public class LibroDiarioController implements Initializable {
         try {
 
 
-            String SQL = "SELECT a.fecha as fecha, a.descripcion as descripcion, ca.id_cuenta as idcuenta, a.numero_asiento as numero, ca.debe as debe, ca.haber as haber, c.cuenta as cuenta FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.id_asiento=a.idasiento INNER JOIN cuenta as c ON c.idcuenta = ca.id_cuenta ORDER BY ca.id_asiento, ca.debe DESC";
+            String SQL = "SELECT a.fecha as fecha, a.descripcion as descripcion, a.numero_asiento as numero, ca.debe as debe, ca.haber as haber, c.cuenta as cuenta FROM cuenta_asiento as ca INNER JOIN asiento as a ON ca.id_asiento=a.idasiento INNER JOIN cuenta as c ON c.idcuenta = ca.id_cuenta ORDER BY ca.id_asiento, ca.debe DESC";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
                 Cuenta_Asiento ca= new Cuenta_Asiento();
                 ca.setFecha(rs.getDate("fecha"));
-                ca.setIdcuenta(rs.getInt("idcuenta"));
                 ca.setCuenta(rs.getString("cuenta"));
                 ca.setNum_asiento(rs.getInt("numero"));
                 ca.setDebe(rs.getFloat("debe"));
