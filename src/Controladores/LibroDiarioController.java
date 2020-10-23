@@ -227,7 +227,7 @@ public class LibroDiarioController implements Initializable {
     }
 
    public void nombreEmpresa() {
-        NombreEmpresa.setText("Urano's contability");
+        NombreEmpresa.setText("Urano's Contability");
         NombreEmpresa.setDisable(true);
 
     }
@@ -254,5 +254,4 @@ public class LibroDiarioController implements Initializable {
         System.out.println("Ger se ocupa de esto");
 
     }
-
 }

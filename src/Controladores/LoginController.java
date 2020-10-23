@@ -108,6 +108,7 @@ public class LoginController implements Initializable {
                 Scene scene = new Scene(part);
                 stage.setScene(scene);
                 stage.setResizable(false);
+                stage.setTitle("Urano's Contability");
                 stage.show();
 
 

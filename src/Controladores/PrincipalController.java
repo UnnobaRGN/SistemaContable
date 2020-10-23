@@ -97,7 +97,9 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.setTitle("Urano's Contability");
         stage.show();
+
 
     }
 
@@ -125,6 +127,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.setTitle("Urano's Contability");
         stage.show();
     }
 
@@ -137,6 +140,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(padre);
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.setTitle("Urano's Contability");
         stage.show();
 
     }
@@ -148,6 +152,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(padre);
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.setTitle("Urano's Contability");
         stage.show();
 
     }
@@ -159,6 +164,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(padre);
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.setTitle("Urano's Contability");
         stage.show();
 
     }
