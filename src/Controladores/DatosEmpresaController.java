@@ -14,9 +14,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.ConexionBD;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class DatosEmpresaController implements Initializable {
@@ -59,7 +63,8 @@ public class DatosEmpresaController implements Initializable {
 
     private UsuarioLogeado u = UsuarioLogeado.getInstance();
 
-    private Empresa empresa = new Empresa();
+    private Empresa e = Empresa.getInstance();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -89,30 +94,42 @@ public class DatosEmpresaController implements Initializable {
     }
 
     public void actualizarDatos(ActionEvent e){
-        
-        empresa.setCodigoPostal(textCodigo.getText());
-        empresa.setCUIT(textCuit.getText());
-        empresa.setDireccion(textDireccion.getText());
-        empresa.setEmail(textEmail.getText());
-        empresa.setIva(textIva.getText());
-        empresa.setLocalidad(textLocalidad.getText());
-        empresa.setProvincia(textProvincia.getText());
-        empresa.setRazonSocial(textRazon.getText());
-        empresa.setTelefono(textTelefono.getText());
+
+       ////////HACER
 
     }
 
     public void mostrarDatos(){
 
-        textCuit.setText(empresa.getCUIT());
-        textCodigo.setText(empresa.getCodigoPostal());
-        textDireccion.setText(empresa.getDireccion());
-        textEmail.setText(empresa.getEmail());
-        textLocalidad.setText(empresa.getLocalidad());
-        textProvincia.setText(empresa.getProvincia());
-        textRazon.setText(empresa.getRazonSocial());
-        textTelefono.setText(empresa.getTelefono());
-        textIva.setText(empresa.getIva());
+        ConexionBD conectarAhora = new ConexionBD();
+        Connection conectarBD = conectarAhora.getConnection();
+
+
+        String empresa = "SELECT * FROM empresa";
+
+
+        try{
+            Statement statement = conectarBD.createStatement();
+            ResultSet rs =  statement.executeQuery(empresa);
+
+            while (rs.next()) {
+                textRazon.setText(rs.getString("razon_social"));
+                textEmail.setText(rs.getString("email"));
+                textDireccion.setText(rs.getString("direccion"));
+                textCuit.setText(rs.getString("cuit"));
+                textLocalidad.setText(rs.getString("localidad"));
+                textProvincia.setText(rs.getString("provincia"));
+                textIva.setText(rs.getString("iva"));
+                textCodigo.setText(rs.getString("codigoPostal"));
+                textTelefono.setText(rs.getString("telefono"));
+            }
+
+
+
+        }catch (Exception e){
+
+        }
+
 
     }
 

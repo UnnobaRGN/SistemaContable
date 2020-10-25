@@ -39,6 +39,9 @@ public class AgregarCuentaController implements Initializable {
     private Button AgregarCuenta;
 
     @FXML
+    private Button Salir;
+
+    @FXML
     private RadioButton BotonSi;
 
 
@@ -134,5 +137,11 @@ public class AgregarCuentaController implements Initializable {
    }
 
 
+   public void salirAgregar(ActionEvent e){
+
+       Stage stage = (Stage) Salir.getScene().getWindow();
+       stage.close();
+
+   }
 
 }

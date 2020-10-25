@@ -2,6 +2,8 @@ package Modelo;
 
 public class Empresa {
 
+    private static Empresa empresaLogueada;
+
     private String RazonSocial;
     private String Email;
     private String Direccion;
@@ -12,7 +14,17 @@ public class Empresa {
     private String CodigoPostal;
     private String Telefono;
 
-    public void Empresa(){};
+    public void Empresa(){
+
+    };
+
+    public static Empresa getInstance(){
+
+        if(empresaLogueada == null){
+            empresaLogueada = new Empresa();
+        }
+        return empresaLogueada;
+    }
 
     public String getRazonSocial() {
         return RazonSocial;
