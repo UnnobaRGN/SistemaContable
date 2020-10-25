@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="260.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.DatosEmpresaController">
+   <children>
+      <ImageView fitHeight="314.0" fitWidth="401.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagenes/2.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane prefHeight="267.0" prefWidth="401.0">
+         <children>
+            <Label layoutX="12.0" layoutY="10.0" text="Razon social:" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="39.0" text="Direccion:" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="39.0">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="68.0" text="Codigo postal:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="97.0" text="Localidad:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="125.0" text="Provincia:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="155.0" text="Telefono:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="184.0" text="Email:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="213.0" text="CUIT:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textRazon" layoutX="111.0" layoutY="6.0" AnchorPane.topAnchor="6.0" />
+            <TextField fx:id="textDireccion" layoutX="105.0" layoutY="35.0" AnchorPane.leftAnchor="92.0" AnchorPane.topAnchor="35.0" />
+            <TextField fx:id="textCodigo" layoutX="119.0" layoutY="62.0" AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="64.0" />
+            <TextField fx:id="textLocalidad" layoutX="119.0" layoutY="96.0" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="93.0" />
+            <TextField fx:id="textProvincia" layoutX="111.0" layoutY="121.0" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="121.0" />
+            <TextField fx:id="textTelefono" layoutX="87.0" layoutY="157.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="151.0" />
+            <TextField fx:id="textEmail" layoutX="82.0" layoutY="187.0" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="180.0" />
+            <TextField fx:id="textCuit" layoutX="67.0" layoutY="214.0" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="209.0" />
+            <Label layoutX="14.0" layoutY="242.0" text="Condicion de IVA:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comboBoxIva" layoutX="150.0" layoutY="238.0" prefHeight="25.0" prefWidth="88.0" />
+            <Button fx:id="botonActualizar" layoutX="319.0" layoutY="193.0" mnemonicParsing="false" onAction="#actualizarDatos" prefHeight="25.0" prefWidth="68.0" text="Actualizar" />
+            <Button fx:id="botonSalir" layoutX="319.0" layoutY="226.0" mnemonicParsing="false" onAction="#salirDatos" prefHeight="25.0" prefWidth="68.0" text="Salir" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

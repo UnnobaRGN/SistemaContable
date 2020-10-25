@@ -50,9 +50,13 @@ public class AgregarCuentaController implements Initializable {
         File brandingFile = new File("Imagenes/2.jpg");
         Image brandingImage = new Image(brandingFile.toURI().toString());
         ImagenDeAgregarCuenta.setImage(brandingImage);
+        llenarComboBox();
+
+    }
+
+    public void llenarComboBox(){
         ObservableList<String> list = FXCollections.observableArrayList("Ac","Pa","Pm","R+","R-");
         comboBox.setItems(list);
-
     }
 
 
