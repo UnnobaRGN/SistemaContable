@@ -150,8 +150,8 @@ public class LibroMayorController implements Initializable {
 */
         LocalDate ahora = LocalDate.now();
         Date a = Date.valueOf(ahora);
-        if (dh.after(dd)){//formateador.format(dd) < formateador.format(dh))){ //&& formateador.format(dh).equals(formateador.format(ahora))){
-            if(dh.before(a)){
+        if (dh.before(dd)){//formateador.format(dd) < formateador.format(dh))){ //&& formateador.format(dh).equals(formateador.format(ahora))){
+            if(dh.after(a)){
                 return true;
             }
             else{
