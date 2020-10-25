@@ -13,12 +13,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="1046.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.AsientoController">
    <children>
-      <ImageView fx:id="ImagenAsiento" fitHeight="693.0" fitWidth="1101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-316.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="ImagenAsiento" fitHeight="709.0" fitWidth="1085.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-333.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-39.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="438.0" prefWidth="1046.0">
+      <AnchorPane prefHeight="438.0" prefWidth="1052.0">
          <children>
             <TableView fx:id="tablaAsientos" layoutX="21.0" layoutY="17.0" prefHeight="351.0" prefWidth="276.0">
                <columns>
