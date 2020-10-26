@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -19,6 +21,7 @@ import sample.ConexionBD;
 import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
@@ -80,7 +83,7 @@ public class DatosEmpresaController implements Initializable {
     }
 
     public void noModifica(){
-        if(u.getIdperfil() == 0){
+        if(u.getIdperfil() == 2){
         textTelefono.setDisable(true);
         textRazon.setDisable(true);
         textProvincia.setDisable(true);
@@ -95,7 +98,42 @@ public class DatosEmpresaController implements Initializable {
 
     public void actualizarDatos(ActionEvent e){
 
-       ////////HACER
+        Connection conn = ConexionBD.getConnection();
+        if(!textRazon.getText().isBlank() && !textTelefono.getText().isBlank() && !textProvincia.getText().isBlank() && !textLocalidad.getText().isBlank() && !textEmail.getText().isBlank() && !textDireccion.getText().isBlank() && !textCodigo.getText().isBlank() && !textCuit.getText().isBlank() && !textIva.getText().isBlank()){
+            try {
+
+                String sql = "INSERT INTO empresa(razon_social ,email ,direccion,cuit ,localidad,provincia,iva, codigoPostal , telefono) VALUES (?,?,?,?,?,?,?,?,?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
+
+               ps.setString(1,textRazon.getText());
+               ps.setString(2,textEmail.getText());
+               ps.setString(3,textDireccion.getText());
+               ps.setString(4,textCuit.getText());
+               ps.setString(5,textLocalidad.getText());
+               ps.setString(6,textProvincia.getText());
+               ps.setString(7,textIva.getText());
+               ps.setString(8,textCodigo.getText());
+               ps.setString(9,textTelefono.getText());
+
+
+                ps.execute();
+
+            } catch (Exception ex) {
+
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Exito");
+            alert.setHeaderText("Operacion realizada!");
+            alert.showAndWait();
+            ((Node) e.getSource()).getScene().getWindow().hide();
+
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Complete todos los campos");
+            alert.showAndWait();
+        }
 
     }
 

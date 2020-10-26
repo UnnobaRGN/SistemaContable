@@ -165,9 +165,18 @@ public class LibroMayorController implements Initializable {
     }
 
     public void mostrarCuenta(ActionEvent a){
-        muestraCuenta.setDisable(true);
-        muestraCuenta.setText(menuCuenta.getSelectionModel().getSelectedItem().toString());
-        mostrarDatos();
+        if(!menuCuenta.getSelectionModel().isEmpty()) {
+            muestraCuenta.setDisable(true);
+            muestraCuenta.setText(menuCuenta.getSelectionModel().getSelectedItem().toString());
+            mostrarDatos();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Ingrese una cuenta");
+            alert.showAndWait();
+        }
     }
 
     public void limpiarFiltro(){
