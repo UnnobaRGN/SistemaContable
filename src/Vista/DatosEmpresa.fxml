@@ -70,7 +70,6 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="botonActualizar" layoutX="319.0" layoutY="193.0" mnemonicParsing="false" onAction="#actualizarDatos" prefHeight="25.0" prefWidth="68.0" text="Actualizar" />
             <Button fx:id="botonSalir" layoutX="319.0" layoutY="226.0" mnemonicParsing="false" onAction="#salirDatos" prefHeight="25.0" prefWidth="68.0" text="Salir" />
             <TextField fx:id="textIva" layoutX="144.0" layoutY="238.0" prefHeight="25.0" prefWidth="130.0" />
          </children>

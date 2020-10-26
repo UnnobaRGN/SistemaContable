@@ -36,9 +36,6 @@ public class LibroMayorController implements Initializable {
     private Button LimpiarFiltro;
 
     @FXML
-    private Button VerCuenta;
-
-    @FXML
     private Button Salir;
 
     @FXML
@@ -78,11 +75,12 @@ public class LibroMayorController implements Initializable {
         Image brandingImageLibroDiarioMayor = new Image(fileLibroMayor.toURI().toString());
         ImagenFondo.setImage(brandingImageLibroDiarioMayor);
         traerCuentasAcomboBox();
+        muestraCuenta.setDisable(true);
 
     }
 
     public void filtrarFechas(ActionEvent e){
-        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null){
+        if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && menuCuenta.getSelectionModel().getSelectedItem() != null){
             if(compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
 
                 Date fechaDe = Date.valueOf(fechaDesde.getValue());
@@ -94,7 +92,7 @@ public class LibroMayorController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Atencion!");
                 alert.setHeaderText("Por favor,");
-                alert.setContentText("Ingrese un año valido.");
+                alert.setContentText("Ingrese fechas validas.");
                 alert.showAndWait();
             }
         }
@@ -102,12 +100,11 @@ public class LibroMayorController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Atencion!");
             alert.setHeaderText("Por favor,");
-            alert.setContentText("Ingrese ambas fechas para el filtrado.");
+            alert.setContentText("Ingrese todos los datos necesarios para el fitrado.");
             alert.showAndWait();
         }
 
     }
-
 
     public ObservableList<Cuenta_Asiento> mostrarFiltraros(Date dd, Date dh){
 
@@ -139,24 +136,11 @@ public class LibroMayorController implements Initializable {
     }
 
     public boolean compararFechas(Date dd, Date dh){
-        /*java.util.Date ahora = new java.util.Date(System.currentTimeMillis());
-        LocalDate desde = fechaDesde.getValue();
-        formateador.format(desde);
-        System.out.println(desde);
-        Date fechaHas = Date.valueOf(fechaHasta.getValue());
 
-        //java.util.Date desde = new java.util.Date(formateador.format(dd));
-        //java.util.Date hasta = new java.util.Date(formateador.format(dh));
-*/
-        LocalDate ahora = LocalDate.now();
-        Date a = Date.valueOf(ahora);
-        if (dh.before(dd)){//formateador.format(dd) < formateador.format(dh))){ //&& formateador.format(dh).equals(formateador.format(ahora))){
-            if(dh.after(a)){
-                return true;
-            }
-            else{
-                return false;
-            }
+        java.util.Date ahora = new java.util.Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
+        if (formateador.format(dd).equals(formateador.format(dh)) && formateador.format(dh).equals(formateador.format(ahora)) && compararMeses()){
+            return true;
         }
         else{
             return false;
@@ -164,31 +148,45 @@ public class LibroMayorController implements Initializable {
 
     }
 
-    public void mostrarCuenta(ActionEvent a){
-        if(!menuCuenta.getSelectionModel().isEmpty()) {
-            muestraCuenta.setDisable(true);
-            muestraCuenta.setText(menuCuenta.getSelectionModel().getSelectedItem().toString());
-            mostrarDatos();
+    public boolean compararMeses(){
+
+        java.util.Date desde = Date.valueOf(fechaDesde.getValue());
+        java.util.Date hasta = Date.valueOf(fechaHasta.getValue());
+
+
+        if(desde.compareTo(hasta) == 0 || desde.after(hasta) || comparaHasta()){
+            return true;
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText("Por favor,");
-            alert.setContentText("Ingrese una cuenta");
-            alert.showAndWait();
+            return false;
         }
+
+    }
+
+    public boolean comparaHasta(){
+
+        java.util.Date hasta = Date.valueOf(fechaHasta.getValue());
+
+        java.util.Date ahora = new java.util.Date();
+
+        if (hasta.after(ahora) || hasta.compareTo(ahora) == 0 ) {
+            return true;
+        }
+
+        else{
+        return false;
+    }
+
     }
 
     public void limpiarFiltro(){
+
         TablaLibroMayor.setItems(null);
         fechaDesde.setValue(null);
         fechaHasta.setValue(null);
         muestraCuenta.setText(null);
 
-
-
     }
-
 
     public void salirLibroMayor(ActionEvent e){
 
@@ -241,7 +239,7 @@ public class LibroMayorController implements Initializable {
         return list;
     }
 
-    public void mostrarDatos(){
+    /*public void mostrarDatos(){
         columnaDescripcion.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("descrip"));
         columnaDebe.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("debe"));
         columnaHaber.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("haber"));
@@ -249,7 +247,7 @@ public class LibroMayorController implements Initializable {
 
         TablaLibroMayor.setItems(mostrarDatosLibro());
 
-    }
+    }*/
 
 
 

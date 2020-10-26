@@ -59,9 +59,6 @@ public class DatosEmpresaController implements Initializable {
     private TextField textCuit;
 
     @FXML
-    private Button botonActualizar;
-
-    @FXML
     private Button botonSalir;
 
     private UsuarioLogeado u = UsuarioLogeado.getInstance();
@@ -75,15 +72,13 @@ public class DatosEmpresaController implements Initializable {
         Image brandingImage = new Image(brandingFile.toURI().toString());
         ImagenFondo.setImage(brandingImage);
 
-        botonActualizar.setVisible(u.getIdperfil() == 1);
-
         mostrarDatos();
         noModifica();
 
     }
 
     public void noModifica(){
-        if(u.getIdperfil() == 2){
+
         textTelefono.setDisable(true);
         textRazon.setDisable(true);
         textProvincia.setDisable(true);
@@ -92,48 +87,7 @@ public class DatosEmpresaController implements Initializable {
         textDireccion.setDisable(true);
         textCodigo.setDisable(true);
         textCuit.setDisable(true);
-        textIva.setDisable(true);}
-
-    }
-
-    public void actualizarDatos(ActionEvent e){
-
-        Connection conn = ConexionBD.getConnection();
-        if(!textRazon.getText().isBlank() && !textTelefono.getText().isBlank() && !textProvincia.getText().isBlank() && !textLocalidad.getText().isBlank() && !textEmail.getText().isBlank() && !textDireccion.getText().isBlank() && !textCodigo.getText().isBlank() && !textCuit.getText().isBlank() && !textIva.getText().isBlank()){
-            try {
-
-                String sql = "INSERT INTO empresa(razon_social ,email ,direccion,cuit ,localidad,provincia,iva, codigoPostal , telefono) VALUES (?,?,?,?,?,?,?,?,?)";
-                PreparedStatement ps = conn.prepareStatement(sql);
-
-               ps.setString(1,textRazon.getText());
-               ps.setString(2,textEmail.getText());
-               ps.setString(3,textDireccion.getText());
-               ps.setString(4,textCuit.getText());
-               ps.setString(5,textLocalidad.getText());
-               ps.setString(6,textProvincia.getText());
-               ps.setString(7,textIva.getText());
-               ps.setString(8,textCodigo.getText());
-               ps.setString(9,textTelefono.getText());
-
-
-                ps.execute();
-
-            } catch (Exception ex) {
-
-            }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Exito");
-            alert.setHeaderText("Operacion realizada!");
-            alert.showAndWait();
-            ((Node) e.getSource()).getScene().getWindow().hide();
-
-        }else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error!");
-            alert.setHeaderText("Por favor,");
-            alert.setContentText("Complete todos los campos");
-            alert.showAndWait();
-        }
+        textIva.setDisable(true);
 
     }
 
@@ -177,5 +131,6 @@ public class DatosEmpresaController implements Initializable {
         stage.close();
 
     }
+
 
 }
