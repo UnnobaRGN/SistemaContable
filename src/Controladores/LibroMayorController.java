@@ -139,7 +139,11 @@ public class LibroMayorController implements Initializable {
 
         java.util.Date ahora = new java.util.Date();
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
-        if (formateador.format(dd).equals(formateador.format(dh)) && formateador.format(dh).equals(formateador.format(ahora)) && compararMeses()){
+        int a = Integer.parseInt(formateador.format(ahora));
+        int d = Integer.parseInt(formateador.format(dd));
+        int h = Integer.parseInt(formateador.format(dh));
+
+        if (d == a && h == a && compararMeses(Date dd, Date dh) && comparaDias(Date dd, Date dh)){
             return true;
         }
         else{
@@ -148,34 +152,37 @@ public class LibroMayorController implements Initializable {
 
     }
 
-    public boolean compararMeses(){
-
-        java.util.Date desde = Date.valueOf(fechaDesde.getValue());
-        java.util.Date hasta = Date.valueOf(fechaHasta.getValue());
-
-
-        if(desde.compareTo(hasta) == 0 || desde.after(hasta) || comparaHasta()){
-            return true;
-        }
-        else{
-            return false;
-        }
-
-    }
-
-    public boolean comparaHasta(){
-
-        java.util.Date hasta = Date.valueOf(fechaHasta.getValue());
+    public boolean compararMeses(Date dd, Date dh){
 
         java.util.Date ahora = new java.util.Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("MM");
+        int a = Integer.parseInt(formateador.format(ahora));
+        int d = Integer.parseInt(formateador.format(dd));
+        int h = Integer.parseInt(formateador.format(dh));
 
-        if (hasta.after(ahora) || hasta.compareTo(ahora) == 0 ) {
+        if (d == h || d < h || h == a || h < a){
             return true;
         }
-
         else{
-        return false;
+            return false;
+        }
+
     }
+
+    public boolean comparaDias(Date dd, Date dh){
+
+        java.util.Date ahora = new java.util.Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("MM");
+        int a = Integer.parseInt(formateador.format(ahora));
+        int d = Integer.parseInt(formateador.format(dd));
+        int h = Integer.parseInt(formateador.format(dh));
+
+        if (d == h || d < h || h == a || h < a){
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 
