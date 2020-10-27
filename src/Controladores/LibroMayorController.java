@@ -80,8 +80,18 @@ public class LibroMayorController implements Initializable {
     }
 
     public void filtrarFechas(ActionEvent e){
+        
+        columnaDescripcion.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("descrip"));
+        columnaDebe.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("debe"));
+        columnaHaber.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("haber"));
+        columnaSaldo.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("saldo"));
+
         if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && menuCuenta.getSelectionModel().getSelectedItem() != null){
+            System.out.println("comparo primer");
+
             if(compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
+                System.out.println("comparo segundo");
+
 
                 Date fechaDe = Date.valueOf(fechaDesde.getValue());
                 Date fechaHas = Date.valueOf(fechaHasta.getValue());
@@ -114,7 +124,7 @@ public class LibroMayorController implements Initializable {
 
         try {
 
-            String SQL = "SELECT c.cuenta as cuenta, a.descripcion as descripcion, ca.debe as debe, ca.haber as haber,ca.saldo as saldo FROM cuenta c INNER JOIN cuenta_asiento ca ON c.idcuenta=ca.id_cuenta INNER JOIN asiento a ON a.idasiento=ca.id_asiento WHERE c.cuenta='"+ s +"'  AND  fecha BETWEEN '" + dd + "'AND'" + dh + "' ORDER BY a.fecha";
+            String SQL = "SELECT c.cuenta as cuenta, a.descripcion as descripcion, ca.debe as debe, ca.haber as haber,ca.saldo as saldo FROM cuenta c INNER JOIN cuenta_asiento ca ON c.idcuenta=ca.id_cuenta INNER JOIN asiento a ON a.idasiento=ca.id_asiento WHERE c.cuenta='"+ s +"'  AND  a.fecha BETWEEN '" + dd + "'AND'" + dh + "' ORDER BY a.fecha";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -139,8 +149,11 @@ public class LibroMayorController implements Initializable {
 
         java.util.Date ahora = new java.util.Date();
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
+        int a = Integer.parseInt(formateador.format(ahora));
+        int d = Integer.parseInt(formateador.format(dd));
+        int h = Integer.parseInt(formateador.format(dh));
 
-        if (formateador.format(dd).equals(formateador.format(dh)) && formateador.format(dh).equals(formateador.format(ahora)) && compararMeses(dd, dh) && comparaDias(dd, dh)){
+        if ( d == h && h == a && compararMeses(dd, dh) && comparaDias(dd, dh)){
             return true;
         }
         else{
