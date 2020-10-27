@@ -143,7 +143,7 @@ public class LibroMayorController implements Initializable {
         int d = Integer.parseInt(formateador.format(dd));
         int h = Integer.parseInt(formateador.format(dh));
 
-        if (d == a && h == a && compararMeses(Date dd, Date dh) && comparaDias(Date dd, Date dh)){
+        if (formateador.format(dd).equals(formateador.format(dh)) && formateador.format(dh).equals(formateador.format(ahora)) && compararMeses(Date dd, Date dh) && comparaDias(Date dd, Date dh)){
             return true;
         }
         else{
