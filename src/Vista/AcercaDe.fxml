@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.AcercaDeController">
    <children>
@@ -14,7 +15,40 @@
       </ImageView>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Label layoutX="7.0" layoutY="192.0" text="Creado por Ramiro Garcia Orsi, German Quiroga y Nicolas Di Pierro, para la cursada Sistemas Administrativos 2" />
+            <Label layoutX="94.0" layoutY="109.0" prefHeight="39.0" prefWidth="245.0" text="Ramiro Garcia Orsi">
+               <font>
+                  <Font size="27.0" />
+               </font></Label>
+            <Label layoutX="94.0" layoutY="148.0" prefHeight="39.0" prefWidth="209.0" text="German Quiroga">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="94.0" layoutY="187.0" prefHeight="39.0" prefWidth="209.0" text="Nicolas Di Pierro">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="37.0" text="Creado por:">
+               <font>
+                  <Font size="44.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="196.0" fitWidth="185.0" layoutX="405.0" layoutY="102.0" opacity="0.54" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Imagenes/icono_sistema.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="297.0" prefHeight="39.0" prefWidth="376.0" text="Con mucho amor y dedicacion ">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="367.0" layoutY="328.0" prefHeight="39.0" prefWidth="46.0" text="&lt;3">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
