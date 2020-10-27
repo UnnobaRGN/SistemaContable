@@ -80,23 +80,21 @@ public class LibroMayorController implements Initializable {
     }
 
     public void filtrarFechas(ActionEvent e){
-        
+
         columnaDescripcion.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, String>("descrip"));
         columnaDebe.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("debe"));
         columnaHaber.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("haber"));
         columnaSaldo.setCellValueFactory(new PropertyValueFactory<Cuenta_Asiento, Float>("saldo"));
 
         if(fechaDesde.getValue() != null && fechaHasta.getValue() != null && menuCuenta.getSelectionModel().getSelectedItem() != null){
-            System.out.println("comparo primer");
 
             if(compararFechas(Date.valueOf(fechaDesde.getValue()), Date.valueOf(fechaHasta.getValue()))){
-                System.out.println("comparo segundo");
-
 
                 Date fechaDe = Date.valueOf(fechaDesde.getValue());
                 Date fechaHas = Date.valueOf(fechaHasta.getValue());
 
                 list = mostrarFiltraros(fechaDe, fechaHas);
+                muestraCuenta.setText(menuCuenta.getSelectionModel().getSelectedItem().toString());
                 TablaLibroMayor.setItems(list);
             }else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -149,11 +147,12 @@ public class LibroMayorController implements Initializable {
 
         java.util.Date ahora = new java.util.Date();
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy");
+
         int a = Integer.parseInt(formateador.format(ahora));
         int d = Integer.parseInt(formateador.format(dd));
         int h = Integer.parseInt(formateador.format(dh));
 
-        if ( d == h && h == a && compararMeses(dd, dh) && comparaDias(dd, dh)){
+        if ( d == h && h == a ){ //&& compararMeses(dd, dh) && comparaDias(dd, dh)){
             return true;
         }
         else{
@@ -161,11 +160,12 @@ public class LibroMayorController implements Initializable {
         }
 
     }
-
+/*
     public boolean compararMeses(Date dd, Date dh){
 
         java.util.Date ahora = new java.util.Date();
         SimpleDateFormat formateador = new SimpleDateFormat("MM");
+
         int a = Integer.parseInt(formateador.format(ahora));
         int d = Integer.parseInt(formateador.format(dd));
         int h = Integer.parseInt(formateador.format(dh));
@@ -182,7 +182,8 @@ public class LibroMayorController implements Initializable {
     public boolean comparaDias(Date dd, Date dh){
 
         java.util.Date ahora = new java.util.Date();
-        SimpleDateFormat formateador = new SimpleDateFormat("MM");
+        SimpleDateFormat formateador = new SimpleDateFormat("dd");
+
         int a = Integer.parseInt(formateador.format(ahora));
         int d = Integer.parseInt(formateador.format(dd));
         int h = Integer.parseInt(formateador.format(dh));
@@ -195,6 +196,8 @@ public class LibroMayorController implements Initializable {
         }
 
     }
+*/
+
 
     public void limpiarFiltro(){
 
