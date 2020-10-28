@@ -99,7 +99,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Urano's Contability");
+        stage.setTitle("Acerca De");
         stage.show();
 
 
@@ -129,7 +129,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Urano's Contability");
+        stage.setTitle("Asientos");
         stage.show();
     }
 
@@ -142,7 +142,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(padre);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Urano's Contability");
+        stage.setTitle("Plan de cuentas");
         stage.show();
 
     }
@@ -154,7 +154,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(padre);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Urano's Contability");
+        stage.setTitle("Datos de empresa");
         stage.show();
 
     }
@@ -166,7 +166,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(padre);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Urano's Contability");
+        stage.setTitle("Libro Diario");
         stage.show();
 
     }
@@ -178,7 +178,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(padre);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Urano's Contability");
+        stage.setTitle("Libro Mayor");
         stage.show();
 
     }
