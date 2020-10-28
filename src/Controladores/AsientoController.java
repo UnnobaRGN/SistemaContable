@@ -113,7 +113,7 @@ public class AsientoController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        stage.setTitle("Urano's Contability");
+        stage.setTitle("Registrar asiento");
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 

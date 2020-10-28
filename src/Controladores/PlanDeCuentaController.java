@@ -122,6 +122,7 @@ public class PlanDeCuentaController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        stage.setTitle("Agregar cuenta");
         ((Node) event.getSource()).getScene().getWindow().hide();
 
     }
