@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 
 
 
-
 public class PrincipalController implements Initializable {
 
     @FXML
@@ -47,6 +46,9 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private MenuItem MenuAcercaDe = new MenuItem();
+
+    @FXML
+    private MenuItem DatosEmpresa = new MenuItem();
 
     @FXML
     private TextField TextUsuario;
@@ -136,6 +138,18 @@ public class PrincipalController implements Initializable {
 
 
         Parent padre = FXMLLoader.load(getClass().getResource("/Vista/PlanDeCuentas.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(padre);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Urano's Contability");
+        stage.show();
+
+    }
+
+    public void abrirDatosEmpresa(ActionEvent e) throws IOException{
+
+        Parent padre = FXMLLoader.load(getClass().getResource("/Vista/DatosEmpresa.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(padre);
         stage.setScene(scene);

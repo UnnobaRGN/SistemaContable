@@ -9,7 +9,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AcercaDe implements Initializable {
+public class AcercaDeController implements Initializable {
 
     @FXML
     private ImageView ImagenFondo = new ImageView();

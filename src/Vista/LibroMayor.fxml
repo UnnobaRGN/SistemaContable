@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.LibroMayorController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.LibroMayorController">
    <children>
       <ImageView fx:id="ImagenFondo" fitHeight="570.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -44,9 +44,8 @@
                   <Font name="Arial Black" size="35.0" />
                </font>
             </Label>
-            <Button fx:id="Filtrar" layoutX="75.0" layoutY="300.0" mnemonicParsing="false" onAction="#mostrarCuenta" prefHeight="33.0" prefWidth="86.0" text="Ver Cuenta" />
-            <Button fx:id="Salir" layoutX="207.0" layoutY="300.0" mnemonicParsing="false" onAction="#salirLibroMayor" prefHeight="33.0" prefWidth="79.0" text="Salir" />
-            <Button fx:id="LimpiarFiltro" layoutX="287.0" layoutY="146.0" mnemonicParsing="false" onAction="#limpiarFiltro" prefHeight="33.0" prefWidth="86.0" text="Limpiar filtro" />
+            <Button fx:id="Salir" layoutX="155.0" layoutY="342.0" mnemonicParsing="false" onAction="#salirLibroMayor" prefHeight="33.0" prefWidth="79.0" text="Salir" />
+            <Button fx:id="LimpiarFiltro" layoutX="207.0" layoutY="300.0" mnemonicParsing="false" onAction="#limpiarFiltro" prefHeight="33.0" prefWidth="86.0" text="Limpiar filtro" />
             <TableView fx:id="TablaLibroMayor" layoutX="390.0" layoutY="55.0" prefHeight="373.0" prefWidth="446.0">
               <columns>
                 <TableColumn fx:id="columnaDescripcion" prefWidth="219.0" text="Descripcion" />
@@ -56,6 +55,7 @@
               </columns>
             </TableView>
             <TextField fx:id="muestraCuenta" layoutX="390.0" layoutY="26.0" />
+            <Button fx:id="Filtrar" layoutX="98.0" layoutY="300.0" mnemonicParsing="false" onAction="#filtrarFechas" prefHeight="33.0" prefWidth="86.0" text="Filtrar" />
          </children>
       </AnchorPane>
    </children>
