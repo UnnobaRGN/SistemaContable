@@ -80,16 +80,20 @@ public class AgregarCuentaController implements Initializable {
                 ps.setString(6,"Si");
 
                 ps.execute();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion");
+                alert.setHeaderText("Operacion exitosa!");
+                alert.setContentText("Se ha agregado con exito la cuenta");
+                alert.showAndWait();
+                ((Node) actionEvent.getSource()).getScene().getWindow().hide();
 
             } catch (Exception e) {
-
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText("Por favor,");
+                alert.setContentText("Ingrese solo digitos en el codigo de la cuenta");
+                alert.showAndWait();
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Atencion");
-            alert.setHeaderText("Operacion exitosa!");
-            alert.setContentText("Se ha agregado con exito la cuenta");
-            alert.showAndWait();
-            ((Node) actionEvent.getSource()).getScene().getWindow().hide();
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Atencion!");
