@@ -45,6 +45,9 @@ public class PrincipalController implements Initializable {
     private Menu Ayuda = new Menu();
 
     @FXML
+    private MenuItem MenuUsuario = new MenuItem();
+
+    @FXML
     private MenuItem MenuAcercaDe = new MenuItem();
 
     @FXML
@@ -52,6 +55,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private TextField TextUsuario;
+
 
     @FXML
     private Button Asiento;
@@ -89,6 +93,7 @@ public class PrincipalController implements Initializable {
         Imagen4.setImage(brandingImage4);
 
         informarUsuario();
+        MenuUsuario.setVisible(u.getIdperfil()==1);
 
     }
 
@@ -179,6 +184,17 @@ public class PrincipalController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Libro Mayor");
+        stage.show();
+
+    }
+
+    public void crearUsuario(ActionEvent event) throws  IOException{
+        Parent padre = FXMLLoader.load(getClass().getResource("/Vista/CrearUsuario.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(padre);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Crear Usuario");
         stage.show();
 
     }

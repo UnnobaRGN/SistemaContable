@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.PrincipalController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.PrincipalController">
    <children>
       <ImageView fx:id="ImagenFondo" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -25,6 +25,7 @@
                      <items>
                         <MenuItem fx:id="DatosEmpresa" mnemonicParsing="false" onAction="#abrirDatosEmpresa" text="Datos Empresa" />
                         <MenuItem fx:id="MenuAcercaDe" mnemonicParsing="false" onAction="#abrirAcercaDe" text="Acerca de..." />
+                        <MenuItem fx:id="MenuUsuario" mnemonicParsing="false" onAction="#crearUsuario" text="Crear Usuario" />
                      </items>
                      <graphic>
                         <TextField fx:id="TextUsuario">
