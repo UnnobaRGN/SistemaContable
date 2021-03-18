@@ -5,27 +5,27 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.MenuPrincipalController">
+<AnchorPane fx:id="anchor1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.MenuPrincipalController">
    <children>
-      <ImageView fitHeight="332.0" fitWidth="542.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenFondo" fitHeight="332.0" fitWidth="542.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="278.0" prefWidth="475.0">
+      <AnchorPane fx:id="anchor2" prefHeight="278.0" prefWidth="475.0">
          <children>
-            <ImageView fitHeight="124.0" fitWidth="180.0" layoutX="263.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="40.0">
+            <ImageView fx:id="imagenAdministracion" fitHeight="124.0" fitWidth="180.0" layoutX="263.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="40.0">
                <image>
                   <Image url="@../../Imagenes/MenuPrincipalAdm.jpg" />
                </image>
             </ImageView>
-            <Button layoutX="297.0" layoutY="196.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" text="Administracion" AnchorPane.rightAnchor="83.0" />
-            <ImageView fitHeight="115.0" fitWidth="180.0" layoutX="33.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0">
+            <Button fx:id="botonAdministracion" layoutX="297.0" layoutY="196.0" mnemonicParsing="false" onAction="#accederAdministracion" prefHeight="38.0" prefWidth="103.0" text="Administracion" AnchorPane.rightAnchor="83.0" />
+            <ImageView fx:id="imagenVenta" fitHeight="115.0" fitWidth="180.0" layoutX="33.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0">
                <image>
                   <Image url="@../../Imagenes/MenuPrincipalVenta.jpeg" />
                </image>
             </ImageView>
-            <Button layoutX="74.0" layoutY="196.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" text="Ventas" />
+            <Button fx:id="botonVenta" layoutX="74.0" layoutY="196.0" mnemonicParsing="false" onAction="#accederVentas" prefHeight="38.0" prefWidth="103.0" text="Ventas" />
          </children>
       </AnchorPane>
    </children>
