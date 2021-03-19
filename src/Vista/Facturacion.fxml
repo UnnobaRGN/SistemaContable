@@ -13,29 +13,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturacionController">
    <children>
-      <ImageView fitHeight="512.0" fitWidth="214.0" layoutX="-88.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenIzquierda" fitHeight="512.0" fitWidth="214.0" layoutX="-88.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/pep.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="534.0" fitWidth="772.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenDerecha" fitHeight="534.0" fitWidth="772.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
       <AnchorPane prefHeight="490.0" prefWidth="840.0">
          <children>
-            <Button layoutX="23.0" layoutY="92.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Clientes" />
+            <Button fx:id="botonClientes" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accederCliente" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Clientes" />
             <Label layoutX="389.0" layoutY="21.0" text="FACTURACION" textAlignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>
             </Label>
-            <Button layoutX="23.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Stock" />
-            <Button layoutX="3.0" layoutY="193.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Metodo de Costeo" />
-            <Button layoutX="23.0" layoutY="244.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Ventas" />
+            <Button fx:id="botonStock" layoutX="23.0" layoutY="144.0" mnemonicParsing="false" onAction="#accederStock" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Stock" />
+            <Button fx:id="botonCosteo" layoutX="3.0" layoutY="193.0" mnemonicParsing="false" onAction="#accederCosteo" prefHeight="32.0" prefWidth="120.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Metodo de Costeo" />
+            <Button fx:id="botonVentas" layoutX="23.0" layoutY="244.0" mnemonicParsing="false" onAction="#accederVentas" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Ventas" />
             <Label layoutX="138.0" layoutY="68.0" style="-fx-border-color: black; -fx-underline: true; -fx-border-width: 0 0 1 0;" text="Encabezado" AnchorPane.topAnchor="68.0">
                <font>
                   <Font name="Arial Bold Italic" size="20.0" />
@@ -46,11 +46,11 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <MenuButton layoutX="182.0" layoutY="104.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="37.0" text="...">
+            <MenuButton fx:id="menuTipo" layoutX="182.0" layoutY="104.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="37.0" text="...">
               <items>
-                <MenuItem mnemonicParsing="false" text="A" />
-                <MenuItem mnemonicParsing="false" text="B" />
-                  <MenuItem mnemonicParsing="false" text="C" />
+                <MenuItem fx:id="itemA" mnemonicParsing="false" text="A" />
+                <MenuItem fx:id="itemB" mnemonicParsing="false" text="B" />
+                  <MenuItem fx:id="itemC" mnemonicParsing="false" text="C" />
               </items>
             </MenuButton>
             <Label layoutX="143.0" layoutY="135.0" text="Fecha entrega:">
@@ -58,7 +58,7 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <DatePicker layoutX="250.0" layoutY="131.0" prefHeight="26.0" prefWidth="107.0" />
+            <DatePicker fx:id="fechaEntrega" layoutX="250.0" layoutY="131.0" prefHeight="26.0" prefWidth="107.0" />
             <Label layoutX="140.0" layoutY="164.0" text="Cliente" AnchorPane.topAnchor="164.0">
                <font>
                   <Font name="Arial Bold Italic" size="20.0" />
@@ -69,29 +69,29 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="202.0" layoutY="192.0" prefHeight="26.0" prefWidth="57.0" />
+            <TextField fx:id="codigoCliente" layoutX="202.0" layoutY="192.0" prefHeight="26.0" prefWidth="57.0" />
             <Label layoutX="137.0" layoutY="229.0" text="Nombre:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="202.0" layoutY="224.0" prefHeight="26.0" prefWidth="155.0" />
+            <TextField fx:id="nombreCliente" layoutX="202.0" layoutY="224.0" prefHeight="26.0" prefWidth="155.0" />
             <Label layoutX="137.0" layoutY="260.0" text="Direccion:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="211.0" layoutY="255.0" prefHeight="26.0" prefWidth="145.0" />
+            <TextField fx:id="direccionCliente" layoutX="211.0" layoutY="255.0" prefHeight="26.0" prefWidth="145.0" />
             <Label layoutX="137.0" layoutY="292.0" text="Categoria IVA:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <MenuButton layoutX="250.0" layoutY="287.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="...">
+            <MenuButton fx:id="menuCategoria" layoutX="250.0" layoutY="287.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="...">
                <items>
-                  <MenuItem mnemonicParsing="false" text="A" />
-                  <MenuItem mnemonicParsing="false" text="B" />
-                  <MenuItem mnemonicParsing="false" text="C" />
+                  <MenuItem fx:id="itemAA" mnemonicParsing="false" text="A" />
+                  <MenuItem fx:id="itemBB" mnemonicParsing="false" text="B" />
+                  <MenuItem fx:id="itemCC" mnemonicParsing="false" text="C" />
                </items>
             </MenuButton>
             <Label layoutX="137.0" layoutY="325.0" text="CUIT:">
@@ -99,8 +99,8 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="182.0" layoutY="320.0" prefHeight="26.0" prefWidth="104.0" />
-            <Button layoutX="292.0" layoutY="321.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" text="Limpiar" />
+            <TextField fx:id="cuitCliente" layoutX="182.0" layoutY="320.0" prefHeight="26.0" prefWidth="104.0" />
+            <Button fx:id="botonLimpiarCliente" layoutX="292.0" layoutY="321.0" mnemonicParsing="false" onAction="#limpiarCliente" prefHeight="26.0" prefWidth="67.0" text="Limpiar" />
             <Label layoutX="134.0" layoutY="356.0" text="Vendedor">
                <font>
                   <Font name="Arial Bold Italic" size="20.0" />
@@ -111,21 +111,21 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="193.0" layoutY="385.0" prefHeight="26.0" prefWidth="57.0" />
-            <MenuButton layoutX="256.0" layoutY="385.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="...">
+            <TextField fx:id="codigoVendedor" layoutX="193.0" layoutY="385.0" prefHeight="26.0" prefWidth="57.0" />
+            <MenuButton fx:id="menuVendedor" layoutX="256.0" layoutY="385.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="...">
                <items>
-                  <MenuItem mnemonicParsing="false" text="A" />
-                  <MenuItem mnemonicParsing="false" text="B" />
-                  <MenuItem mnemonicParsing="false" text="C" />
+                  <MenuItem fx:id="itemAAA" mnemonicParsing="false" text="A" />
+                  <MenuItem fx:id="itemBBB" mnemonicParsing="false" text="B" />
+                  <MenuItem fx:id="itemCCC" mnemonicParsing="false" text="C" />
                </items>
             </MenuButton>
-            <TableView layoutX="377.0" layoutY="169.0" prefHeight="209.0" prefWidth="437.0">
+            <TableView fx:id="tablaFactura" layoutX="377.0" layoutY="169.0" prefHeight="209.0" prefWidth="437.0">
               <columns>
-                <TableColumn prefWidth="60.79998779296875" text="Codigo" />
-                <TableColumn prefWidth="182.4000244140625" text="Descripcion" />
-                  <TableColumn prefWidth="56.800048828125" text="Cantidad" />
-                  <TableColumn prefWidth="66.39996337890625" text="Precio" />
-                  <TableColumn prefWidth="71.2000732421875" text="Subtotal" />
+                <TableColumn fx:id="columnaCodigo" prefWidth="60.79998779296875" text="Codigo" />
+                <TableColumn fx:id="columnaDescripcion" prefWidth="182.4000244140625" text="Descripcion" />
+                  <TableColumn fx:id="columnaCantidad" prefWidth="56.800048828125" text="Cantidad" />
+                  <TableColumn fx:id="columnaPrecio" prefWidth="66.39996337890625" text="Precio" />
+                  <TableColumn fx:id="columnaSubtotal" prefWidth="71.2000732421875" text="Subtotal" />
               </columns>
             </TableView>
             <Label layoutX="377.0" layoutY="68.0" text="Detalle">
@@ -138,43 +138,43 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="438.0" layoutY="103.0" prefHeight="26.0" prefWidth="57.0" />
+            <TextField fx:id="codigoArticulo" layoutX="438.0" layoutY="103.0" prefHeight="26.0" prefWidth="57.0" />
             <Label layoutX="502.0" layoutY="107.0" text="Cantidad:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="572.0" layoutY="102.0" prefHeight="26.0" prefWidth="49.0" AnchorPane.rightAnchor="198.4" />
+            <TextField fx:id="cantidadArticulo" layoutX="572.0" layoutY="102.0" prefHeight="26.0" prefWidth="70.0" AnchorPane.rightAnchor="198.0" />
             <Label layoutX="377.0" layoutY="135.0" text="Descripcion:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="473.0" layoutY="130.0" prefHeight="26.0" prefWidth="146.0" AnchorPane.rightAnchor="198.4" />
+            <TextField fx:id="descripcionVenta" layoutX="473.0" layoutY="130.0" prefHeight="26.0" prefWidth="168.0" AnchorPane.rightAnchor="198.0" />
             <Label layoutX="653.0" layoutY="135.0" text="Precio:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="705.0" layoutY="131.0" prefHeight="26.0" prefWidth="49.0" />
+            <TextField fx:id="precioArticulo" layoutX="705.0" layoutY="131.0" prefHeight="26.0" prefWidth="49.0" />
             <Label layoutX="730.0" layoutY="71.0" text="Item:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="766.0" layoutY="66.0" prefHeight="26.0" prefWidth="40.0" />
-            <Button layoutX="653.0" layoutY="103.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="Buscar Articulo" />
-            <Button layoutX="266.0" layoutY="191.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Buscar Cliente" />
-            <TextField layoutX="409.0" layoutY="385.0" prefHeight="26.0" prefWidth="40.0" />
+            <TextField fx:id="itemFacturacion" layoutX="766.0" layoutY="66.0" prefHeight="26.0" prefWidth="40.0" />
+            <Button fx:id="botonBuscarArticulo" layoutX="653.0" layoutY="103.0" mnemonicParsing="false" onAction="#buscarArticulo" prefHeight="26.0" prefWidth="104.0" text="Buscar Articulo" />
+            <Button fx:id="botonBuscarCliente" layoutX="266.0" layoutY="191.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="26.0" prefWidth="93.0" text="Buscar Cliente" />
+            <TextField fx:id="ivaTotal" layoutX="409.0" layoutY="385.0" prefHeight="26.0" prefWidth="40.0" />
             <Label layoutX="376.0" layoutY="390.0" text="IVA:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="735.0" layoutY="385.0" prefHeight="26.0" prefWidth="80.0" />
-            <Button layoutX="292.0" layoutY="439.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" text="Limpiar Todo" AnchorPane.rightAnchor="456.8" />
-            <Button layoutX="397.0" layoutY="439.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="Cancelar Factura" AnchorPane.leftAnchor="397.0" />
-            <Button layoutX="524.0" layoutY="439.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" text="Confirmar Factura" AnchorPane.leftAnchor="515.0" />
+            <TextField fx:id="precioFinal" editable="false" layoutX="735.0" layoutY="385.0" prefHeight="26.0" prefWidth="80.0" />
+            <Button fx:id="botonLimpiarTodo" layoutX="292.0" layoutY="439.0" mnemonicParsing="false" onAction="#limpiarTodo" prefHeight="26.0" prefWidth="91.0" text="Limpiar Todo" AnchorPane.rightAnchor="456.8" />
+            <Button fx:id="botonCancelarFactura" layoutX="397.0" layoutY="439.0" mnemonicParsing="false" onAction="#cancelarFactura" prefHeight="26.0" prefWidth="104.0" text="Cancelar Factura" AnchorPane.leftAnchor="397.0" />
+            <Button fx:id="botonConfirmarFactura" layoutX="524.0" layoutY="439.0" mnemonicParsing="false" onAction="#confirmarFactura" prefHeight="26.0" prefWidth="117.0" text="Confirmar Factura" AnchorPane.leftAnchor="515.0" />
             <Label layoutX="654.0" layoutY="387.0" text="TOTAL:">
                <font>
                   <Font name="Arial Bold Italic" size="20.0" />

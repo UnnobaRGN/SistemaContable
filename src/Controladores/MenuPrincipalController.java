@@ -66,12 +66,12 @@ public class MenuPrincipalController implements Initializable {
         }
 
         public void accederVentas(ActionEvent event) throws IOException {
-            Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Ventas.fxml"));
+            Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/MenuVentas.fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(asiento);
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.setTitle("Ventas");
+            stage.setTitle("Menu Ventas");
             stage.show();
         }
 

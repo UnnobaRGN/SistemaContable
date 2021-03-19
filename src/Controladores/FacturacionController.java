@@ -32,17 +32,124 @@ public class FacturacionController implements Initializable{
     private ImageView imagenIzquierda = new ImageView();
 
     @FXML
-    private Button accederCosteo;
+    private Button botonCosteo;
 
     @FXML
-    private Button accederClientes;
+    private Button botonClientes;
 
     @FXML
-    private Button accederVentas;
+    private Button botonVentas;
 
     @FXML
-    private Button accederStock;
+    private Button botonStock;
 
+    @FXML
+    private MenuButton menuTipo;
+
+    @FXML
+    private MenuItem itemA;
+
+    @FXML
+    private MenuItem itemB;
+
+    @FXML
+    private MenuItem itemC;
+
+    @FXML
+    private DatePicker fechaEntrega;
+
+    @FXML
+    private TextField codigoCliente;
+
+    @FXML
+    private Button botonBuscarCliente;
+
+    @FXML
+    private TextField direccionCliente;
+
+    @FXML
+    private TextField nombrecliente;
+
+    @FXML
+    private TextField cuitCliente;
+
+    @FXML
+    private MenuButton menuCategoria;
+
+    @FXML
+    private MenuItem itemAA;
+
+    @FXML
+    private MenuItem itemBB;
+
+    @FXML
+    private MenuItem itemCC;
+
+    @FXML
+    private TextField codigoVendedor;
+
+    @FXML
+    private MenuButton menuVendedor;
+
+    @FXML
+    private MenuItem itemAAA;
+
+    @FXML
+    private MenuItem itemBBB;
+
+    @FXML
+    private MenuItem itemCCC;
+
+    @FXML
+    private TextField codigoArticulo;
+
+    @FXML
+    private TextField descripcionVenta;
+
+    @FXML
+    private TextField cantiadArticulo;
+
+    @FXML
+    private Button botonBuscarArticulo;
+
+    @FXML
+    private TextField precioArticulo;
+
+    @FXML
+    private TextField itemFacturacion;
+
+    @FXML
+    private TextField ivaTotal;
+
+    @FXML
+    private TextField precioFinal;
+
+    @FXML
+    private Button botonLimpiarTodo;
+
+    @FXML
+    private Button botonCancelarFactura;
+
+    @FXML
+    private Button botonConfirmarFactura;
+
+    @FXML
+    private TableView<Producto> tablaFacturacion;
+
+    @FXML
+    private TableColumn<Producto, Integer> columnaCodigo;
+
+    @FXML
+    private TableColumn<Producto, String> columnaDescripcion;
+
+    @FXML
+    private TableColumn<Producto, Float> columnaPrecio;
+
+    @FXML
+    private TableColumn<Producto, Float> columnaSubtotal;
+
+    @FXML
+    private TableColumn<Producto, Integer> columnaCantiad;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,7 +174,7 @@ public class FacturacionController implements Initializable{
         stage.show();
     }
 
-    public void accederClientes(ActionEvent e) throws IOException{
+    public void accederCliente(ActionEvent e) throws IOException{
         Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Clientes.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(asiento);
@@ -96,4 +203,17 @@ public class FacturacionController implements Initializable{
         stage.setTitle("Metodo de Costeo");
         stage.show();
     }
+
+    public void buscarCliente(){}
+
+    public void limpiarCliente(){}
+
+    public void buscarArticulo(){}
+
+    public void limpiarTodo(){}
+
+    public void cancelarFactura(){}
+
+    public void confirmarFactura(){}
+
 }
