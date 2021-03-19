@@ -1,5 +1,6 @@
 package Controladores;
 
+
 import Modelo.Cuenta_Asiento;
 import Modelo.Producto;
 import javafx.event.ActionEvent;
@@ -22,7 +23,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 
-public class VentasController implements Initializable {
+public class FacturacionController implements Initializable{
 
     @FXML
     private ImageView imagenDerecha = new ImageView();
@@ -37,68 +38,15 @@ public class VentasController implements Initializable {
     private Button accederClientes;
 
     @FXML
-    private Button accederFacturacion;
+    private Button accederVentas;
 
     @FXML
     private Button accederStock;
 
-    @FXML
-    private TextField cantidad;
-
-    @FXML
-    private TextField stock;
-
-    @FXML
-    private TextField codigo;
-
-    @FXML
-    private TextField precio;
-
-    @FXML
-    private ComboBox producto;
-
-    @FXML
-    private ComboBox cliente;
-
-    @FXML
-    private DatePicker fecha;
-
-    @FXML
-    private TableView<Producto> tabla;
-
-    @FXML
-    private TableColumn<Producto, Integer> columnaCodigo;
-
-    @FXML
-    private TableColumn<Producto, Integer> columnaCantidad;
-
-    @FXML
-    private TableColumn<Producto, String> columnaDescripcion;
-
-    @FXML
-    private TableColumn<Producto, Float> columnaPrecio;
-
-    @FXML
-    private TableColumn<Producto, Float> columnaTotal;
-
-    @FXML
-    private Button agregarProducto;
-
-    @FXML
-    private TextField totalPagar;
-
-    @FXML
-    private Button confirmarVenta;
-
-    @FXML
-    private Button cancelarVenta;
-
-    @FXML
-    private Button agregarP;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         File brandingDerecha = new File("Imagenes/pep.png");
         Image brandingDer = new Image(brandingDerecha.toURI().toString());
         imagenIzquierda.setImage(brandingDer);
@@ -107,20 +55,15 @@ public class VentasController implements Initializable {
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
         imagenDerecha.setImage(brandingIzq);
 
-
-        confirmarVenta();
-        cancelarVenta();
-        agregarProducto();
-
     }
 
-    public void accederFacturacion(ActionEvent e) throws IOException{
-        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Facturacion.fxml"));
+    public void accederVentas(ActionEvent e) throws IOException{
+        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Ventas.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Facturacion");
+        stage.setTitle("Ventas");
         stage.show();
     }
 
@@ -153,12 +96,4 @@ public class VentasController implements Initializable {
         stage.setTitle("Metodo de Costeo");
         stage.show();
     }
-
-    public void confirmarVenta(){
-    }
-
-    public void cancelarVenta(){}
-
-    public void agregarProducto(){}
-
 }

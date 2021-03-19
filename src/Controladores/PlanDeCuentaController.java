@@ -13,11 +13,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.w3c.dom.events.MouseEvent;
 import sample.ConexionBD;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -27,6 +30,9 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class PlanDeCuentaController implements Initializable {
+
+    @FXML
+    private ImageView imagenDebajo;
 
     @FXML
     private AnchorPane parent;
@@ -68,6 +74,11 @@ public class PlanDeCuentaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        File brandingDebajo = new File("Imagenes/asd.png");
+        Image brandingUnder = new Image(brandingDebajo.toURI().toString());
+        imagenDebajo.setImage(brandingUnder);
+
         MostrarDatos();
 
     }

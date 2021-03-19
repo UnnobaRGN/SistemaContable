@@ -51,15 +51,15 @@ public class MenuPrincipalController implements Initializable {
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            File brandingFile = new File("../Imagenes/asd.png.jpg");
+            File brandingFile = new File("Imagenes/asd.png");
             Image brandingImage = new Image(brandingFile.toURI().toString());
             imagenFondo.setImage(brandingImage);
 
-            File brandingVenta = new File("../Imagenes/MenuPrincipalVenta.jpeg");
+            File brandingVenta = new File("Imagenes/MenuPrincipalVenta.jpeg");
             Image brandingVentas = new Image(brandingVenta.toURI().toString());
             imagenVenta.setImage(brandingVentas);
 
-            File brandingAdm = new File("../Imagenes/MenuPrincipalAdm.jpg");
+            File brandingAdm = new File("Imagenes/MenuPrincipalAdm.jpg");
             Image brandingAdms = new Image(brandingAdm.toURI().toString());
             imagenAdministracion.setImage(brandingAdms);
 

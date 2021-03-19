@@ -10,12 +10,15 @@ public class Producto {
     private String stock;
     private float precio;
     private String descripcion;
+    private boolean activo;
+    private int idproveedor;
 
-    public Producto(String nombreProducto, String stock, float precio, String descripcion) {
+    public Producto(Integer codigo, String nombreProducto, String stock, float precio, int idproveedor) {
+        this.codigo = codigo;
         this.nombreProducto = nombreProducto;
         this.stock = stock;
         this.precio = precio;
-        this.descripcion = descripcion;
+        this.idproveedor = idproveedor;
     }
 
     public int getIdProducto() {
@@ -56,5 +59,29 @@ public class Producto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public int getIdproveedor() {
+        return idproveedor;
+    }
+
+    public void setIdproveedor(int idproveedor) {
+        this.idproveedor = idproveedor;
     }
 }
