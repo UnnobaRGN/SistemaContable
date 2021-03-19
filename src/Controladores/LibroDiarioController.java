@@ -11,10 +11,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.ConexionBD;
+import com.pdfjet.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
@@ -78,6 +82,9 @@ public class LibroDiarioController implements Initializable {
     private Button Filtrar;
 
     ObservableList<Cuenta_Asiento> list = FXCollections.observableArrayList();
+
+    public LibroDiarioController() throws Exception {
+    }
 
 
     @Override
@@ -246,8 +253,6 @@ public class LibroDiarioController implements Initializable {
     }
 
    public void imprimirLibroDiario(ActionEvent e){
-
-        System.out.println("Ger se ocupa de esto");
 
     }
 }
