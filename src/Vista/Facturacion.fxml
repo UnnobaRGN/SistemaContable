@@ -28,7 +28,7 @@
       <AnchorPane prefHeight="490.0" prefWidth="840.0">
          <children>
             <Button fx:id="botonClientes" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accederCliente" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Clientes" />
-            <Label layoutX="389.0" layoutY="21.0" text="FACTURACION" textAlignment="CENTER">
+            <Label layoutX="389.0" layoutY="21.0" style="-fx-underline: true;" text="F A C T U R A C I O N" textAlignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>
@@ -36,7 +36,7 @@
             <Button fx:id="botonStock" layoutX="23.0" layoutY="144.0" mnemonicParsing="false" onAction="#accederStock" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Stock" />
             <Button fx:id="botonCosteo" layoutX="3.0" layoutY="193.0" mnemonicParsing="false" onAction="#accederCosteo" prefHeight="32.0" prefWidth="120.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Metodo de Costeo" />
             <Button fx:id="botonVentas" layoutX="23.0" layoutY="244.0" mnemonicParsing="false" onAction="#accederVentas" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Ventas" />
-            <Label layoutX="138.0" layoutY="68.0" style="-fx-border-color: black; -fx-underline: true; -fx-border-width: 0 0 1 0;" text="Encabezado" AnchorPane.topAnchor="68.0">
+            <Label layoutX="138.0" layoutY="68.0" style="-fx-underline: true;" text="Encabezado" AnchorPane.topAnchor="68.0">
                <font>
                   <Font name="Arial Bold Italic" size="20.0" />
                </font>
@@ -101,7 +101,7 @@
             </Label>
             <TextField fx:id="cuitCliente" layoutX="182.0" layoutY="320.0" prefHeight="26.0" prefWidth="104.0" />
             <Button fx:id="botonLimpiarCliente" layoutX="292.0" layoutY="321.0" mnemonicParsing="false" onAction="#limpiarCliente" prefHeight="26.0" prefWidth="67.0" text="Limpiar" />
-            <Label layoutX="134.0" layoutY="356.0" text="Vendedor">
+            <Label layoutX="134.0" layoutY="356.0" style="-fx-underline: true;" text="Vendedor">
                <font>
                   <Font name="Arial Bold Italic" size="20.0" />
                </font>
@@ -128,7 +128,7 @@
                   <TableColumn fx:id="columnaSubtotal" prefWidth="71.2000732421875" text="Subtotal" />
               </columns>
             </TableView>
-            <Label layoutX="377.0" layoutY="68.0" text="Detalle">
+            <Label layoutX="377.0" layoutY="68.0" style="-fx-underline: true;" text="Detalle">
                <font>
                   <Font name="Arial Bold Italic" size="20.0" />
                </font>
@@ -175,7 +175,7 @@
             <Button fx:id="botonLimpiarTodo" layoutX="292.0" layoutY="439.0" mnemonicParsing="false" onAction="#limpiarTodo" prefHeight="26.0" prefWidth="91.0" text="Limpiar Todo" AnchorPane.rightAnchor="456.8" />
             <Button fx:id="botonCancelarFactura" layoutX="397.0" layoutY="439.0" mnemonicParsing="false" onAction="#cancelarFactura" prefHeight="26.0" prefWidth="104.0" text="Cancelar Factura" AnchorPane.leftAnchor="397.0" />
             <Button fx:id="botonConfirmarFactura" layoutX="524.0" layoutY="439.0" mnemonicParsing="false" onAction="#confirmarFactura" prefHeight="26.0" prefWidth="117.0" text="Confirmar Factura" AnchorPane.leftAnchor="515.0" />
-            <Label layoutX="654.0" layoutY="387.0" text="TOTAL:">
+            <Label layoutX="654.0" layoutY="387.0" style="-fx-underline: true;" text="TOTAL:">
                <font>
                   <Font name="Arial Bold Italic" size="20.0" />
                </font>
