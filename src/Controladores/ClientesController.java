@@ -119,12 +119,12 @@ public class ClientesController implements Initializable{
     }
 
     public void accederFacturacion(ActionEvent e) throws IOException{
-        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Facturacion.fxml"));
+        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Facturas.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Facturacion");
+        stage.setTitle("Facturas");
         stage.show();
     }
 

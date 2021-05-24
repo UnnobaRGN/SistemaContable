@@ -26,8 +26,8 @@
       </ImageView>
       <AnchorPane prefHeight="425.0" prefWidth="826.0">
          <children>
-            <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accederFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturacion" />
-            <Label layoutX="355.0" layoutY="22.0" text="V E N T A S">
+            <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accederFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturas" />
+            <Label layoutX="355.0" layoutY="22.0" style="-fx-underline: true;" text="V E N T A S">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>
@@ -57,13 +57,13 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="precio" layoutX="443.0" layoutY="101.0" prefHeight="26.0" prefWidth="80.0" />
+            <TextField fx:id="precio" editable="false" layoutX="443.0" layoutY="101.0" prefHeight="26.0" prefWidth="80.0" />
             <Label layoutX="529.0" layoutY="83.0" text="Stock disp:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="stock" layoutX="530.0" layoutY="101.0" prefHeight="26.0" prefWidth="94.0" />
+            <TextField fx:id="stock" editable="false" layoutX="530.0" layoutY="101.0" prefHeight="26.0" prefWidth="94.0" />
             <DatePicker fx:id="fecha" layoutX="657.0" layoutY="78.0" prefHeight="26.0" prefWidth="147.0" />
             <Label layoutX="657.0" layoutY="60.0" text="Seleccionar fecha:">
                <font>
