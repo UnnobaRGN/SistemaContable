@@ -65,7 +65,7 @@
             </Label>
             <TextField fx:id="textoCantidad" layoutX="215.0" layoutY="239.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.topAnchor="239.0" />
             <Button fx:id="botonDescarga" layoutX="161.0" layoutY="329.0" mnemonicParsing="false" onAction="#accederDescarga" text="Descargar" />
-            <TableView fx:id="tablaStock" layoutX="356.0" layoutY="94.0" prefHeight="294.0" prefWidth="452.0">
+            <TableView fx:id="tablaStock" layoutX="350.0" layoutY="94.0" prefHeight="263.0" prefWidth="458.0">
               <columns>
                 <TableColumn fx:id="columnaCodigo" prefWidth="72.79998779296875" text="Codigo" />
                 <TableColumn fx:id="columnaNombre" prefWidth="131.20001220703125" text="Nombre" />

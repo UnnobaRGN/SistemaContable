@@ -20,6 +20,10 @@ public class Cliente {
         this.cuit = cuit;
     }
 
+    public Cliente() {
+
+    }
+
     public int getDni() {
         return dni;
     }
@@ -28,8 +32,8 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombre(String nombre) {
+        return this.nombre;
     }
 
     public void setNombre(String nombre) {
@@ -52,7 +56,7 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public String getRazonSocial() {
+    public String getRazonSocial(String razon_social) {
         return razonSocial;
     }
 

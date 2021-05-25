@@ -3,6 +3,8 @@ package Controladores;
 import Modelo.Cliente;
 import Modelo.Cuenta_Asiento;
 import Modelo.Producto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -21,6 +24,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -81,33 +87,74 @@ public class ClientesController implements Initializable{
     private TableView<Cliente> tablaCliente;
 
     @FXML
-    private TableColumn<Producto, Integer> columnaDni;
+    private TableColumn<Cliente, String> columnaDni;
 
     @FXML
-    private TableColumn<Producto, String> columnaNombre;
+    private TableColumn<Cliente, String> columnaNombre;
 
     @FXML
-    private TableColumn<Producto, Integer> columnaTelefono;
+    private TableColumn<Cliente, String> columnaTelefono;
 
     @FXML
-    private TableColumn<Producto, String> columnaDireccion;
+    private TableColumn<Cliente, String> columnaDireccion;
 
     @FXML
-    private TableColumn<Producto, String> columnaRazon;
+    private TableColumn<Cliente, String> columnaRazon;
 
+    ObservableList<Cliente> list = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         File brandingDerecha = new File("Imagenes/pep.png");
         Image brandingDer = new Image(brandingDerecha.toURI().toString());
-            imagenIzquierda.setImage(brandingDer);
+        imagenIzquierda.setImage(brandingDer);
 
         File brandingIzquierda = new File("Imagenes/asd.png");
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
-            imagenDerecha.setImage(brandingIzq);
+        imagenDerecha.setImage(brandingIzq);
+
+        //llenarClientes();
+
+    }
+
+    /*
+    public void llenarClientes(){
+
+        columnaDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
+        columnaDni.setCellValueFactory(new PropertyValueFactory<Cliente, String>("dni"));
+        columnaNombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
+        columnaRazon.setCellValueFactory(new PropertyValueFactory<Cliente, String>("razon"));
+        columnaTelefono.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefono"));
+
+        list = mostrarClientes();
+        tablaCliente.setItems(list);
+    }
+
+    public ObservableList<Cliente> mostrarClientes(){
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<Cliente> list = FXCollections.observableArrayList();
+
+        try {
+
+            String SQL = "SELECT c.nombre as nombre, c.razon_social as rs FROM cliente c";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.getNombre(rs.getString("nombre"));
+                c.getRazonSocial(rs.getString("rs"));
+                list.add(c);
+            }
+
+        } catch (Exception e) {
 
         }
+        return list;
+    }
+    */
+
     public void accederVentas(ActionEvent e) throws IOException{
         Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Ventas.fxml"));
         Stage stage = new Stage();

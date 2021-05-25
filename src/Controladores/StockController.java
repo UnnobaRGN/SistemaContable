@@ -152,7 +152,9 @@ public class StockController implements Initializable {
 
     public boolean noVacios(){
 
-        if (textoCodigo.getText().isEmpty() && textoProveedor.getText().isEmpty() && textoNombre.getText().isEmpty() && textoCantidad.getText().isEmpty() && textoPrecio.getText().isEmpty()){
+        if (textoCodigo.getText().isEmpty() && textoProveedor.getText().isEmpty() &&
+                textoNombre.getText().isEmpty() && textoCantidad.getText().isEmpty() &&
+                textoPrecio.getText().isEmpty()){
             return false;
         }
         return true;
@@ -171,8 +173,16 @@ public class StockController implements Initializable {
     }
 
     public void accederBuscar(ActionEvent e) throws IOException{
-        //Busca por lo que este filtrado
+        //Busca por lo que este filtrado, rehacer
+        if(noVacios()){
+            String codigo = textoCodigo.getText().isEmpty() ? textoCodigo.getText() : null;
+            String nombre = textoNombre.getText().isEmpty() ? textoNombre.getText() : null;
+            String proveedor = textoProveedor.getText().isEmpty() ? textoProveedor.getText() : null;
+            String precio = textoPrecio.getText().isEmpty() ? textoPrecio.getText() : null;
+            String cantidad = textoCantidad.getText().isEmpty() ? textoCantidad.getText() : null;
+        }
     }
+
 
     public void accederDescarga(ActionEvent e) throws IOException{
         //Descarga PDF
