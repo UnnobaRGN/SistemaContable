@@ -77,11 +77,25 @@ public class ClientesController implements Initializable{
     @FXML
     private TextField clienteRazon;
 
+
+    @FXML
+    private TextField clienteApellido;
+
+    @FXML
+    private TextField clienteEmail;
+
     @FXML
     private Button botonGuardar;
 
     @FXML
     private Button botonLimpiar;
+
+    @FXML
+    private Button botonEliminar;
+
+    @FXML
+    private Button botonBuscar;
+
 
     @FXML
     private TableView<Cliente> tablaCliente;
