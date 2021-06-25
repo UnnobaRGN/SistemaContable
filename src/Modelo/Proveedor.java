@@ -2,6 +2,7 @@ package Modelo;
 
 public class Proveedor {
 
+    private int idProveedor;
     private String nombre;
     private String razonSocial;
     private String sectorComercial;
@@ -12,8 +13,10 @@ public class Proveedor {
     private String url;
     private String observaciones;
 
+    public Proveedor(){}
 
-    public Proveedor(String nombre, String razonSocial, String sectorComercial, String direccion, String ciudad, String provincia, int telefono, String url, String observaciones) {
+    public Proveedor(int idProveedor, String nombre, String razonSocial, String sectorComercial, String direccion, String ciudad, String provincia, int telefono, String url, String observaciones) {
+        this.idProveedor = idProveedor;
         this.nombre = nombre;
         this.razonSocial = razonSocial;
         this.sectorComercial = sectorComercial;
@@ -23,6 +26,14 @@ public class Proveedor {
         this.telefono = telefono;
         this.url = url;
         this.observaciones = observaciones;
+    }
+
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     public String getNombre() {
