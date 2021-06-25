@@ -7,10 +7,11 @@ public class Cliente {
     private int telefono;
     private String direccion;
     private String razonSocial;
-    private int condicionIVA;
+    //private int condicionIVA;
     private int cuit;
+    private CondicionIva condicionIVA;
 
-    public Cliente(int dni, String nombre, int telefono, String direccion, String razonSocial, int condicionIVA, int cuit) {
+    public Cliente(int dni, String nombre, int telefono, String direccion, String razonSocial, CondicionIva condicionIVA, int cuit) {
         this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -64,11 +65,11 @@ public class Cliente {
         this.razonSocial = razonSocial;
     }
 
-    public int getCondicionIVA() {
+    public CondicionIva getCondicionIVA() {
         return condicionIVA;
     }
 
-    public void setCondicionIVA(int condicionIVA) {
+        public void setCondicionIVA(CondicionIva condicionIVA) {
         this.condicionIVA = condicionIVA;
     }
 
