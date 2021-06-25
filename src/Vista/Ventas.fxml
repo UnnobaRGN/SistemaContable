@@ -40,32 +40,32 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="codigo" layoutX="145.0" layoutY="101.0" prefHeight="26.0" prefWidth="70.0" />
-            <Label layoutX="231.0" layoutY="84.0" text="Producto:">
+            <TextField fx:id="codigo" layoutX="145.0" layoutY="101.0" prefHeight="26.0" prefWidth="99.0" />
+            <Label layoutX="254.0" layoutY="83.0" text="Producto:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="355.0" layoutY="83.0" text="Cantidad:">
+            <Label layoutX="385.0" layoutY="83.0" text="Cantidad:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="cantidad" layoutX="355.0" layoutY="101.0" prefHeight="26.0" prefWidth="80.0" />
-            <Label layoutX="443.0" layoutY="83.0" text="Precio:">
+            <TextField fx:id="cantidad" layoutX="385.0" layoutY="101.0" prefHeight="26.0" prefWidth="80.0" />
+            <Label layoutX="480.0" layoutY="83.0" text="Precio:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="precio" editable="false" layoutX="443.0" layoutY="101.0" prefHeight="26.0" prefWidth="80.0" />
-            <Label layoutX="529.0" layoutY="83.0" text="Stock disp:">
+            <TextField fx:id="precio" editable="false" layoutX="478.0" layoutY="101.0" prefHeight="26.0" prefWidth="80.0" />
+            <Label layoutX="558.0" layoutY="83.0" text="Stock disp:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="stock" editable="false" layoutX="530.0" layoutY="101.0" prefHeight="26.0" prefWidth="94.0" />
-            <DatePicker fx:id="fecha" layoutX="657.0" layoutY="78.0" prefHeight="26.0" prefWidth="147.0" />
-            <Label layoutX="657.0" layoutY="60.0" text="Seleccionar fecha:">
+            <TextField fx:id="stock" editable="false" layoutX="573.0" layoutY="101.0" prefHeight="26.0" prefWidth="51.0" />
+            <DatePicker fx:id="fecha" editable="false" layoutX="650.0" layoutY="47.0" onAction="#condicionFecha" prefHeight="26.0" prefWidth="147.0" />
+            <Label layoutX="657.0" layoutY="30.0" text="Seleccionar fecha:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
@@ -84,17 +84,23 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="469.0" layoutY="374.0" text="Total a pagar:">
+            <Label layoutX="575.0" layoutY="362.0" text="Total a pagar:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="totalPagar" layoutX="570.0" layoutY="370.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
+            <TextField fx:id="totalPagar" editable="false" layoutX="584.0" layoutY="382.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
             <Button fx:id="confirmarVenta" layoutX="702.0" layoutY="318.0" mnemonicParsing="false" onAction="#confirmarVenta" text="Confirmar venta" />
-            <Button fx:id="cancelarVenta" layoutX="701.0" layoutY="356.0" mnemonicParsing="false" onAction="#cancelarVenta" prefHeight="26.0" prefWidth="102.0" text="Cencelar venta" />
-            <ComboBox fx:id="producto" layoutX="229.0" layoutY="102.0" prefHeight="25.0" prefWidth="115.0" promptText="Seleccione" />
-            <ComboBox fx:id="cliente" layoutX="145.0" layoutY="370.0" prefHeight="25.0" prefWidth="115.0" promptText="Seleccione" />
-            <Button fx:id="agregarP" layoutX="314.0" layoutY="370.0" mnemonicParsing="false" onAction="#agregarProducto" text="Agregar producto" />
+            <Button fx:id="cancelarVenta" layoutX="701.0" layoutY="356.0" mnemonicParsing="false" onAction="#cancelarVenta" prefHeight="26.0" prefWidth="102.0" text="Cancelar venta" />
+            <ComboBox fx:id="seleccionProductos" layoutX="254.0" layoutY="102.0" onAction="#seleccionarProducto" prefHeight="25.0" prefWidth="115.0" promptText="Seleccione" />
+            <ComboBox fx:id="seleccionClientes" layoutX="145.0" layoutY="370.0" onAction="#seleccionarClientes" prefHeight="25.0" prefWidth="115.0" promptText="Seleccione" />
+            <Button fx:id="agregarP" layoutX="657.0" layoutY="102.0" mnemonicParsing="false" onAction="#agregarProducto" text="Agregar producto" />
+            <Label layoutX="445.0" layoutY="362.0" text="Total descuento:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="totalDescuento" editable="false" layoutX="465.0" layoutY="382.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
          </children>
       </AnchorPane>
    </children>

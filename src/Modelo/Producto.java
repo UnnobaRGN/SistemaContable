@@ -13,6 +13,8 @@ public class Producto {
     private boolean activo;
     private int idproveedor;
 
+    public Producto() {}
+
     public Producto(Integer codigo, String nombreProducto, String stock, float precio, int idproveedor) {
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;

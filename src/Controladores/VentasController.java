@@ -2,6 +2,8 @@ package Controladores;
 
 import Modelo.Cuenta_Asiento;
 import Modelo.Producto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +20,13 @@ import sample.ConexionBD;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class VentasController implements Initializable {
@@ -96,6 +103,12 @@ public class VentasController implements Initializable {
     @FXML
     private Button agregarP;
 
+    @FXML
+    private ComboBox seleccionProductos;
+
+    @FXML
+    private ComboBox seleccionClientes;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -107,6 +120,11 @@ public class VentasController implements Initializable {
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
         imagenDerecha.setImage(brandingIzq);
 
+        seleccionProductos.setItems(tomarProductos());
+        seleccionClientes.setItems(tomarClientes());
+
+        fecha.setValue(LocalDate.now());
+        condicionFecha();
 
         confirmarVenta();
         cancelarVenta();
@@ -154,10 +172,103 @@ public class VentasController implements Initializable {
         stage.show();
     }
 
+
+    public void condicionFecha(){
+        if(fecha.getValue().isAfter(LocalDate.now())){
+            fecha.setValue(LocalDate.now());
+        }
+    }
+
     public void confirmarVenta(){}
 
     public void cancelarVenta(){}
 
     public void agregarProducto(){}
+
+    @FXML
+    void seleccionarProducto(ActionEvent event){
+        String s = seleccionProductos.getSelectionModel().getSelectedItem().toString();
+
+        Connection conn = ConexionBD.getConnection();
+
+        try {
+
+            String SQL = "SELECT p.codigo as codigo, p.precio as precio, p.stock as stock FROM producto AS p WHERE p.nombre LIKE "+ "'" + s + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while (rs.next()) {
+                codigo.setText(rs.getString("codigo"));
+                precio.setText(rs.getString("precio"));
+                stock.setText(rs.getString("stock"));
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public ObservableList<String> tomarProductos(){
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        try {
+
+            String SQL = "SELECT p.codigo as codigo, p.nombre as nombre, p.precio as precio, p.stock as stock FROM producto AS p WHERE p.activo = true ";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while (rs.next()) {
+                list.add(rs.getString("nombre"));
+            }
+
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    @FXML
+    void seleccionarClientes(){
+        String s = seleccionClientes.getSelectionModel().getSelectedItem().toString();
+
+        Connection conn = ConexionBD.getConnection();
+
+        try {
+
+            String SQL = "SELECT c.nombre FROM cliente AS c WHERE c.nombre LIKE "+ "'" + s + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while (rs.next()) {
+                codigo.setText(rs.getString("codigo"));
+                precio.setText(rs.getString("precio"));
+                stock.setText(rs.getString("stock"));
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public ObservableList<String> tomarClientes(){
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        try {
+
+            String SQL = "SELECT c.nombre FROM cliente AS c ";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while (rs.next()) {
+                list.add(rs.getString("nombre"));
+            }
+
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
 
 }
