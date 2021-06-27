@@ -2,19 +2,19 @@ package Modelo;
 
 public class Cliente {
 
-    private int dni;
+    private String dni;
     private String nombre;
-    private int telefono;
+    private String telefono;
     private String direccion;
     private String razonSocial;
     //private int condicionIVA;
-    private int cuit;
+    private String cuit;
     private CondicionIva condicionIVA;
     private String apellido;
     private String Email;
     private TipoPersona tipoPersona;
 
-    public Cliente(int dni, String nombre, int telefono, String direccion, String razonSocial, CondicionIva condicionIVA, int cuit,String apelldo,String Email,TipoPersona persona) {
+    public Cliente(String dni, String nombre, String telefono, String direccion, String razonSocial, CondicionIva condicionIVA, String cuit,String apelldo,String Email,TipoPersona persona) {
         this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -55,15 +55,15 @@ public class Cliente {
         this.tipoPersona = tipoPersona;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
-    public String getNombre(String nombre) {
+    public String getNombre() {
         return this.nombre;
     }
 
@@ -71,11 +71,11 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -103,11 +103,11 @@ public class Cliente {
         this.condicionIVA = condicionIVA;
     }
 
-    public int getCuit() {
+    public String getCuit() {
         return cuit;
     }
 
-    public void setCuit(int cuit) {
+    public void setCuit(String cuit) {
         this.cuit = cuit;
     }
 }

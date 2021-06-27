@@ -124,7 +124,12 @@ public class ClientesController implements Initializable{
     private TableColumn<Cliente, String> columnaEmail;
 
     @FXML
+    private TextField idCliente;
+
+    @FXML
     private TableColumn<Cliente, String> columnaCuit;
+
+
 
     ObservableList<Cliente> list = FXCollections.observableArrayList();
 
@@ -568,11 +573,101 @@ public class ClientesController implements Initializable{
         });
     }
 
+    public void busquedaCliente(ActionEvent event){
+        Cliente c = buscarCliente(BuscarCliente.getText());
+        if(c.getNombre()!=null){
+            mostrarClienteEnTabla(c);
 
 
 
 
 
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Error,");
+            alert.setContentText("No se ha encontrado el cliente, por favor, realize una nueva busqueda");
+            alert.showAndWait();
+        }
+    }
+
+
+    public Cliente buscarCliente(String s){
+        Connection conn = ConexionBD.getConnection();
+        Cliente c = new Cliente();
+        try {
+            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.nombre="+ "'" + s +"'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while(rs.next()){
+                c.setDni(rs.getString("dni"));
+                c.setDireccion(rs.getString("direccion"));
+                c.setNombre(rs.getString("nombre"));
+                c.setApellido(rs.getString("apellido"));
+                c.setCuit(rs.getString("cuit"));
+                c.setTelefono(rs.getString("telefono"));
+                c.setEmail(rs.getString("email"));
+                c.setRazonSocial(rs.getString("razonsocial"));
+                c.setTipoPersona(buscarTipoPersona(rs.getInt("idtipopersona")));
+                c.setCondicionIVA(buscarCondicionIva(rs.getInt("idcondicioniva")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+
+        }
+
+        return c;
+    }
+
+    public TipoPersona buscarTipoPersona(int i){
+        Connection conn = ConexionBD.getConnection();
+        TipoPersona t = new TipoPersona();
+        try {
+            String SQL = "SELECT idtipo_persona as idpersona, tipopersona FROM tipo_persona WHERE idtipo_persona="+ "'" + i + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            if(rs.next()){
+                t.setId_tipopersona(rs.getInt("idpersona"));
+                t.setTipopersona(rs.getString("tipopersona"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return t;
+    }
+
+
+    public CondicionIva buscarCondicionIva(int i){
+        Connection conn = ConexionBD.getConnection();
+        CondicionIva c = new CondicionIva();
+        try {
+            String SQL = "SELECT idcondicioniva,codigo,nombre FROM condicion_iva WHERE idcondicioniva="+ "'" + i + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            if(rs.next()){
+              c.setIdcondicioniva(rs.getInt("idcondicioniva"));
+              c.setNombre(rs.getString("nombre"));
+              c.setCodigo(rs.getInt("codigo"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return c;
+    }
+
+
+
+
+    public void mostrarClienteEnTabla(Cliente c){
+        //mañana continuo?
+    }
 
 
 //    public void guardarCliente(ActionEvent e) {

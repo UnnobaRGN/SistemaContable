@@ -87,7 +87,7 @@
                </font>
             </Label>
             <TextField fx:id="clienteCuit" layoutX="186.0" layoutY="219.0" prefHeight="26.0" prefWidth="153.0" />
-            <Button fx:id="botonBuscar" layoutX="1046.0" layoutY="222.0" mnemonicParsing="false" text="Buscar cliente" />
+            <Button fx:id="botonBuscar" layoutX="1046.0" layoutY="222.0" mnemonicParsing="false" onAction="#busquedaCliente" text="Buscar cliente" />
             <Button fx:id="botonEliminar" layoutX="608.0" layoutY="220.0" mnemonicParsing="false" text="Eliminar cliente" />
             <Button fx:id="botonLimpiar" layoutX="392.0" layoutY="220.0" mnemonicParsing="false" onAction="#limpiarDatos" prefHeight="26.0" prefWidth="89.0" text="Limpiar datos" />
             <Button fx:id="botonGuardar" layoutX="495.0" layoutY="219.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="26.0" prefWidth="97.0" text="Guardar cliente" />
@@ -111,7 +111,8 @@
             <ComboBox fx:id="seleccionTipoPersona" layoutX="186.0" layoutY="119.0" onAction="#seleccionarTipoPersona" prefHeight="25.0" prefWidth="108.0" promptText="Seleccione" />
             <Button fx:id="botonActualizarDatos" layoutX="717.0" layoutY="220.0" mnemonicParsing="false" text="Actualizar datos" />
             <ComboBox fx:id="condicionIva" layoutX="1014.0" layoutY="172.0" prefHeight="25.0" prefWidth="153.0" promptText="Seleccione" />
-            <TextField fx:id="BuscarCliente" layoutX="850.0" layoutY="221.0" prefHeight="26.0" prefWidth="192.0" promptText="Ingrese DNI o CUIT" />
+            <TextField fx:id="BuscarCliente" layoutX="850.0" layoutY="221.0" prefHeight="26.0" prefWidth="192.0" promptText="Ingrese DNI o Nombre" />
+            <TextField fx:id="idCliente" layoutX="920.0" layoutY="72.0" prefHeight="26.0" prefWidth="31.0" visible="false" />
          </children>
       </AnchorPane>
    </children>
