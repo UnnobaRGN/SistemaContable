@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,22 +11,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="913.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ClientesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1311.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ClientesController">
    <children>
-      <ImageView fx:id="imagenIzquierda" fitHeight="515.0" fitWidth="268.0" layoutX="-53.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenIzquierda" fitHeight="791.0" fitWidth="320.0" layoutX="-53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/pep.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imagenDerecha" fitHeight="524.0" fitWidth="799.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenDerecha" fitHeight="782.0" fitWidth="1322.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="2.0" prefHeight="543.0" prefWidth="874.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="2.0" layoutY="30.0" prefHeight="559.0" prefWidth="1261.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="158.0" mnemonicParsing="false" onAction="#accederFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturas" />
-            <Label layoutX="343.0" layoutY="20.0" style="-fx-underline: true;" text="C L I E N T E S">
+            <Label layoutX="576.0" layoutY="31.0" style="-fx-underline: true;" text="C L I E N T E S">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>
@@ -35,79 +34,84 @@
             <Button fx:id="botonStock" layoutX="23.0" layoutY="213.0" mnemonicParsing="false" onAction="#accederStock" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Stock" />
             <Button fx:id="botonCosteo" layoutX="3.0" layoutY="270.0" mnemonicParsing="false" onAction="#accederCosteo" prefHeight="32.0" prefWidth="120.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text=" Metodo de Costeo" />
             <Button fx:id="botonVentas" layoutX="23.0" layoutY="324.0" mnemonicParsing="false" onAction="#accederVentas" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Ventas" />
-            <Label layoutX="143.0" layoutY="120.0" text="DNI:">
+            <Label layoutX="313.0" layoutY="123.0" text="DNI:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="clienteDni" layoutX="181.0" layoutY="115.0" prefHeight="26.0" prefWidth="153.0" AnchorPane.topAnchor="115.0" />
-            <Label layoutX="138.0" layoutY="152.0" text="Nombre:">
+            <TextField fx:id="clienteDni" layoutX="344.0" layoutY="119.0" prefHeight="26.0" prefWidth="153.0" AnchorPane.topAnchor="119.0" />
+            <Label layoutX="512.0" layoutY="123.0" text="Nombre:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="clienteNombre" layoutX="208.0" layoutY="148.0" prefHeight="26.0" prefWidth="165.0" AnchorPane.topAnchor="148.0" />
-            <Label layoutX="140.0" layoutY="252.0" text="Telefono:">
+            <TextField fx:id="clienteNombre" layoutX="574.0" layoutY="118.0" prefHeight="26.0" prefWidth="165.0" AnchorPane.topAnchor="118.0" />
+            <Label layoutX="144.0" layoutY="176.0" text="Telefono:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="clienteTelefono" layoutX="214.0" layoutY="246.0" prefHeight="26.0" prefWidth="159.0" AnchorPane.topAnchor="246.0" />
-            <Label layoutX="137.0" layoutY="286.0" text="Direccion:">
+            <TextField fx:id="clienteTelefono" layoutX="215.0" layoutY="172.0" prefHeight="26.0" prefWidth="159.0" AnchorPane.topAnchor="172.0" />
+            <Label layoutX="399.0" layoutY="176.0" text="Direccion:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="clienteDireccion" layoutX="221.0" layoutY="281.0" prefHeight="26.0" prefWidth="153.0" />
-            <Label layoutX="134.0" layoutY="319.0" text="Razon social:">
+            <TextField fx:id="clienteDireccion" layoutX="473.0" layoutY="172.0" prefHeight="26.0" prefWidth="153.0" />
+            <Label layoutX="657.0" layoutY="176.0" text="Razon social:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="clienteRazon" layoutX="236.0" layoutY="314.0" prefHeight="26.0" prefWidth="141.0" />
-            <TableView fx:id="tablaCliente" layoutX="388.0" layoutY="89.0" prefHeight="356.0" prefWidth="488.0">
+            <TextField fx:id="clienteRazon" layoutX="754.0" layoutY="172.0" prefHeight="26.0" prefWidth="141.0" />
+            <TableView fx:id="tablaCliente" layoutX="144.0" layoutY="258.0" prefHeight="291.0" prefWidth="1149.0">
               <columns>
-                <TableColumn fx:id="columnaDni" prefWidth="59.199951171875" text="DNI" />
-                <TableColumn fx:id="columnaNombre" prefWidth="94.40005493164062" text="Nombre" />
-                  <TableColumn fx:id="columnaTelefeono" prefWidth="91.20001220703125" text="Telefono" />
-                  <TableColumn fx:id="columnaDireccion" prefWidth="82.39996337890625" text="Direccion" />
-                  <TableColumn fx:id="columnaRazon" prefWidth="82.99993896484375" text="Razon S" />
-                  <TableColumn fx:id="columnaApellido" prefWidth="82.99993896484375" text="Apellido" />
+                <TableColumn fx:id="columnaDni" prefWidth="128.0" text="DNI" />
+                <TableColumn fx:id="columnaNombre" prefWidth="164.0" text="Nombre" />
+                  <TableColumn fx:id="columnaApellido" prefWidth="141.0" text="Apellido" />
+                  <TableColumn fx:id="columnaDireccion" prefWidth="128.0" text="Direccion" />
+                  <TableColumn fx:id="columnaTelefono" minWidth="0.0" prefWidth="116.0" text="Telefono" />
+                  <TableColumn fx:id="columnaEmail" minWidth="0.0" prefWidth="181.0" text="Email" />
+                  <TableColumn fx:id="columnaCuit" prefWidth="128.0" text="CUIT" />
+                  <TableColumn fx:id="columnaRazon" prefWidth="162.0" text="Razon Social" />
               </columns>
             </TableView>
-            <Label layoutX="136.0" layoutY="354.0" text="Condicion IVA:">
+            <Label layoutX="906.0" layoutY="176.0" text="Condicion IVA:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="139.0" layoutY="386.0" text="CUIT:">
+            <Label layoutX="144.0" layoutY="223.0" text="CUIT:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="clienteCuit" layoutX="190.0" layoutY="381.0" prefHeight="26.0" prefWidth="153.0" />
-            <MenuButton fx:id="menuCliente" layoutX="254.0" layoutY="350.0" mnemonicParsing="false" text="Seleccione">
-              <items>
-                <MenuItem fx:id="itemA" mnemonicParsing="false" text="Action 1" />
-                <MenuItem fx:id="itemB" mnemonicParsing="false" text="Action 2" />
-              </items>
-            </MenuButton>
-            <Button fx:id="botonBuscar" layoutX="254.0" layoutY="467.0" mnemonicParsing="false" text="Buscar cliente" />
-            <Button fx:id="botonEliminar" layoutX="146.0" layoutY="467.0" mnemonicParsing="false" text="Eliminar cliente" />
-            <Button fx:id="botonLimpiar" layoutX="149.0" layoutY="425.0" mnemonicParsing="false" onAction="#limpiarDatos" prefHeight="26.0" prefWidth="89.0" text="Limpiar datos" />
-            <Button fx:id="botonGuardar" layoutX="250.0" layoutY="425.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="26.0" prefWidth="97.0" text="Guardar cliente" />
-            <Label layoutX="137.0" layoutY="184.0" text="Apellido:">
+            <TextField fx:id="clienteCuit" layoutX="186.0" layoutY="219.0" prefHeight="26.0" prefWidth="153.0" />
+            <Button fx:id="botonBuscar" layoutX="1046.0" layoutY="222.0" mnemonicParsing="false" text="Buscar cliente" />
+            <Button fx:id="botonEliminar" layoutX="608.0" layoutY="220.0" mnemonicParsing="false" text="Eliminar cliente" />
+            <Button fx:id="botonLimpiar" layoutX="392.0" layoutY="220.0" mnemonicParsing="false" onAction="#limpiarDatos" prefHeight="26.0" prefWidth="89.0" text="Limpiar datos" />
+            <Button fx:id="botonGuardar" layoutX="495.0" layoutY="219.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="26.0" prefWidth="97.0" text="Guardar cliente" />
+            <Label layoutX="773.0" layoutY="123.0" text="Apellido:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="clienteApellido" layoutX="208.0" layoutY="180.0" prefHeight="26.0" prefWidth="165.0" />
-            <Label layoutX="141.0" layoutY="221.0" prefHeight="17.0" prefWidth="56.0" text="Email:">
+            <TextField fx:id="clienteApellido" layoutX="837.0" layoutY="119.0" prefHeight="26.0" prefWidth="165.0" />
+            <Label layoutX="1027.0" layoutY="123.0" prefHeight="17.0" prefWidth="56.0" text="Email:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="clienteEmail" layoutX="194.0" layoutY="216.0" prefHeight="26.0" prefWidth="179.0" />
+            <TextField fx:id="clienteEmail" layoutX="1083.0" layoutY="118.0" prefHeight="26.0" prefWidth="179.0" />
+            <Label layoutX="144.0" layoutY="123.0" text="Tipo:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="seleccionTipoPersona" layoutX="186.0" layoutY="119.0" onAction="#seleccionarTipoPersona" prefHeight="25.0" prefWidth="108.0" promptText="Seleccione" />
+            <Button fx:id="botonActualizarDatos" layoutX="717.0" layoutY="220.0" mnemonicParsing="false" text="Actualizar datos" />
+            <ComboBox fx:id="condicionIva" layoutX="1014.0" layoutY="172.0" prefHeight="25.0" prefWidth="153.0" promptText="Seleccione" />
+            <TextField fx:id="BuscarCliente" layoutX="850.0" layoutY="221.0" prefHeight="26.0" prefWidth="192.0" promptText="Ingrese DNI o CUIT" />
          </children>
       </AnchorPane>
    </children>

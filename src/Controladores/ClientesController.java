@@ -1,8 +1,8 @@
 package Controladores;
 
-import Modelo.Cliente;
-import Modelo.Cuenta_Asiento;
-import Modelo.Producto;
+import Modelo.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,10 +22,7 @@ import sample.ConexionBD;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -39,7 +36,14 @@ public class ClientesController implements Initializable{
     private ImageView imagenIzquierda = new ImageView();
 
     @FXML
+    private ComboBox seleccionTipoPersona;
+
+
+    @FXML
     private Button botonCosteo;
+
+    @FXML
+    private TextField BuscarCliente;
 
     @FXML
     private Button botonFacturacion;
@@ -51,13 +55,7 @@ public class ClientesController implements Initializable{
     private Button botonStock;
 
     @FXML
-    private MenuButton menuCliente;
-
-    @FXML
-    private MenuItem itemA;
-
-    @FXML
-    private MenuItem itemB;
+    private ComboBox condicionIva;
 
     @FXML
     private TextField clienteDni;
@@ -96,6 +94,10 @@ public class ClientesController implements Initializable{
     @FXML
     private Button botonBuscar;
 
+    @FXML
+    private Button botonActualizarDatos;
+
+
 
     @FXML
     private TableView<Cliente> tablaCliente;
@@ -115,6 +117,15 @@ public class ClientesController implements Initializable{
     @FXML
     private TableColumn<Cliente, String> columnaRazon;
 
+    @FXML
+    private TableColumn<Cliente, String> columnaApellido;
+
+    @FXML
+    private TableColumn<Cliente, String> columnaEmail;
+
+    @FXML
+    private TableColumn<Cliente, String> columnaCuit;
+
     ObservableList<Cliente> list = FXCollections.observableArrayList();
 
     @Override
@@ -128,6 +139,10 @@ public class ClientesController implements Initializable{
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
         imagenDerecha.setImage(brandingIzq);
 
+        deshabilitarCampos();
+        typedEnNumeros();
+        traerCondicionIvaAcomboBox();
+        traerTipoPersonaAcomboBox();
         //llenarClientes();
 
     }
@@ -209,50 +224,218 @@ public class ClientesController implements Initializable{
         stage.show();
     }
 
-    public void limpiarDatos(ActionEvent e){
-        clienteDni.setText(null);
-        clienteNombre.setText(null);
-        clienteTelefono.setText(null);
-        clienteDireccion.setText(null);
-        clienteRazon.setText(null);
-        clienteCuit.setText(null);
-        menuCliente.setText("Seleccione");
+    public void limpiarDatos1(){
+        clienteDni.setText("");
+        clienteNombre.setText("");
+        clienteTelefono.setText("");
+        clienteDireccion.setText("");
+        clienteRazon.setText("");
+        clienteCuit.setText("");
+        clienteEmail.setText("");
+        clienteApellido.setText("");
+        seleccionTipoPersona.getSelectionModel().clearSelection();
+        condicionIva.getSelectionModel().clearSelection();
+        setearPrompTextDeVuelta();
+
+
     }
 
-    public void guardarCliente(ActionEvent e) {
+
+    public void limpiarDatos(ActionEvent event){
+        limpiarDatos1();
+
+    }
+
+    public void limpiarDatos2(){
+        clienteDni.setText("");
+        clienteNombre.setText("");
+        clienteTelefono.setText("");
+        clienteDireccion.setText("");
+        clienteRazon.setText("");
+        clienteCuit.setText("");
+        clienteEmail.setText("");
+        clienteApellido.setText("");
+    }
+
+
+    public void seleccionarTipoPersona(ActionEvent event){
+        try {
+            String s = seleccionTipoPersona.getSelectionModel().getSelectedItem().toString();
+            if(s.equals("Juridica")) {
+                limpiarDatos2();
+                deshabilitarCampos();
+                siEsJuridica();
+
+
+            }else{
+                limpiarDatos2();
+                deshabilitarCampos();
+                siEsFisica();
+
+            }
+        }catch (Exception e){
+
+        }
+
+
+    }
+
+    public void siEsJuridica(){
+        clienteNombre.setDisable(false);
+        clienteTelefono.setDisable(false);
+        clienteDireccion.setDisable(false);
+        clienteEmail.setDisable(false);
+        clienteRazon.setDisable(false);
+        clienteCuit.setDisable(false);
+    }
+
+
+    public void siEsFisica(){
+        clienteNombre.setDisable(false);
+        clienteTelefono.setDisable(false);
+        clienteDireccion.setDisable(false);
+        clienteEmail.setDisable(false);
+        clienteDni.setDisable(false);
+        clienteTelefono.setDisable(false);
+        clienteApellido.setDisable(false);
+        clienteCuit.setDisable(false);
+    }
+
+    public void traerTipoPersonaAcomboBox(){
+        ObservableList<Object> list = FXCollections.observableArrayList();
+        try {
+            Connection conn = ConexionBD.getConnection();
+            Statement s = conn.createStatement();
+            String SQL = "SELECT tipoPersona FROM tipo_persona";
+            ResultSet rs = s.executeQuery(SQL);
+
+            while (rs.next()) {
+                list.add(rs.getString("tipoPersona"));
+            }
+
+            seleccionTipoPersona.setItems(list);
+        } catch (Exception e) {
+
+        }
+
+    }
+
+
+    public void traerCondicionIvaAcomboBox(){
+
+        ObservableList<Object> list = FXCollections.observableArrayList();
+        try {
+            Connection conn = ConexionBD.getConnection();
+            Statement s = conn.createStatement();
+            String SQL = "SELECT nombre FROM condicion_iva";
+            ResultSet rs = s.executeQuery(SQL);
+
+            while (rs.next()) {
+                list.add(rs.getString("nombre"));
+            }
+
+            condicionIva.setItems(list);
+        } catch (Exception e) {
+
+        }
+
+
+    }
+
+
+    public void guardarCliente(ActionEvent event){
+
+
+        //guardarPersonaJuridica();
+        guardarPersonaFisica();
+
+
+    }
+
+
+    public void guardarPersonaJuridica(){
         Connection conn = ConexionBD.getConnection();
-        /* ACOMODAR TODO ESTO CON CLIENTE Y CREAR EN LA BASE DE DATOS
-        if (clienteDni.getText() != null && clienteNombre.getText() != null &&
-        clienteDireccion.getText() != null && clienteRazon.getText() != null && menuCliente.getText() != null
-        && clienteCuit.getText() != null){
+
+        if (!clienteRazon.getText().isBlank() && !clienteNombre.getText().isBlank() &&
+            !clienteDireccion.getText().isBlank() && !clienteTelefono.getText().isBlank()
+            && !clienteCuit.getText().isBlank() && !clienteEmail.getText().isBlank() &&
+                !condicionIva.getSelectionModel().isEmpty() && !seleccionTipoPersona.getSelectionModel().isEmpty()) {
+
             try {
-
-                String sql = "INSERT INTO CUENTA(cuenta,codigo_cuenta,recibe_saldo,saldo_actual,idtipo,habilitada_no) VALUES (?,?,?,?,?,?)";
-                PreparedStatement ps = conn.prepareStatement(sql);
-
-                ps.setString(1, clienteDni.getText());
-                ps.setInt(2, Integer.parseInt(CodigoCuenta.getText()));
-                ps.setInt(3, recibeSaldoSioNo(BotonSi));
-                ps.setFloat(4, 0);
-                String s = comboBox.getSelectionModel().getSelectedItem().toString();
-                ps.setInt(5, verificarTipoCuenta(s));
-                ps.setString(6,"Si");
-
+                String sql = "INSERT INTO CLIENTE(razonsocial,nombre,direccion,cuit,telefono,id_condicioniva,email,idtipopersona) VALUES (?,?,?,?,?,?,?,?)";
+               PreparedStatement ps = conn.prepareStatement(sql);
+               ps.setString(1,clienteRazon.getText());
+               ps.setString(2,clienteNombre.getText());
+               ps.setString(3,clienteDireccion.getText());
+               ps.setString(4,clienteCuit.getText());
+               ps.setString(5,clienteTelefono.getText());
+               ps.setInt(6,verificarCondicionIva().getIdcondicioniva());
+               ps.setString(7,clienteEmail.getText());
+               ps.setInt(8,verificarTipoPersona().getId_tipopersona());
                 ps.execute();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Atencion");
                 alert.setHeaderText("Operacion exitosa!");
-                alert.setContentText("Se ha agregado con exito la cuenta");
+                alert.setContentText("Se ha agregado con exito el cliente");
                 alert.showAndWait();
-                ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+                limpiarDatos1();
+                deshabilitarCampos();
 
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText("Por favor,");
-                alert.setContentText("Ingrese solo digitos en el codigo de la cuenta");
-                alert.showAndWait();
+
+
+
+
             }
+                catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Complete todos los campos");
+            alert.showAndWait();
+        }
+    }
+
+
+
+    public void guardarPersonaFisica(){
+        Connection conn = ConexionBD.getConnection();
+
+        if (!clienteDni.getText().isBlank() && !clienteNombre.getText().isBlank() &&
+                !clienteDireccion.getText().isBlank()&& !clienteTelefono.getText().isBlank()
+                && !clienteCuit.getText().isBlank() && !clienteEmail.getText().isBlank() && !clienteApellido.getText().isBlank() && !condicionIva.getSelectionModel().isEmpty() && !seleccionTipoPersona.getSelectionModel().isEmpty()) {
+
+            try {
+                String sql = "INSERT INTO CLIENTE(nombre,direccion,cuit,telefono,id_condicioniva,email,idtipopersona,dni,apellido) VALUES (?,?,?,?,?,?,?,?,?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1,clienteNombre.getText());
+                ps.setString(2,clienteDireccion.getText());
+                ps.setString(3,clienteCuit.getText());
+                ps.setString(4,clienteTelefono.getText());
+                ps.setInt(5,verificarCondicionIva().getIdcondicioniva());
+                ps.setString(6,clienteEmail.getText());
+                ps.setInt(7,verificarTipoPersona().getId_tipopersona());
+                ps.setString(8,clienteDni.getText());
+                ps.setString(9,clienteApellido.getText());
+                ps.execute();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion");
+                alert.setHeaderText("Operacion exitosa!");
+                alert.setContentText("Se ha agregado con exito el cliente");
+                alert.showAndWait();
+                limpiarDatos1();
+
+                deshabilitarCampos();
+
+
+            }
+            catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Atencion!");
@@ -260,9 +443,182 @@ public class ClientesController implements Initializable{
             alert.setContentText("Complete todos los campos");
             alert.showAndWait();
         }
-        }
-    */
     }
+
+
+
+
+
+
+
+    public TipoPersona verificarTipoPersona(){
+        String s = seleccionTipoPersona.getSelectionModel().getSelectedItem().toString();
+
+        TipoPersona t = new TipoPersona();
+        try {
+            Connection conn = ConexionBD.getConnection();
+            Statement stat = conn.createStatement();
+            String SQL = "SELECT * FROM tipo_persona WHERE tipopersona=" + "'"+ s +"'";
+            ResultSet rs = stat.executeQuery(SQL);
+
+            if (rs.next()) {
+               t.setId_tipopersona(rs.getInt("idtipo_persona"));
+               t.setTipopersona(rs.getString("tipopersona"));
+            }
+
+        } catch (Exception e) {
+
+        }
+        return t;
+
+    }
+
+
+    public CondicionIva verificarCondicionIva(){
+        String s1 = condicionIva.getSelectionModel().getSelectedItem().toString();
+        CondicionIva c = new CondicionIva();
+        try {
+            Connection conn = ConexionBD.getConnection();
+            Statement stat = conn.createStatement();
+            String SQL = "SELECT * FROM condicion_iva WHERE nombre ="+ "'" + s1 + "'";
+            ResultSet rs = stat.executeQuery(SQL);
+
+            if (rs.next()) {
+                c.setIdcondicioniva(rs.getInt("idcondicioniva"));
+                c.setCodigo(rs.getInt("codigo"));
+                c.setNombre(rs.getString("nombre"));
+            }
+
+        } catch (Exception e) {
+
+        }
+        return c;
+
+    }
+
+
+    public void typedEnNumeros(){
+        clienteDni.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if(newValue==null){
+                    clienteDni.setText(null);
+                }else {
+                    if (!newValue.matches("\\d*")) {
+                        clienteDni.setText(newValue.replaceAll("[^\\d]", ""));
+                    }
+                }
+            }
+        });
+        clienteTelefono.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (newValue == null) {
+                    clienteTelefono.setText(null);
+                } else {
+                    if (!newValue.matches("\\d*")) {
+                        clienteTelefono.setText(newValue.replaceAll("[^\\d]", ""));
+                    }
+                }
+            }
+        });
+
+    }
+
+
+    public void deshabilitarCampos(){
+
+        clienteDni.setDisable(true);
+        clienteNombre.setDisable(true);
+        clienteTelefono.setDisable(true);
+        clienteDireccion.setDisable(true);
+        clienteRazon.setDisable(true);
+        clienteCuit.setDisable(true);
+        clienteEmail.setDisable(true);
+        clienteApellido.setDisable(true);
+    }
+
+
+    public void setearPrompTextDeVuelta(){
+        condicionIva.setPromptText("Seleccione");
+        condicionIva.setButtonCell(new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty) ;
+                if (empty || item == null) {
+                    setText("Seleccione");
+                } else {
+                    setText(item);
+                }
+            }
+        });
+        seleccionTipoPersona.setPromptText("Seleccione");
+        seleccionTipoPersona.setButtonCell(new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty) ;
+                if (empty || item == null) {
+                    setText("Seleccione");
+                } else {
+                    setText(item);
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+//    public void guardarCliente(ActionEvent e) {
+//        Connection conn = ConexionBD.getConnection();
+//        /* ACOMODAR TODO ESTO CON CLIENTE Y CREAR EN LA BASE DE DATOS
+//        if (clienteDni.getText() != null && clienteNombre.getText() != null &&
+//        clienteDireccion.getText() != null && clienteRazon.getText() != null && menuCliente.getText() != null
+//        && clienteCuit.getText() != null){
+//            try {
+//
+//                String sql = "INSERT INTO CUENTA(cuenta,codigo_cuenta,recibe_saldo,saldo_actual,idtipo,habilitada_no) VALUES (?,?,?,?,?,?)";
+//                PreparedStatement ps = conn.prepareStatement(sql);
+//
+//                ps.setString(1, clienteDni.getText());
+//                ps.setInt(2, Integer.parseInt(CodigoCuenta.getText()));
+//                ps.setInt(3, recibeSaldoSioNo(BotonSi));
+//                ps.setFloat(4, 0);
+//                String s = comboBox.getSelectionModel().getSelectedItem().toString();
+//                ps.setInt(5, verificarTipoCuenta(s));
+//                ps.setString(6,"Si");
+//
+//                ps.execute();
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("Atencion");
+//                alert.setHeaderText("Operacion exitosa!");
+//                alert.setContentText("Se ha agregado con exito la cuenta");
+//                alert.showAndWait();
+//                ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+//
+//            } catch (Exception e) {
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("Error");
+//                alert.setHeaderText("Por favor,");
+//                alert.setContentText("Ingrese solo digitos en el codigo de la cuenta");
+//                alert.showAndWait();
+//            }
+//        }else{
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setTitle("Atencion!");
+//            alert.setHeaderText("Por favor,");
+//            alert.setContentText("Complete todos los campos");
+//            alert.showAndWait();
+//        }
+//        }
+//    */
+//    }
 
 
 }

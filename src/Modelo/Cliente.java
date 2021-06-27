@@ -10,8 +10,11 @@ public class Cliente {
     //private int condicionIVA;
     private int cuit;
     private CondicionIva condicionIVA;
+    private String apellido;
+    private String Email;
+    private TipoPersona tipoPersona;
 
-    public Cliente(int dni, String nombre, int telefono, String direccion, String razonSocial, CondicionIva condicionIVA, int cuit) {
+    public Cliente(int dni, String nombre, int telefono, String direccion, String razonSocial, CondicionIva condicionIVA, int cuit,String apelldo,String Email,TipoPersona persona) {
         this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -19,10 +22,37 @@ public class Cliente {
         this.razonSocial = razonSocial;
         this.condicionIVA = condicionIVA;
         this.cuit = cuit;
+        this.apellido=apelldo;
+        this.Email = Email;
+        this.tipoPersona= persona;
     }
 
     public Cliente() {
 
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public TipoPersona getTipoPersona() {
+        return tipoPersona;
+    }
+
+    public void setTipoPersona(TipoPersona tipoPersona) {
+        this.tipoPersona = tipoPersona;
     }
 
     public int getDni() {

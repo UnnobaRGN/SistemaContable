@@ -14,7 +14,22 @@ public class Producto {
     //private int idproveedor;
     private Proveedor proveedor;
 
+
+    public Producto() {}
+
+    public Producto(int idProducto, Integer codigo, String nombreProducto, String stock, float precio, String descripcion, boolean activo, Proveedor proveedor) {
+        this.idProducto = idProducto;
+        this.codigo = codigo;
+        this.nombreProducto = nombreProducto;
+        this.stock = stock;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.activo = activo;
+        this.proveedor = proveedor;
+    }
+
     public Producto(Integer codigo, String nombreProducto, String stock, float precio, Proveedor proveedor) {
+
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;
         this.stock = stock;
