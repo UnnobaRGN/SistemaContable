@@ -3,9 +3,13 @@ package Controladores;
 import Modelo.Cuenta_Asiento;
 import Modelo.Cuentas;
 import Modelo.UsuarioLogeado;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -13,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import sample.ConexionBD;
 
@@ -88,8 +93,23 @@ public class RegistrarAsientoController implements Initializable {
         fechaActual();
         numAsiento();
         InicializarLaTabla();
+        accionEnteros();
 
     }
+
+
+    public void accionEnteros(){
+        Monto.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    Monto.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+
 
 
     public void fechaActual() {

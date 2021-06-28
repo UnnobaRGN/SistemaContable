@@ -1,5 +1,7 @@
 package Controladores;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AgregarCuentaController implements Initializable {
@@ -54,6 +57,7 @@ public class AgregarCuentaController implements Initializable {
         Image brandingImage = new Image(brandingFile.toURI().toString());
         ImagenDeAgregarCuenta.setImage(brandingImage);
         llenarComboBox();
+        typedEnCodigoCuenta();
 
     }
 
@@ -62,11 +66,24 @@ public class AgregarCuentaController implements Initializable {
         comboBox.setItems(list);
     }
 
+    public void typedEnCodigoCuenta(){
+        CodigoCuenta.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    CodigoCuenta.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
 
-    public void AgregarCuentaBoton(ActionEvent actionEvent){
+
+    }
+
+
+    public void AgregarCuentaBoton(ActionEvent actionEvent) throws SQLException {
         Connection conn = ConexionBD.getConnection();
         if(!NombreCuenta.getText().isBlank() && !CodigoCuenta.getText().isBlank() && !comboBox.getSelectionModel().isEmpty()) {
-            try {
 
                 String sql = "INSERT INTO CUENTA(cuenta,codigo_cuenta,recibe_saldo,saldo_actual,idtipo,habilitada_no) VALUES (?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -87,13 +104,8 @@ public class AgregarCuentaController implements Initializable {
                 alert.showAndWait();
                 ((Node) actionEvent.getSource()).getScene().getWindow().hide();
 
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText("Por favor,");
-                alert.setContentText("Ingrese solo digitos en el codigo de la cuenta");
-                alert.showAndWait();
-            }
+
+
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Atencion!");
