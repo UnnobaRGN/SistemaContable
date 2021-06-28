@@ -28,7 +28,7 @@
             <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="158.0" mnemonicParsing="false" onAction="#accederFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturas" />
             <Label layoutX="576.0" layoutY="31.0" style="-fx-underline: true;" text="C L I E N T E S">
                <font>
-                  <Font name="System Bold Italic" size="22.0" />
+                  <Font name="System Bold Italic" size="26.0" />
                </font>
             </Label>
             <Button fx:id="botonStock" layoutX="23.0" layoutY="213.0" mnemonicParsing="false" onAction="#accederStock" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Stock" />
@@ -110,9 +110,8 @@
             </Label>
             <ComboBox fx:id="seleccionTipoPersona" layoutX="186.0" layoutY="119.0" onAction="#seleccionarTipoPersona" prefHeight="25.0" prefWidth="108.0" promptText="Seleccione" />
             <Button fx:id="botonActualizarDatos" layoutX="717.0" layoutY="220.0" mnemonicParsing="false" text="Actualizar datos" />
-            <ComboBox fx:id="condicionIva" layoutX="1014.0" layoutY="172.0" prefHeight="25.0" prefWidth="153.0" promptText="Seleccione" />
+            <ComboBox fx:id="condicionIva" layoutX="1014.0" layoutY="172.0" prefHeight="25.0" prefWidth="232.0" promptText="Seleccione" />
             <TextField fx:id="BuscarCliente" layoutX="850.0" layoutY="221.0" prefHeight="26.0" prefWidth="192.0" promptText="Ingrese DNI o Nombre" />
-            <TextField fx:id="idCliente" layoutX="920.0" layoutY="72.0" prefHeight="26.0" prefWidth="31.0" visible="false" />
          </children>
       </AnchorPane>
    </children>

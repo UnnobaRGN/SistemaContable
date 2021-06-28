@@ -87,7 +87,7 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public String getRazonSocial(String razon_social) {
+    public String getRazonSocial() {
         return razonSocial;
     }
 

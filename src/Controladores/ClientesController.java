@@ -350,10 +350,12 @@ public class ClientesController implements Initializable{
 
     public void guardarCliente(ActionEvent event){
 
-
-        //guardarPersonaJuridica();
-        guardarPersonaFisica();
-
+        TipoPersona t = verificarTipoPersona();
+        if(t.getTipopersona().equals("Juridica")){
+            guardarPersonaJuridica();
+        }else {
+            guardarPersonaFisica();
+        }
 
     }
 
@@ -367,16 +369,17 @@ public class ClientesController implements Initializable{
                 !condicionIva.getSelectionModel().isEmpty() && !seleccionTipoPersona.getSelectionModel().isEmpty()) {
 
             try {
-                String sql = "INSERT INTO CLIENTE(razonsocial,nombre,direccion,cuit,telefono,id_condicioniva,email,idtipopersona) VALUES (?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO CLIENTE(razonsocial,nombre,direccion,cuit,telefono,id_condicioniva,email,idtipopersona,apellido) VALUES (?,?,?,?,?,?,?,?,?)";
                PreparedStatement ps = conn.prepareStatement(sql);
                ps.setString(1,clienteRazon.getText());
-               ps.setString(2,clienteNombre.getText());
+               ps.setString(2,clienteNombre.getText().toLowerCase());
                ps.setString(3,clienteDireccion.getText());
                ps.setString(4,clienteCuit.getText());
                ps.setString(5,clienteTelefono.getText());
                ps.setInt(6,verificarCondicionIva().getIdcondicioniva());
                ps.setString(7,clienteEmail.getText());
                ps.setInt(8,verificarTipoPersona().getId_tipopersona());
+               ps.setString(9,"0");
                 ps.execute();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Atencion");
@@ -416,7 +419,7 @@ public class ClientesController implements Initializable{
             try {
                 String sql = "INSERT INTO CLIENTE(nombre,direccion,cuit,telefono,id_condicioniva,email,idtipopersona,dni,apellido) VALUES (?,?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1,clienteNombre.getText());
+                ps.setString(1,clienteNombre.getText().toLowerCase());
                 ps.setString(2,clienteDireccion.getText());
                 ps.setString(3,clienteCuit.getText());
                 ps.setString(4,clienteTelefono.getText());
@@ -574,9 +577,10 @@ public class ClientesController implements Initializable{
     }
 
     public void busquedaCliente(ActionEvent event){
-        Cliente c = buscarCliente(BuscarCliente.getText());
+        Cliente c;
+        c=retornarCliente(BuscarCliente.getText());
         if(c.getNombre()!=null){
-            mostrarClienteEnTabla(c);
+            mostrarClienteEnTabla(BuscarCliente.getText(),c);
 
 
 
@@ -592,11 +596,43 @@ public class ClientesController implements Initializable{
     }
 
 
-    public Cliente buscarCliente(String s){
+    public ObservableList<Cliente> buscarCliente(String s){
+        Connection conn = ConexionBD.getConnection();
+        ObservableList<Cliente> lista = FXCollections.observableArrayList();
+
+        try {
+            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.nombre="+ "'" + s.toLowerCase() +"'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            while(rs.next()){
+                Cliente c = new Cliente();
+                c.setDni(rs.getString("dni"));
+                c.setDireccion(rs.getString("direccion"));
+                c.setNombre(rs.getString("nombre"));
+                c.setApellido(rs.getString("apellido"));
+                c.setCuit(rs.getString("cuit"));
+                c.setTelefono(rs.getString("telefono"));
+                c.setEmail(rs.getString("email"));
+                c.setRazonSocial(rs.getString("razonsocial"));
+                c.setTipoPersona(buscarTipoPersona(rs.getInt("idtipopersona")));
+                c.setCondicionIVA(buscarCondicionIva(rs.getInt("idcondicioniva")));
+                lista.add(c);
+            }
+
+
+        } catch (SQLException throwables) {
+
+        }
+
+        return lista;
+    }
+
+    public Cliente retornarCliente(String s){
         Connection conn = ConexionBD.getConnection();
         Cliente c = new Cliente();
         try {
-            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.nombre="+ "'" + s +"'";
+            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.nombre="+ "'" + s.toLowerCase() +"'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -618,7 +654,6 @@ public class ClientesController implements Initializable{
         } catch (SQLException throwables) {
 
         }
-
         return c;
     }
 
@@ -665,8 +700,29 @@ public class ClientesController implements Initializable{
 
 
 
-    public void mostrarClienteEnTabla(Cliente c){
-        //mañana continuo?
+    public void mostrarClienteEnTabla(String s,Cliente c){
+        if(c.getTipoPersona().getTipopersona().equals("Juridica")){
+            columnaDni.setVisible(false);
+            columnaApellido.setVisible(false);
+            columnaRazon.setCellValueFactory(new PropertyValueFactory<Cliente,String>("RazonSocial"));
+            columnaCuit.setCellValueFactory(new PropertyValueFactory<Cliente,String>("cuit"));
+            columnaDireccion.setCellValueFactory(new PropertyValueFactory<Cliente,String>("direccion"));
+            columnaEmail.setCellValueFactory(new PropertyValueFactory<Cliente,String>("email"));
+            columnaTelefono.setCellValueFactory(new PropertyValueFactory<Cliente,String>("telefono"));
+            columnaNombre.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nombre"));
+            tablaCliente.setItems(buscarCliente(s));
+        }else {
+            columnaRazon.setVisible(false);
+            columnaDni.setCellValueFactory(new PropertyValueFactory<Cliente,String>("dni"));
+            columnaApellido.setCellValueFactory(new PropertyValueFactory<Cliente,String>("apellido"));
+            columnaNombre.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nombre"));
+            columnaCuit.setCellValueFactory(new PropertyValueFactory<Cliente,String>("cuit"));
+            columnaDireccion.setCellValueFactory(new PropertyValueFactory<Cliente,String>("direccion"));
+            columnaEmail.setCellValueFactory(new PropertyValueFactory<Cliente,String>("email"));
+            columnaTelefono.setCellValueFactory(new PropertyValueFactory<Cliente,String>("telefono"));
+            tablaCliente.setItems(buscarCliente(s));
+        }
+
     }
 
 
