@@ -14,6 +14,8 @@ public class Cliente {
     private String Email;
     private TipoPersona tipoPersona;
 
+    private String nombreDeLaCondicionIVA;
+
     public Cliente(String dni, String nombre, String telefono, String direccion, String razonSocial, CondicionIva condicionIVA, String cuit,String apelldo,String Email,TipoPersona persona) {
         this.dni = dni;
         this.nombre = nombre;
@@ -110,4 +112,15 @@ public class Cliente {
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
+
+
+    public String getNombreDeLaCondicionIVA() {
+        return nombreDeLaCondicionIVA;
+    }
+
+    public void setNombreDeLaCondicionIVA(String nombreDeLaCondicionIVA) {
+        this.nombreDeLaCondicionIVA = nombreDeLaCondicionIVA;
+    }
 }
+
+

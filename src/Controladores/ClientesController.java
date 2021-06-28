@@ -39,6 +39,7 @@ public class ClientesController implements Initializable{
     private ComboBox seleccionTipoPersona;
 
 
+
     @FXML
     private Button botonCosteo;
 
@@ -101,6 +102,9 @@ public class ClientesController implements Initializable{
 
     @FXML
     private TableView<Cliente> tablaCliente;
+
+    @FXML
+    private TableColumn<Cliente,String> columnaCondicionIva;
 
     @FXML
     private TableColumn<Cliente, String> columnaDni;
@@ -286,12 +290,12 @@ public class ClientesController implements Initializable{
     }
 
     public void siEsJuridica(){
-        clienteNombre.setDisable(false);
         clienteTelefono.setDisable(false);
         clienteDireccion.setDisable(false);
         clienteEmail.setDisable(false);
         clienteRazon.setDisable(false);
         clienteCuit.setDisable(false);
+        condicionIva.setDisable(false);
     }
 
 
@@ -304,6 +308,7 @@ public class ClientesController implements Initializable{
         clienteTelefono.setDisable(false);
         clienteApellido.setDisable(false);
         clienteCuit.setDisable(false);
+        condicionIva.setDisable(false);
     }
 
     public void traerTipoPersonaAcomboBox(){
@@ -363,7 +368,7 @@ public class ClientesController implements Initializable{
     public void guardarPersonaJuridica(){
         Connection conn = ConexionBD.getConnection();
 
-        if (!clienteRazon.getText().isBlank() && !clienteNombre.getText().isBlank() &&
+        if (!clienteRazon.getText().isBlank() &&
             !clienteDireccion.getText().isBlank() && !clienteTelefono.getText().isBlank()
             && !clienteCuit.getText().isBlank() && !clienteEmail.getText().isBlank() &&
                 !condicionIva.getSelectionModel().isEmpty() && !seleccionTipoPersona.getSelectionModel().isEmpty()) {
@@ -371,8 +376,8 @@ public class ClientesController implements Initializable{
             try {
                 String sql = "INSERT INTO CLIENTE(razonsocial,nombre,direccion,cuit,telefono,id_condicioniva,email,idtipopersona,apellido) VALUES (?,?,?,?,?,?,?,?,?)";
                PreparedStatement ps = conn.prepareStatement(sql);
-               ps.setString(1,clienteRazon.getText());
-               ps.setString(2,clienteNombre.getText().toLowerCase());
+               ps.setString(1,clienteRazon.getText().toLowerCase());
+               ps.setString(2,"0");
                ps.setString(3,clienteDireccion.getText());
                ps.setString(4,clienteCuit.getText());
                ps.setString(5,clienteTelefono.getText());
@@ -546,6 +551,7 @@ public class ClientesController implements Initializable{
         clienteCuit.setDisable(true);
         clienteEmail.setDisable(true);
         clienteApellido.setDisable(true);
+        condicionIva.setDisable(true);
     }
 
 
@@ -579,7 +585,7 @@ public class ClientesController implements Initializable{
     public void busquedaCliente(ActionEvent event){
         Cliente c;
         c=retornarCliente(BuscarCliente.getText());
-        if(c.getNombre()!=null){
+        if(c.getTipoPersona()!=null){
             mostrarClienteEnTabla(BuscarCliente.getText(),c);
 
 
@@ -601,7 +607,7 @@ public class ClientesController implements Initializable{
         ObservableList<Cliente> lista = FXCollections.observableArrayList();
 
         try {
-            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.nombre="+ "'" + s.toLowerCase() +"'";
+            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.razonsocial="+ "'" + s.toLowerCase() +"'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -617,6 +623,7 @@ public class ClientesController implements Initializable{
                 c.setRazonSocial(rs.getString("razonsocial"));
                 c.setTipoPersona(buscarTipoPersona(rs.getInt("idtipopersona")));
                 c.setCondicionIVA(buscarCondicionIva(rs.getInt("idcondicioniva")));
+                c.setNombreDeLaCondicionIVA(buscarCondicionIva(rs.getInt("idcondicioniva")).getNombre());
                 lista.add(c);
             }
 
@@ -632,7 +639,7 @@ public class ClientesController implements Initializable{
         Connection conn = ConexionBD.getConnection();
         Cliente c = new Cliente();
         try {
-            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.nombre="+ "'" + s.toLowerCase() +"'";
+            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.razonsocial="+ "'" + s.toLowerCase() +"'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -702,17 +709,25 @@ public class ClientesController implements Initializable{
 
     public void mostrarClienteEnTabla(String s,Cliente c){
         if(c.getTipoPersona().getTipopersona().equals("Juridica")){
+            columnaCondicionIva.setMinWidth(460);
             columnaDni.setVisible(false);
             columnaApellido.setVisible(false);
-            columnaRazon.setCellValueFactory(new PropertyValueFactory<Cliente,String>("RazonSocial"));
+            columnaNombre.setVisible(false);
+            columnaRazon.setVisible(true);
+            columnaRazon.setCellValueFactory(new PropertyValueFactory<Cliente,String>("razonSocial"));
             columnaCuit.setCellValueFactory(new PropertyValueFactory<Cliente,String>("cuit"));
             columnaDireccion.setCellValueFactory(new PropertyValueFactory<Cliente,String>("direccion"));
             columnaEmail.setCellValueFactory(new PropertyValueFactory<Cliente,String>("email"));
             columnaTelefono.setCellValueFactory(new PropertyValueFactory<Cliente,String>("telefono"));
-            columnaNombre.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nombre"));
+            columnaCondicionIva.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nombreDeLaCondicionIVA"));
             tablaCliente.setItems(buscarCliente(s));
         }else {
+
+            columnaCondicionIva.setMinWidth(180);
             columnaRazon.setVisible(false);
+            columnaDni.setVisible(true);
+            columnaApellido.setVisible(true);
+            columnaNombre.setVisible(true);
             columnaDni.setCellValueFactory(new PropertyValueFactory<Cliente,String>("dni"));
             columnaApellido.setCellValueFactory(new PropertyValueFactory<Cliente,String>("apellido"));
             columnaNombre.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nombre"));
@@ -720,56 +735,11 @@ public class ClientesController implements Initializable{
             columnaDireccion.setCellValueFactory(new PropertyValueFactory<Cliente,String>("direccion"));
             columnaEmail.setCellValueFactory(new PropertyValueFactory<Cliente,String>("email"));
             columnaTelefono.setCellValueFactory(new PropertyValueFactory<Cliente,String>("telefono"));
+            columnaCondicionIva.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nombreDeLaCondicionIVA"));
             tablaCliente.setItems(buscarCliente(s));
         }
 
     }
-
-
-//    public void guardarCliente(ActionEvent e) {
-//        Connection conn = ConexionBD.getConnection();
-//        /* ACOMODAR TODO ESTO CON CLIENTE Y CREAR EN LA BASE DE DATOS
-//        if (clienteDni.getText() != null && clienteNombre.getText() != null &&
-//        clienteDireccion.getText() != null && clienteRazon.getText() != null && menuCliente.getText() != null
-//        && clienteCuit.getText() != null){
-//            try {
-//
-//                String sql = "INSERT INTO CUENTA(cuenta,codigo_cuenta,recibe_saldo,saldo_actual,idtipo,habilitada_no) VALUES (?,?,?,?,?,?)";
-//                PreparedStatement ps = conn.prepareStatement(sql);
-//
-//                ps.setString(1, clienteDni.getText());
-//                ps.setInt(2, Integer.parseInt(CodigoCuenta.getText()));
-//                ps.setInt(3, recibeSaldoSioNo(BotonSi));
-//                ps.setFloat(4, 0);
-//                String s = comboBox.getSelectionModel().getSelectedItem().toString();
-//                ps.setInt(5, verificarTipoCuenta(s));
-//                ps.setString(6,"Si");
-//
-//                ps.execute();
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Atencion");
-//                alert.setHeaderText("Operacion exitosa!");
-//                alert.setContentText("Se ha agregado con exito la cuenta");
-//                alert.showAndWait();
-//                ((Node) actionEvent.getSource()).getScene().getWindow().hide();
-//
-//            } catch (Exception e) {
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Error");
-//                alert.setHeaderText("Por favor,");
-//                alert.setContentText("Ingrese solo digitos en el codigo de la cuenta");
-//                alert.showAndWait();
-//            }
-//        }else{
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.setTitle("Atencion!");
-//            alert.setHeaderText("Por favor,");
-//            alert.setContentText("Complete todos los campos");
-//            alert.showAndWait();
-//        }
-//        }
-//    */
-//    }
 
 
 }

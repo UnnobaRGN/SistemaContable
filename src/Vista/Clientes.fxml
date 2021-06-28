@@ -18,12 +18,12 @@
             <Image url="@../../Imagenes/pep.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imagenDerecha" fitHeight="782.0" fitWidth="1322.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenDerecha" fitHeight="930.0" fitWidth="1648.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="2.0" layoutY="30.0" prefHeight="559.0" prefWidth="1261.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="2.0" layoutY="30.0" prefHeight="564.0" prefWidth="1311.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="158.0" mnemonicParsing="false" onAction="#accederFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturas" />
             <Label layoutX="576.0" layoutY="31.0" style="-fx-underline: true;" text="C L I E N T E S">
@@ -64,16 +64,17 @@
                </font>
             </Label>
             <TextField fx:id="clienteRazon" layoutX="754.0" layoutY="172.0" prefHeight="26.0" prefWidth="141.0" />
-            <TableView fx:id="tablaCliente" layoutX="144.0" layoutY="258.0" prefHeight="291.0" prefWidth="1149.0">
+            <TableView fx:id="tablaCliente" layoutX="144.0" layoutY="258.0" prefHeight="276.0" prefWidth="1144.0">
               <columns>
-                <TableColumn fx:id="columnaDni" prefWidth="128.0" text="DNI" />
-                <TableColumn fx:id="columnaNombre" prefWidth="164.0" text="Nombre" />
-                  <TableColumn fx:id="columnaApellido" prefWidth="141.0" text="Apellido" />
-                  <TableColumn fx:id="columnaDireccion" prefWidth="128.0" text="Direccion" />
-                  <TableColumn fx:id="columnaTelefono" minWidth="0.0" prefWidth="116.0" text="Telefono" />
-                  <TableColumn fx:id="columnaEmail" minWidth="0.0" prefWidth="181.0" text="Email" />
-                  <TableColumn fx:id="columnaCuit" prefWidth="128.0" text="CUIT" />
+                <TableColumn fx:id="columnaDni" minWidth="128.0" prefWidth="128.0" text="DNI" />
+                <TableColumn fx:id="columnaNombre" minWidth="164.0" prefWidth="164.0" text="Nombre" />
+                  <TableColumn fx:id="columnaApellido" minWidth="141.0" prefWidth="141.0" text="Apellido" />
+                  <TableColumn fx:id="columnaDireccion" minWidth="128.0" prefWidth="128.0" text="Direccion" />
+                  <TableColumn fx:id="columnaTelefono" minWidth="116.0" prefWidth="116.0" text="Telefono" />
+                  <TableColumn fx:id="columnaEmail" minWidth="181.0" prefWidth="181.0" text="Email" />
+                  <TableColumn fx:id="columnaCuit" minWidth="128.0" prefWidth="128.0" text="CUIT" />
                   <TableColumn fx:id="columnaRazon" prefWidth="162.0" text="Razon Social" />
+                  <TableColumn fx:id="columnaCondicionIva" minWidth="180.0" prefWidth="180.0" text="Condicion IVA" />
               </columns>
             </TableView>
             <Label layoutX="906.0" layoutY="176.0" text="Condicion IVA:">
