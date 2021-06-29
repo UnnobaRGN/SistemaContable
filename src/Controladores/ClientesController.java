@@ -98,7 +98,8 @@ public class ClientesController implements Initializable{
     @FXML
     private Button botonActualizarDatos;
 
-
+    @FXML
+    private TextField textoIdCliente;
 
     @FXML
     private TableView<Cliente> tablaCliente;
@@ -242,6 +243,7 @@ public class ClientesController implements Initializable{
         clienteCuit.setText("");
         clienteEmail.setText("");
         clienteApellido.setText("");
+        textoIdCliente.setText("");
         seleccionTipoPersona.getSelectionModel().clearSelection();
         condicionIva.getSelectionModel().clearSelection();
         setearPrompTextDeVuelta();
@@ -264,6 +266,10 @@ public class ClientesController implements Initializable{
         clienteCuit.setText("");
         clienteEmail.setText("");
         clienteApellido.setText("");
+        BuscarCliente.setText("");
+        textoIdCliente.setText("");
+        condicionIva.getSelectionModel().clearSelection();
+        setearPrompTextDeVuelta();
     }
 
 
@@ -271,15 +277,21 @@ public class ClientesController implements Initializable{
         try {
             String s = seleccionTipoPersona.getSelectionModel().getSelectedItem().toString();
             if(s.equals("Juridica")) {
-                limpiarDatos2();
+                if(!clienteDni.getText().isBlank() || !clienteApellido.getText().isBlank() || !clienteNombre.getText().isBlank()) {
+                    limpiarDatos2();
+                }//SOLUCIONADO
                 deshabilitarCampos();
                 siEsJuridica();
 
 
             }else{
-                limpiarDatos2();
-                deshabilitarCampos();
-                siEsFisica();
+                if(s.equals("Fisica")){
+                    if(!clienteRazon.getText().isBlank()) {
+                        limpiarDatos2();
+                    }
+                    deshabilitarCampos();
+                    siEsFisica();
+                }
 
             }
         }catch (Exception e){
@@ -290,6 +302,8 @@ public class ClientesController implements Initializable{
     }
 
     public void siEsJuridica(){
+        //textoIdCliente.setText("");
+        BuscarCliente.setText("");
         clienteTelefono.setDisable(false);
         clienteDireccion.setDisable(false);
         clienteEmail.setDisable(false);
@@ -300,6 +314,8 @@ public class ClientesController implements Initializable{
 
 
     public void siEsFisica(){
+        //textoIdCliente.setText("");
+        BuscarCliente.setText("");
         clienteNombre.setDisable(false);
         clienteTelefono.setDisable(false);
         clienteDireccion.setDisable(false);
@@ -607,7 +623,7 @@ public class ClientesController implements Initializable{
         ObservableList<Cliente> lista = FXCollections.observableArrayList();
 
         try {
-            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.razonsocial="+ "'" + s.toLowerCase() +"'";
+            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.razonsocial="+ "'" + s.toLowerCase() +"'"+" OR c.nombre="+"'" + s.toLowerCase() +"'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -639,7 +655,7 @@ public class ClientesController implements Initializable{
         Connection conn = ConexionBD.getConnection();
         Cliente c = new Cliente();
         try {
-            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.razonsocial="+ "'" + s.toLowerCase() +"'";
+            String SQL = "SELECT c.razonsocial as razonsocial, c.dni as dni, c.direccion as direccion, c.nombre as nombre, c.apellido as apellido, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.dni="+ "'" + s + "'"+" OR c.razonsocial="+ "'" + s.toLowerCase() +"'" +" OR c.nombre="+"'" + s.toLowerCase() +"'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -742,4 +758,52 @@ public class ClientesController implements Initializable{
     }
 
 
+    public void traerParaActualizarDatos(ActionEvent event){
+
+        agregarClienteSeleccionadoAcampos(); //SOLUCIONADO
+        BuscarCliente.setText("");
+    }
+
+
+    public void agregarClienteSeleccionadoAcampos(){
+        if(!tablaCliente.getSelectionModel().isEmpty()){
+            if (tablaCliente.getSelectionModel().getSelectedItem().getTipoPersona().getTipopersona().equals("Juridica")) {
+                siEsJuridica();
+                traerDatosDePersonaJuridica(tablaCliente.getSelectionModel().getSelectedItem().getRazonSocial());
+            }else{
+                //traerDatosDePersonaFisica();
+        }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Seleccione un cliente");
+            alert.showAndWait();
+        }
+    }
+
+    public void traerDatosDePersonaJuridica(String razon){
+        Connection conn = ConexionBD.getConnection();
+
+        try {
+            String SQL = "SELECT c.idcliente,c.razonsocial as razonsocial, c.direccion as direccion, c.cuit as cuit, c.telefono as telefono, c.email as email,c.idtipopersona as idtipopersona,c.id_condicioniva as idcondicioniva FROM cliente c WHERE c.razonsocial="+ "'" + razon.toLowerCase() + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            if(rs.next()){
+                textoIdCliente.setText(rs.getString("idcliente"));
+                clienteEmail.setText(rs.getString("email"));
+                clienteTelefono.setText(rs.getString("telefono"));
+                clienteDireccion.setText(rs.getString("direccion"));
+                clienteCuit.setText(rs.getString("cuit"));
+                clienteRazon.setText(rs.getString("razonsocial"));
+                seleccionTipoPersona.setValue(buscarTipoPersona(rs.getInt("idtipopersona")).getTipopersona());
+                condicionIva.setValue(buscarCondicionIva(rs.getInt("idcondicioniva")).getNombre());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
 }

@@ -110,9 +110,10 @@
                </font>
             </Label>
             <ComboBox fx:id="seleccionTipoPersona" layoutX="186.0" layoutY="119.0" onAction="#seleccionarTipoPersona" prefHeight="25.0" prefWidth="108.0" promptText="Seleccione" />
-            <Button fx:id="botonActualizarDatos" layoutX="717.0" layoutY="220.0" mnemonicParsing="false" text="Actualizar datos" />
+            <Button fx:id="botonActualizarDatos" layoutX="717.0" layoutY="220.0" mnemonicParsing="false" onAction="#traerParaActualizarDatos" text="Actualizar datos" />
             <ComboBox fx:id="condicionIva" layoutX="1014.0" layoutY="172.0" prefHeight="25.0" prefWidth="232.0" promptText="Seleccione" />
-            <TextField fx:id="BuscarCliente" layoutX="850.0" layoutY="221.0" prefHeight="26.0" prefWidth="192.0" promptText="Ingrese DNI o Nombre" />
+            <TextField fx:id="BuscarCliente" layoutX="850.0" layoutY="221.0" prefHeight="26.0" prefWidth="192.0" promptText="DNI /Nombre/Razon Social" />
+            <TextField fx:id="textoIdCliente" editable="false" layoutX="968.0" layoutY="57.0" prefHeight="25.0" prefWidth="40.0" />
          </children>
       </AnchorPane>
    </children>
