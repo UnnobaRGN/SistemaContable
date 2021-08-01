@@ -2,6 +2,7 @@ package Modelo;
 
 public class Cliente {
 
+    private int idcliente;
     private String dni;
     private String nombre;
     private String telefono;
@@ -31,6 +32,14 @@ public class Cliente {
 
     public Cliente() {
 
+    }
+
+    public int getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
     }
 
     public String getApellido() {

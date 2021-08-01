@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1311.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ClientesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="1367.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ClientesController">
    <children>
       <ImageView fx:id="imagenIzquierda" fitHeight="791.0" fitWidth="320.0" layoutX="-53.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -23,7 +23,7 @@
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="2.0" layoutY="30.0" prefHeight="564.0" prefWidth="1311.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="2.0" layoutY="30.0" prefHeight="601.0" prefWidth="1363.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="158.0" mnemonicParsing="false" onAction="#accederFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturas" />
             <Label layoutX="576.0" layoutY="31.0" style="-fx-underline: true;" text="C L I E N T E S">
@@ -64,17 +64,16 @@
                </font>
             </Label>
             <TextField fx:id="clienteRazon" layoutX="754.0" layoutY="172.0" prefHeight="26.0" prefWidth="141.0" />
-            <TableView fx:id="tablaCliente" layoutX="144.0" layoutY="258.0" prefHeight="276.0" prefWidth="1144.0">
+            <TableView fx:id="tablaCliente" layoutX="144.0" layoutY="258.0" prefHeight="278.0" prefWidth="1200.0">
               <columns>
-                <TableColumn fx:id="columnaDni" minWidth="128.0" prefWidth="128.0" text="DNI" />
+                <TableColumn fx:id="columnaDni" minWidth="128.0" prefWidth="128.0" text="DNI/CUIT" />
                 <TableColumn fx:id="columnaNombre" minWidth="164.0" prefWidth="164.0" text="Nombre" />
                   <TableColumn fx:id="columnaApellido" minWidth="141.0" prefWidth="141.0" text="Apellido" />
                   <TableColumn fx:id="columnaDireccion" minWidth="128.0" prefWidth="128.0" text="Direccion" />
                   <TableColumn fx:id="columnaTelefono" minWidth="116.0" prefWidth="116.0" text="Telefono" />
                   <TableColumn fx:id="columnaEmail" minWidth="181.0" prefWidth="181.0" text="Email" />
-                  <TableColumn fx:id="columnaCuit" minWidth="128.0" prefWidth="128.0" text="CUIT" />
-                  <TableColumn fx:id="columnaRazon" prefWidth="162.0" text="Razon Social" />
-                  <TableColumn fx:id="columnaCondicionIva" minWidth="180.0" prefWidth="180.0" text="Condicion IVA" />
+                  <TableColumn fx:id="columnaRazon" minWidth="162.0" prefWidth="219.0" text="Razon Social" />
+                  <TableColumn fx:id="columnaCondicionIva" minWidth="110.0" prefWidth="123.0" text="Condicion IVA" />
               </columns>
             </TableView>
             <Label layoutX="906.0" layoutY="176.0" text="Condicion IVA:">
@@ -88,8 +87,8 @@
                </font>
             </Label>
             <TextField fx:id="clienteCuit" layoutX="186.0" layoutY="219.0" prefHeight="26.0" prefWidth="153.0" />
-            <Button fx:id="botonBuscar" layoutX="1046.0" layoutY="222.0" mnemonicParsing="false" onAction="#busquedaCliente" text="Buscar cliente" />
-            <Button fx:id="botonEliminar" layoutX="608.0" layoutY="220.0" mnemonicParsing="false" text="Eliminar cliente" />
+            <Button fx:id="botonBuscar" layoutX="898.0" layoutY="222.0" mnemonicParsing="false" onAction="#busquedaCliente" text="Buscar cliente" />
+            <Button fx:id="botonBaja" layoutX="1157.0" layoutY="223.0" mnemonicParsing="false" onAction="#bajaCliente" text="Baja cliente" />
             <Button fx:id="botonLimpiar" layoutX="392.0" layoutY="220.0" mnemonicParsing="false" onAction="#limpiarDatos" prefHeight="26.0" prefWidth="89.0" text="Limpiar datos" />
             <Button fx:id="botonGuardar" layoutX="495.0" layoutY="219.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="26.0" prefWidth="97.0" text="Guardar cliente" />
             <Label layoutX="773.0" layoutY="123.0" text="Apellido:">
@@ -110,11 +109,14 @@
                </font>
             </Label>
             <ComboBox fx:id="seleccionTipoPersona" layoutX="186.0" layoutY="119.0" onAction="#seleccionarTipoPersona" prefHeight="25.0" prefWidth="108.0" promptText="Seleccione" />
-            <Button fx:id="botonActualizarDatos" layoutX="717.0" layoutY="220.0" mnemonicParsing="false" onAction="#traerParaActualizarDatos" text="Actualizar datos" />
+            <Button fx:id="botonActualizarDatos" layoutX="603.0" layoutY="219.0" mnemonicParsing="false" onAction="#traerParaActualizarDatos" text="Editar cliente" />
             <ComboBox fx:id="condicionIva" layoutX="1014.0" layoutY="172.0" prefHeight="25.0" prefWidth="232.0" promptText="Seleccione" />
-            <TextField fx:id="BuscarCliente" layoutX="850.0" layoutY="221.0" prefHeight="26.0" prefWidth="192.0" promptText="DNI /Nombre/Razon Social" />
-            <TextField fx:id="textoIdCliente" editable="false" layoutX="968.0" layoutY="57.0" prefHeight="25.0" prefWidth="40.0" />
+            <TextField fx:id="BuscarCliente" layoutX="706.0" layoutY="222.0" prefHeight="26.0" prefWidth="192.0" promptText="DNI /Nombre/Razon Social" />
+            <TextField fx:id="textoIdCliente" editable="false" layoutX="968.0" layoutY="57.0" prefHeight="25.0" prefWidth="40.0" visible="false" />
+            <Button fx:id="botonBuscarPorTipoPersona" layoutX="1002.0" layoutY="223.0" mnemonicParsing="false" onAction="#mostrarTodosLosClientesPorTipo" prefHeight="25.0" prefWidth="141.0" text="Buscar clientes por tipo" />
          </children>
       </AnchorPane>
+      <TextField fx:id="textoHabilitar" layoutX="1057.0" layoutY="557.0" prefHeight="25.0" prefWidth="192.0" promptText="DNI/CUIT/Razon Social" />
+      <Button fx:id="habilitarCliente" layoutX="1249.0" layoutY="557.0" mnemonicParsing="false" onAction="#habilitaCliente" text="Habilitar cliente" />
    </children>
 </AnchorPane>
