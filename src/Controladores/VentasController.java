@@ -238,6 +238,7 @@ public class VentasController implements Initializable {
         Factura factura = new Factura();
 
         //OBTENER ID DEL CLIENTE
+        String c = seleccionClientes.getSelectionModel().getSelectedItem().toString();;
         Connection conn = ConexionBD.getConnection();
         String SQL = "SELECT c.idcliente as id FROM cliente AS c WHERE c.idcliente LIKE " + "'" + c + "'";
         Statement statement = conn.createStatement();
@@ -248,7 +249,7 @@ public class VentasController implements Initializable {
         }
 
         Venta venta = new Venta();
-        venta.setCliente(cliente);
+        //venta.setCliente(cliente);
         factura.setFacturada(checkOpcion.isSelected());
         factura.setIdVenta(venta.getIdventa());
 
