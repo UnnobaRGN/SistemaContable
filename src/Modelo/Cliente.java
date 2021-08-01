@@ -2,6 +2,7 @@ package Modelo;
 
 public class Cliente {
 
+    private int idcliente;
     private String dni;
     private String nombre;
     private String telefono;
@@ -13,6 +14,8 @@ public class Cliente {
     private String apellido;
     private String Email;
     private TipoPersona tipoPersona;
+
+    private String nombreDeLaCondicionIVA;
 
     public Cliente(String dni, String nombre, String telefono, String direccion, String razonSocial, CondicionIva condicionIVA, String cuit,String apelldo,String Email,TipoPersona persona) {
         this.dni = dni;
@@ -29,6 +32,14 @@ public class Cliente {
 
     public Cliente() {
 
+    }
+
+    public int getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
     }
 
     public String getApellido() {
@@ -87,7 +98,7 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public String getRazonSocial(String razon_social) {
+    public String getRazonSocial() {
         return razonSocial;
     }
 
@@ -110,4 +121,15 @@ public class Cliente {
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
+
+
+    public String getNombreDeLaCondicionIVA() {
+        return nombreDeLaCondicionIVA;
+    }
+
+    public void setNombreDeLaCondicionIVA(String nombreDeLaCondicionIVA) {
+        this.nombreDeLaCondicionIVA = nombreDeLaCondicionIVA;
+    }
 }
+
+
