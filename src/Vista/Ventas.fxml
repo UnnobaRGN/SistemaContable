@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -73,7 +74,7 @@
             <TableView fx:id="tabla" layoutX="145.0" layoutY="144.0" prefHeight="200.0" prefWidth="520.0">
               <columns>
                 <TableColumn fx:id="columnaCodigo" prefWidth="75.0" text="Codigo" />
-                <TableColumn fx:id="ColumnaDescripcion" prefWidth="151.199951171875" text="Descripcion" />
+                <TableColumn fx:id="columnaD" prefWidth="151.199951171875" text="Descripcion" />
                   <TableColumn fx:id="columnaCantidad" prefWidth="134.39999389648438" text="Cantidad" />
                   <TableColumn fx:id="columnaPrecio" prefWidth="80.79998779296875" text="Precio" />
                   <TableColumn fx:id="columnaTotal" prefWidth="76.00006103515625" text="Total" />
@@ -90,17 +91,26 @@
                </font>
             </Label>
             <TextField fx:id="totalPagar" editable="false" layoutX="584.0" layoutY="382.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
-            <Button fx:id="confirmarVenta" layoutX="702.0" layoutY="318.0" mnemonicParsing="false" onAction="#confirmarVenta" text="Confirmar venta" />
-            <Button fx:id="cancelarVenta" layoutX="701.0" layoutY="356.0" mnemonicParsing="false" onAction="#cancelarVenta" prefHeight="26.0" prefWidth="102.0" text="Cancelar venta" />
+            <Button fx:id="confirmarVenta" layoutX="703.0" layoutY="332.0" mnemonicParsing="false" onAction="#confirmarVenta" text="Confirmar venta" />
+            <Button fx:id="cancelarVenta" layoutX="702.0" layoutY="366.0" mnemonicParsing="false" onAction="#cancelarVenta" prefHeight="26.0" prefWidth="102.0" text="Cancelar venta" />
             <ComboBox fx:id="seleccionProductos" layoutX="254.0" layoutY="102.0" onAction="#seleccionarProducto" prefHeight="25.0" prefWidth="115.0" promptText="Seleccione" />
-            <ComboBox fx:id="seleccionClientes" layoutX="145.0" layoutY="370.0" onAction="#seleccionarClientes" prefHeight="25.0" prefWidth="115.0" promptText="Seleccione" />
-            <Button fx:id="agregarP" layoutX="657.0" layoutY="102.0" mnemonicParsing="false" onAction="#agregarProducto" text="Agregar producto" />
-            <Label layoutX="445.0" layoutY="362.0" text="Total descuento:">
+            <ComboBox fx:id="seleccionClientes" layoutX="145.0" layoutY="370.0" onAction="#seleccionarClientes" prefHeight="25.0" prefWidth="147.0" promptText="Seleccione" />
+            <Button fx:id="agregarP" layoutX="688.0" layoutY="112.0" mnemonicParsing="false" onAction="#agregarProductoGeneral" prefHeight="25.0" prefWidth="115.0" text="Agregar producto" />
+            <Label fx:id="labelDescuento" layoutX="445.0" layoutY="362.0" text="Total descuento:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
             <TextField fx:id="totalDescuento" editable="false" layoutX="465.0" layoutY="382.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
+            <Button fx:id="eliminarP" layoutX="688.0" layoutY="182.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="25.0" prefWidth="115.0" text="Eliminar producto" />
+            <Button fx:id="modificarP" layoutX="688.0" layoutY="148.0" mnemonicParsing="false" onAction="#modificarProducto" prefHeight="25.0" prefWidth="115.0" text="Modif. producto" />
+            <Button fx:id="aceptarCambios" layoutX="692.0" layoutY="232.0" mnemonicParsing="false" onAction="#aceptarCambios" text="Acepta Cambios" />
+            <Button fx:id="cancelarCambios" layoutX="692.0" layoutY="264.0" mnemonicParsing="false" onAction="#cancelarCambios" prefHeight="25.0" prefWidth="107.0" text="Cancela Cambios" />
+            <CheckBox fx:id="checkOpcion" layoutX="692.0" layoutY="300.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="FACTURAR">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </CheckBox>
          </children>
       </AnchorPane>
    </children>

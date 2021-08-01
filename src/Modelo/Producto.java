@@ -1,11 +1,9 @@
 package Modelo;
 
-import java.sql.Date;
-
 public class Producto {
 
     private int idProducto;
-    private Integer codigo;
+    private int codigo;
     private String nombreProducto;
     private String stock;
     private float precio;
@@ -13,11 +11,12 @@ public class Producto {
     private boolean activo;
     //private int idproveedor;
     private Proveedor proveedor;
-
+    private float total;
+    private int cantidad;
 
     public Producto() {}
 
-    public Producto(int idProducto, Integer codigo, String nombreProducto, String stock, float precio, String descripcion, boolean activo, Proveedor proveedor) {
+    public Producto(int idProducto, int codigo, String nombreProducto, String stock, float precio, String descripcion, boolean activo, Proveedor proveedor, float total) {
         this.idProducto = idProducto;
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;
@@ -26,6 +25,7 @@ public class Producto {
         this.descripcion = descripcion;
         this.activo = activo;
         this.proveedor = proveedor;
+        this.total = total;
     }
 
     public Producto(Integer codigo, String nombreProducto, String stock, float precio, Proveedor proveedor) {
@@ -36,6 +36,28 @@ public class Producto {
         this.precio = precio;
         //this.idproveedor = idproveedor;
         this.proveedor=proveedor;
+    }
+
+    public Producto(Integer codigo, String nombreProducto, String stock, float precio, float total) {
+
+        this.codigo = codigo;
+        this.nombreProducto = nombreProducto;
+        this.stock = stock;
+        this.precio = precio;
+        //this.idproveedor = idproveedor;
+        this.total=total;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public int getIdProducto() {
@@ -100,5 +122,13 @@ public class Producto {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
     }
 }

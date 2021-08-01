@@ -3,13 +3,13 @@ package Modelo;
 public class Factura {
 
     private int idfactura;
-    private Venta venta;
+    private int idventa;
     private boolean facturada;
 
 
-    public Factura(int idfactura, Venta venta, boolean facturada) {
+    public Factura(int idfactura, int venta, boolean facturada) {
         this.idfactura = idfactura;
-        this.venta = venta;
+        this.idventa = venta;
         this.facturada = facturada;
     }
 
@@ -25,12 +25,12 @@ public class Factura {
         this.idfactura = idfactura;
     }
 
-    public Venta getVenta() {
-        return venta;
+    public int getIdVenta() {
+        return idventa;
     }
 
-    public void setVenta(Venta venta) {
-        this.venta = venta;
+    public void setIdVenta(int venta) {
+        this.idventa = venta;
     }
 
     public boolean isFacturada() {
