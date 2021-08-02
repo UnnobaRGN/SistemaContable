@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturasController">
    <children>
       <ImageView fx:id="imagenIzquierda" fitHeight="512.0" fitWidth="214.0" layoutX="-88.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -40,7 +40,6 @@
                   <TableColumn fx:id="columnaSubtotal" prefWidth="101.0" text="Total" />
               </columns>
             </TableView>
-            <Button fx:id="botonVentasSinFactura" layoutX="694.0" layoutY="28.0" mnemonicParsing="false" onAction="#ventasSinFactura" prefHeight="50.0" prefWidth="120.0" text="Ventas sin Factura" AnchorPane.leftAnchor="694.0" />
          </children>
       </AnchorPane>
    </children>
