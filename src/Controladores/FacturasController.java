@@ -55,6 +55,7 @@ public class FacturasController implements Initializable {
         File brandingIzquierda = new File("Imagenes/asd.png");
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
         imagenDerecha.setImage(brandingIzq);
+        
 
     }
 
@@ -98,13 +99,7 @@ public class FacturasController implements Initializable {
         stage.show();
     }
 
-    public void ventasSinFactura(ActionEvent event) throws IOException {
-        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/SinFacturacion.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(asiento);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("Ventas Sin Facturacion");
-        stage.show();
-    }
+
+   // public void
+
 }
