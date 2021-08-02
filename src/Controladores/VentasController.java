@@ -40,9 +40,6 @@ public class VentasController implements Initializable {
     private ImageView imagenIzquierda = new ImageView();
 
     @FXML
-    private Label labelDescuento;
-
-    @FXML
     private Button accederCosteo;
 
     @FXML
@@ -123,9 +120,6 @@ public class VentasController implements Initializable {
     @FXML
     private ComboBox seleccionClientes;
 
-    @FXML
-    private CheckBox checkOpcion;
-
     List<Producto> listaProductos = new ArrayList<>();
 
     private ObservableList<Producto> list;
@@ -163,8 +157,6 @@ public class VentasController implements Initializable {
         condicionFecha();
 
         typedEnNumeros();
-
-        labelDescuento.setVisible(false);
 
         /*try {
             confirmarVenta();
@@ -257,7 +249,7 @@ public class VentasController implements Initializable {
         venta.setTotal(Double.valueOf(totalPagar.getText()));
         venta.setUsuarioLogeado(u.getId());
 
-        factura.setFacturada(checkOpcion.isSelected());
+        factura.setFacturada(true);
         factura.setIdVenta(venta.getIdventa());
 
         for (Producto p : listaProductos) {
@@ -280,8 +272,8 @@ public class VentasController implements Initializable {
         list.clear();
         tabla.getItems().clear();
         codigo.setText("");
-        seleccionProductos.setValue(tomarProductos());
-        seleccionClientes.setValue(tomarClientes());
+//        seleccionProductos.getSelectionModel().clearSelection(); //setValue("Seleccione");
+//        seleccionProductos.setValue("Seleccione");
         cantidad.setText("");
         stock.setText("");
         precio.setText("");
@@ -819,8 +811,16 @@ public class VentasController implements Initializable {
             aceptarCambios.setDisable(false);
             cancelarCambios.setVisible(true);
             cancelarCambios.setDisable(false);
+            confirmarVenta.setVisible(false);
+            cancelarVenta.setVisible(false);
 
             datosAceptarCambios(producto);
+
+            agregarP.setVisible(false);
+            modificarP.setVisible(false);
+            eliminarP.setVisible(false);
+            confirmarVenta.setVisible(false);
+            cancelarVenta.setVisible(false);
 
 
         } catch (Exception e) {
@@ -848,10 +848,22 @@ public class VentasController implements Initializable {
         listaProductos.set(posicionEnTabla, getProductoEstatico());
         totalPagar.setText(String.valueOf(calcularPrecioTotal()));
 
+        codigo.setText("");
+        seleccionProductos.setValue("");
+        cantidad.setText("");
+        precio.setText("");
+        stock.setText("");
+
         aceptarCambios.setDisable(true);
         aceptarCambios.setVisible(false);
         cancelarCambios.setVisible(false);
         cancelarCambios.setDisable(true);
+
+        agregarP.setVisible(true);
+        modificarP.setVisible(true);
+        eliminarP.setVisible(true);
+        confirmarVenta.setVisible(true);
+        cancelarVenta.setVisible(true);
 
     }
 
@@ -866,6 +878,12 @@ public class VentasController implements Initializable {
         aceptarCambios.setVisible(false);
         cancelarCambios.setVisible(false);
         cancelarCambios.setDisable(true);
+
+        agregarP.setVisible(true);
+        modificarP.setVisible(true);
+        eliminarP.setVisible(true);
+        confirmarVenta.setVisible(true);
+        cancelarVenta.setVisible(true);
     }
 
     private Producto productoEstatico;
