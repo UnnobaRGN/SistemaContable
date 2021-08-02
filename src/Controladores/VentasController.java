@@ -131,9 +131,7 @@ public class VentasController implements Initializable {
     private ObservableList<Producto> list;
 
     private int posicionEnTabla;
-
-    public VentasController() {
-    }
+    private UsuarioLogeado u = UsuarioLogeado.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -236,27 +234,44 @@ public class VentasController implements Initializable {
     public void confirmarVenta() throws SQLException {
         //Persistir datos
         Factura factura = new Factura();
-
+        int idcliente = 0;
         //OBTENER ID DEL CLIENTE
-        String c = seleccionClientes.getSelectionModel().getSelectedItem().toString();;
+        String c = seleccionClientes.getSelectionModel().getSelectedItem().toString();
+
+        String[] parts = c.split("-");
+        String cuit = parts[1].replace(" ", "");
+
         Connection conn = ConexionBD.getConnection();
-        String SQL = "SELECT c.idcliente as id FROM cliente AS c WHERE c.idcliente LIKE " + "'" + c + "'";
+        String SQL = "SELECT c.idcliente as id FROM cliente AS c WHERE c.cuit LIKE " + "'" + cuit + "'";
         Statement statement = conn.createStatement();
         ResultSet rs = statement.executeQuery(SQL);
 
         if (rs.next()) {
-
+            idcliente = rs.getInt("id");
         }
 
         Venta venta = new Venta();
-        //venta.setCliente(cliente);
+        venta.setCliente(idcliente);
+        venta.setCodigo(venta.getIdventa());
+        venta.setFecha(Date.valueOf(fecha.getValue()));
+        venta.setTotal(Double.valueOf(totalPagar.getText()));
+        venta.setUsuarioLogeado(u.getId());
+
         factura.setFacturada(checkOpcion.isSelected());
         factura.setIdVenta(venta.getIdventa());
 
         for (Producto p : listaProductos) {
             Venta_Producto ventaProducto = new Venta_Producto(venta.getIdventa(), p.getIdProducto());
+            actualizarStock(p.getIdProducto(), p.getCantidad());
         }
+    }
 
+    public void actualizarStock(int idproducto, int cantidad) throws SQLException {
+
+        Connection conn = ConexionBD.getConnection();
+        String SQL = "UPDATE producto as p SET p.stock = " + cantidad + " WHERE p.idproducto = " + idproducto;
+        Statement statement = conn.createStatement();
+        ResultSet rs = statement.executeQuery(SQL);
 
     }
 
@@ -707,12 +722,12 @@ public class VentasController implements Initializable {
 
         try {
 
-            String SQL = "select cl.razonsocial as nombre from cliente as cl where idtipopersona=1 ";
+            String SQL = "select cl.razonsocial as nombre, cl.cuit as cuit from cliente as cl where idtipopersona=1 ";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(rs.getString("nombre"));
+                list.add(rs.getString("nombre") + " - " + rs.getString("cuit"));
             }
 
         } catch (Exception e) {
@@ -733,12 +748,12 @@ public class VentasController implements Initializable {
 
         try {
 
-            String SQL = "select concat(cl.nombre, ' ', cl.apellido) as nombre from cliente as cl where idtipopersona=2 ";
+            String SQL = "select concat(cl.nombre, ' ', cl.apellido) as nombre, cl.cuit as cuit from cliente as cl where idtipopersona=2 ";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(rs.getString("nombre"));
+                list.add(rs.getString("nombre") + " - " + rs.getString("cuit"));
             }
 
         } catch (Exception e) {
