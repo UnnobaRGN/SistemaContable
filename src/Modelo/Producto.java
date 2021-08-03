@@ -10,13 +10,14 @@ public class Producto {
     private String descripcion;
     private boolean activo;
     //private int idproveedor;
-    private Proveedor proveedor;
+    private String proveedor;
     private float total;
     private int cantidad;
+    private float alicuota;
 
     public Producto() {}
 
-    public Producto(int idProducto, int codigo, String nombreProducto, String stock, float precio, String descripcion, boolean activo, Proveedor proveedor, float total) {
+    public Producto(int idProducto, int codigo, String nombreProducto, String stock, float precio, String descripcion, boolean activo, String proveedor, float total) {
         this.idProducto = idProducto;
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;
@@ -28,13 +29,12 @@ public class Producto {
         this.total = total;
     }
 
-    public Producto(Integer codigo, String nombreProducto, String stock, float precio, Proveedor proveedor) {
+    public Producto(Integer codigo, String nombreProducto, String stock, float precio, String proveedor) {
 
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;
         this.stock = stock;
         this.precio = precio;
-        //this.idproveedor = idproveedor;
         this.proveedor=proveedor;
     }
 
@@ -116,11 +116,11 @@ public class Producto {
         this.activo = activo;
     }
 
-    public Proveedor getProveedor() {
+    public String getProveedor() {
         return proveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
+    public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
     }
 
@@ -130,5 +130,13 @@ public class Producto {
 
     public void setTotal(float total) {
         this.total = total;
+    }
+
+    public float getAlicuota() {
+        return alicuota;
+    }
+
+    public void setAlicuota(float alicuota) {
+        this.alicuota = alicuota;
     }
 }

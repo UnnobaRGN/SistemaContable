@@ -11,9 +11,10 @@ public class Venta {
     private Date fecha;
     private int usuarioLogeado;
     private int cliente;
+    private int idmediopago;
 
 
-    public Venta(int idventa, int codigo, double total_descuento, double total, Date fecha, int usuarioLogeado, int cliente) {
+    public Venta(int idventa, int codigo, double total_descuento, double total, Date fecha, int usuarioLogeado, int cliente, int idmediopago) {
         this.idventa = idventa;
         this.codigo = codigo;
         this.total_descuento = total_descuento;
@@ -21,6 +22,7 @@ public class Venta {
         this.fecha = fecha;
         this.usuarioLogeado = usuarioLogeado;
         this.cliente = cliente;
+        this.idmediopago=idmediopago;
     }
 
     public Venta() {
@@ -80,5 +82,13 @@ public class Venta {
 
     public void setCliente(int cliente) {
         this.cliente = cliente;
+    }
+
+    public int getIdmediopago() {
+        return idmediopago;
+    }
+
+    public void setIdmediopago(int idmediopago) {
+        this.idmediopago = idmediopago;
     }
 }
