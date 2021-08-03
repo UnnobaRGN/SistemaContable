@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturasController">
    <children>
       <ImageView fx:id="imagenIzquierda" fitHeight="512.0" fitWidth="214.0" layoutX="-88.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -21,7 +21,7 @@
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="490.0" prefWidth="840.0">
+      <AnchorPane layoutX="1.0" prefHeight="490.0" prefWidth="897.0">
          <children>
             <Button fx:id="botonClientes" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accederCliente" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Clientes" />
             <Label layoutX="389.0" layoutY="21.0" style="-fx-underline: true;" text="F A C T U R A S" textAlignment="CENTER">
@@ -32,14 +32,16 @@
             <Button fx:id="botonStock" layoutX="23.0" layoutY="144.0" mnemonicParsing="false" onAction="#accederStock" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Stock" />
             <Button fx:id="botonCosteo" layoutX="3.0" layoutY="193.0" mnemonicParsing="false" onAction="#accederCosteo" prefHeight="32.0" prefWidth="120.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Metodo de Costeo" />
             <Button fx:id="botonVentas" layoutX="23.0" layoutY="244.0" mnemonicParsing="false" onAction="#accederVentas" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Ventas" />
-            <TableView fx:id="tablaFactura" layoutX="145.0" layoutY="105.0" prefHeight="347.0" prefWidth="670.0">
+            <TableView fx:id="tablaFactura" layoutX="145.0" layoutY="105.0" prefHeight="350.0" prefWidth="741.0">
               <columns>
-                <TableColumn fx:id="columnaCodigo" prefWidth="81.0" text="Codigo" />
-                  <TableColumn fx:id="columnaCliente" prefWidth="288.0" text="Cliente" />
-                <TableColumn fx:id="columnaDescripcion" minWidth="0.0" prefWidth="198.0" text="Descripcion" />
-                  <TableColumn fx:id="columnaSubtotal" prefWidth="101.0" text="Total" />
+                <TableColumn fx:id="columnaNumero" prefWidth="119.0" text="Numero" />
+                  <TableColumn fx:id="columnaCliente" prefWidth="246.0" text="Cliente" />
+                <TableColumn fx:id="columnaFecha" minWidth="0.0" prefWidth="187.0" text="Fecha" />
+                  <TableColumn fx:id="columnaDeuda" prefWidth="75.0" text="Deuda" />
+                  <TableColumn fx:id="columnaSubtotal" prefWidth="188.0" text="Total" />
               </columns>
             </TableView>
+            <Button layoutX="771.0" layoutY="53.0" mnemonicParsing="false" text="Facturas sin pagar" />
          </children>
       </AnchorPane>
    </children>
