@@ -98,6 +98,9 @@ public class VentasController implements Initializable {
     private TextField totalIva;
 
     @FXML
+    private TextField cuotas;
+
+    @FXML
     private Button confirmarVenta;
 
     @FXML
@@ -126,6 +129,12 @@ public class VentasController implements Initializable {
 
     @FXML
     private ComboBox seleccionMetodoDePago;
+
+    @FXML
+    private Label labelCuota;
+
+    @FXML
+    private Label labelIva;
 
     List<Producto> listaProductos = new ArrayList<>();
 
@@ -241,7 +250,7 @@ public class VentasController implements Initializable {
         crearVenta(Double.valueOf(totalIva.getText()), Double.valueOf(totalPagar.getText()), Date.valueOf(fecha.getValue()), u.getId(), idcliente, idmediopago);
 
         //OBTENGO EL ID DE LA VENTA
-        int idventa=ultimaVenta();
+        int idventa = ultimaVenta();
 
         for (Producto p : listaProductos) {
             crearVentaProducto(idventa, p.getIdProducto());
@@ -249,13 +258,41 @@ public class VentasController implements Initializable {
         }
     }
 
+    @FXML
+    void mostrarCuotas(ActionEvent e) throws SQLException {
+        medioPagoCuota();
+    }
+
+    public void medioPagoCuota() throws SQLException {
+        try {
+            int mp = buscarMedioPago(seleccionMetodoDePago.getSelectionModel().getSelectedItem().toString());
+            if (mp == 2) {
+                ocultarCuotas();
+            } else {
+                mostrarCuotas();
+            }
+        } catch (Exception e) {
+            System.out.println("Error en el medio de pago.");
+        }
+    }
+
+    public void ocultarCuotas() {
+        labelCuota.setVisible(false);
+        cuotas.setVisible(false);
+    }
+
+    public void mostrarCuotas() {
+        labelCuota.setVisible(true);
+        cuotas.setVisible(true);
+    }
+
     public int ultimaVenta() throws SQLException {
         String SQL = "select MAX(idventa) as idventa from venta";
         Statement statement = conn.createStatement();
         ResultSet rs = statement.executeQuery(SQL);
-        int idventa=0;
+        int idventa = 0;
         while (rs.next()) {
-            idventa= rs.getInt("idventa");
+            idventa = rs.getInt("idventa");
         }
         return idventa;
     }
@@ -287,20 +324,20 @@ public class VentasController implements Initializable {
     public void crearVenta(double totaliva, double total, Date fecha, int idusuario, int idcliente, int idmediopago) throws SQLException {
         String sql = "INSERT INTO venta(total_iva,total, fecha, idusuario, idcliente, idmediopago) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setDouble(1,totaliva);
-        ps.setDouble(2,total);
-        ps.setDate(3,fecha);
-        ps.setInt(4,idusuario);
-        ps.setInt(5,idcliente);
-        ps.setInt(6,idmediopago);
+        ps.setDouble(1, totaliva);
+        ps.setDouble(2, total);
+        ps.setDate(3, fecha);
+        ps.setInt(4, idusuario);
+        ps.setInt(5, idcliente);
+        ps.setInt(6, idmediopago);
         ps.execute();
     }
 
     public void crearVentaProducto(int idventa, int idproducto) throws SQLException {
         String sql = "INSERT INTO usuario(idventa,idproducto) VALUES (?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1,idventa);
-        ps.setInt(2,idproducto);
+        ps.setInt(1, idventa);
+        ps.setInt(2, idproducto);
         ps.execute();
     }
 
@@ -330,16 +367,16 @@ public class VentasController implements Initializable {
         stock.setDisable(false);
     }
 
-    public ObservableList<String> tomarMetodosDePago(){
+    public ObservableList<String> tomarMetodosDePago() {
         ObservableList<String> list = FXCollections.observableArrayList();
 
         try {
-            String SQL = "select mp.descripcion as descripcion from metodo_pago as mp ";
+            String SQL = "select mp.descripcion as descripcion from medio_pago as mp ";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(rs.getString("nombre") );
+                list.add(rs.getString("descripcion"));
             }
 
         } catch (Exception e) {
@@ -389,11 +426,10 @@ public class VentasController implements Initializable {
                 if (!avisoStock()) {
                     try {
 
-                        String SQL = "SELECT p.idproducto as idproducto, p.codigo as codigo, p.nombre as nombre, p.precio as precio, p.stock as stock, p.descripcion as descripcion, p.activo as activo, p.idproveedor as proveedor FROM producto AS p WHERE p.codigo LIKE " + "'" + c + "'";
+                        String SQL = "SELECT p.idproducto as idproducto, p.codigo as codigo, p.nombre as nombre, p.precio as precio, p.stock as stock, p.descripcion as descripcion, p.activo as activo, p.proveedor as proveedor FROM producto AS p WHERE p.codigo LIKE " + "'" + c + "'";
                         Statement statement = conn.createStatement();
                         ResultSet rs = statement.executeQuery(SQL);
 
-                        Proveedor proveedor1;
                         Producto producto = new Producto();
 
                         while (rs.next()) {
@@ -433,7 +469,9 @@ public class VentasController implements Initializable {
                                 list.add(producto);
                                 tabla.setItems(list);
                                 totalPagar.setText(String.valueOf(calcularPrecioTotal()));
-                                totalIva.setText(String.valueOf(calcularPrecioTotalIva()));
+                                if (isRealizarIvaCliente()) {
+                                    totalIva.setText(String.valueOf(calcularPrecioTotalIva()));
+                                }
                                 limpiarProducto();
 
                             } else {
@@ -482,11 +520,10 @@ public class VentasController implements Initializable {
             if (!avisoStock()) {
                 try {
 
-                    String SQL = "SELECT p.idproducto as idproducto, p.codigo as codigo, p.nombre as nombre, p.precio as precio, p.stock as stock, p.descripcion as descripcion, p.activo as activo, p.idproveedor as proveedor FROM producto AS p WHERE p.nombre LIKE " + "'" + s + "'";
+                    String SQL = "SELECT p.idproducto as idproducto, p.codigo as codigo, p.nombre as nombre, p.precio as precio, p.stock as stock, p.descripcion as descripcion, p.activo as activo, p.proveedor as proveedor FROM producto AS p WHERE p.nombre LIKE " + "'" + s + "'";
                     Statement statement = conn.createStatement();
                     ResultSet rs = statement.executeQuery(SQL);
 
-                    Proveedor proveedor1;
                     Producto producto = new Producto();
 
                     while (rs.next()) {
@@ -526,7 +563,9 @@ public class VentasController implements Initializable {
                             list.add(producto);
                             tabla.setItems(list);
                             totalPagar.setText(String.valueOf(calcularPrecioTotal()));
-                            totalIva.setText(String.valueOf(calcularPrecioTotalIva()));
+                            if (isRealizarIvaCliente()) {
+                                totalIva.setText(String.valueOf(calcularPrecioTotalIva()));
+                            }
                             limpiarProducto();
 
                         } else {
@@ -689,7 +728,9 @@ public class VentasController implements Initializable {
             list.remove(posicionEnTabla);
             listaProductos.remove(posicionEnTabla);
             totalPagar.setText(String.valueOf(calcularPrecioTotal()));
-            totalIva.setText(String.valueOf(calcularPrecioTotalIva()));
+            if (isRealizarIvaCliente()) {
+                totalIva.setText(String.valueOf(calcularPrecioTotalIva()));
+            }
         } catch (Exception e) {
             System.out.println("Eliminar Genero una Excepcion");
         }
@@ -745,15 +786,26 @@ public class VentasController implements Initializable {
     @FXML
     void seleccionarClientes() {
         String s = seleccionClientes.getSelectionModel().getSelectedItem().toString();
-
+        String[] parts = s.split("-");
+        String cuit = parts[1].replace(" ", "");
+        int iva = 0;
         try {
 
-            String SQL = "SELECT c.nombre as nombre FROM cliente AS c WHERE c.nombre LIKE " + "'" + s + "' AND c.activo = true ";
+            String SQL = "SELECT c.id_condicioniva as idiva FROM cliente AS c WHERE c.cuit LIKE '" +cuit + "' AND c.estado = true ";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
-            while (rs.next()) {
-                seleccionClientes.setPromptText(rs.getString("nombre"));
+
+            if (rs.next()) {
+                //seleccionClientes.setPromptText(rs.getString("nombre"));
+                iva = rs.getInt("idiva");
+            }
+            if (iva == 3) {
+                ocultarIva(false, false);
+                setRealizarIvaCliente(false);
+            } else {
+                ocultarIva(true, true);
+                setRealizarIvaCliente(true);
             }
 
         } catch (Exception e) {
@@ -761,12 +813,27 @@ public class VentasController implements Initializable {
         }
     }
 
+    private boolean realizarIvaCliente;
+
+    public boolean isRealizarIvaCliente() {
+        return realizarIvaCliente;
+    }
+
+    public void setRealizarIvaCliente(boolean realizarIvaCliente) {
+        this.realizarIvaCliente = realizarIvaCliente;
+    }
+
+    private void ocultarIva(boolean b1, boolean b2) {
+        labelIva.setVisible(b1);
+        totalIva.setVisible(b2);
+    }
+
     public ObservableList<String> tomarClientes() {
         ObservableList<String> list = FXCollections.observableArrayList();
 
         try {
 
-            String SQL = "select cl.razonsocial as nombre, cl.cuit as cuit from cliente as cl where idtipopersona=1  AND cl.activo = true";
+            String SQL = "select cl.razonsocial as nombre, cl.cuit as cuit from cliente as cl where idtipopersona=1  AND cl.estado = true";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -791,7 +858,7 @@ public class VentasController implements Initializable {
 
         try {
 
-            String SQL = "select concat(cl.nombre, ' ', cl.apellido) as nombre, cl.cuit as cuit from cliente as cl where idtipopersona=2  AND c.activo = true";
+            String SQL = "select concat(cl.nombre, ' ', cl.apellido) as nombre, cl.cuit as cuit from cliente as cl where idtipopersona=2  AND cl.estado = true";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
@@ -820,12 +887,18 @@ public class VentasController implements Initializable {
     private float calcularPrecioTotalIva() {
         float total = 0;
 
-        for(Producto p : listaProductos){
-            if(p.getAlicuota()!=0) {
-                total += (p.getCantidad() * p.getPrecio()) * p.getAlicuota();
+        for (Producto p : listaProductos) {
+            if (p.getAlicuota() != 0) {
+                total += p.getCantidad() * p.getPrecio() + calcularIvaProducto(p.getCantidad(), p.getPrecio(), p.getAlicuota());//(p.getCantidad() * p.getPrecio()) * p.getAlicuota()) / 100;
             }
         }
         return total;
+    }
+
+    public double calcularIvaProducto(int cantidad, double precio, double alicuota){
+        double total = cantidad*precio;
+        total = total*alicuota;
+        return total/100;
     }
 
     //
@@ -909,7 +982,9 @@ public class VentasController implements Initializable {
         list.set(posicionEnTabla, getProductoEstatico());
         listaProductos.set(posicionEnTabla, getProductoEstatico());
         totalPagar.setText(String.valueOf(calcularPrecioTotal()));
-        totalIva.setText(String.valueOf(calcularPrecioTotalIva()));
+        if (isRealizarIvaCliente()) {
+            totalIva.setText(String.valueOf(calcularPrecioTotalIva()));
+        }
 
         codigo.setText("");
         seleccionProductos.setValue("");
