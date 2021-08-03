@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -13,22 +12,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="825.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.VentasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.VentasController">
    <children>
-      <ImageView fx:id="imagenIzquierda" fitHeight="447.0" fitWidth="188.0" layoutX="-62.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenIzquierda" fitHeight="536.0" fitWidth="222.0" layoutX="-96.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/pep.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imagenDerecha" fitHeight="461.0" fitWidth="719.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenDerecha" fitHeight="539.0" fitWidth="839.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="425.0" prefWidth="826.0">
+      <AnchorPane prefHeight="508.0" prefWidth="936.0">
          <children>
             <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accederFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturas" />
-            <Label layoutX="355.0" layoutY="22.0" style="-fx-underline: true;" text="V E N T A S">
+            <Label layoutX="501.0" layoutY="23.0" style="-fx-underline: true;" text="V E N T A S">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>
@@ -65,52 +64,59 @@
                </font>
             </Label>
             <TextField fx:id="stock" editable="false" layoutX="573.0" layoutY="101.0" prefHeight="26.0" prefWidth="51.0" />
-            <DatePicker fx:id="fecha" editable="false" layoutX="650.0" layoutY="47.0" onAction="#condicionFecha" prefHeight="26.0" prefWidth="147.0" />
-            <Label layoutX="657.0" layoutY="30.0" text="Seleccionar fecha:">
+            <DatePicker fx:id="fecha" editable="false" layoutX="765.0" layoutY="54.0" onAction="#condicionFecha" prefHeight="26.0" prefWidth="147.0" />
+            <Label layoutX="772.0" layoutY="30.0" text="Seleccionar fecha:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TableView fx:id="tabla" layoutX="145.0" layoutY="144.0" prefHeight="200.0" prefWidth="520.0">
+            <TableView fx:id="tabla" layoutX="145.0" layoutY="144.0" prefHeight="221.0" prefWidth="617.0">
               <columns>
                 <TableColumn fx:id="columnaCodigo" prefWidth="75.0" text="Codigo" />
-                <TableColumn fx:id="columnaD" prefWidth="151.199951171875" text="Descripcion" />
-                  <TableColumn fx:id="columnaCantidad" prefWidth="134.39999389648438" text="Cantidad" />
-                  <TableColumn fx:id="columnaPrecio" prefWidth="80.79998779296875" text="Precio" />
-                  <TableColumn fx:id="columnaTotal" prefWidth="76.00006103515625" text="Total" />
+                <TableColumn fx:id="columnaD" prefWidth="277.0" text="Descripcion" />
+                  <TableColumn fx:id="columnaCantidad" prefWidth="86.0" text="Cantidad" />
+                  <TableColumn fx:id="columnaPrecio" prefWidth="86.0" text="Precio" />
+                  <TableColumn fx:id="columnaTotal" prefWidth="92.0" text="Total" />
               </columns>
             </TableView>
-            <Label layoutX="145.0" layoutY="352.0" text="Cliente:">
+            <Label layoutX="146.0" layoutY="376.0" text="Cliente:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="575.0" layoutY="362.0" text="Total a pagar:">
+            <Label layoutX="674.0" layoutY="376.0" text="Total a pagar:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="totalPagar" editable="false" layoutX="584.0" layoutY="382.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
-            <Button fx:id="confirmarVenta" layoutX="703.0" layoutY="332.0" mnemonicParsing="false" onAction="#confirmarVenta" text="Confirmar venta" />
-            <Button fx:id="cancelarVenta" layoutX="702.0" layoutY="366.0" mnemonicParsing="false" onAction="#cancelarVenta" prefHeight="26.0" prefWidth="102.0" text="Cancelar venta" />
+            <TextField fx:id="totalPagar" editable="false" layoutX="684.0" layoutY="393.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
+            <Button fx:id="confirmarVenta" layoutX="804.0" layoutY="381.0" mnemonicParsing="false" onAction="#confirmarVenta" text="Confirmar venta" />
+            <Button fx:id="cancelarVenta" layoutX="804.0" layoutY="418.0" mnemonicParsing="false" onAction="#cancelarVenta" prefHeight="26.0" prefWidth="102.0" text="Cancelar venta" />
             <ComboBox fx:id="seleccionProductos" layoutX="254.0" layoutY="102.0" onAction="#seleccionarProducto" prefHeight="25.0" prefWidth="115.0" promptText="Seleccione" />
-            <ComboBox fx:id="seleccionClientes" layoutX="145.0" layoutY="370.0" onAction="#seleccionarClientes" prefHeight="25.0" prefWidth="147.0" promptText="Seleccione" />
-            <Button fx:id="agregarP" layoutX="688.0" layoutY="112.0" mnemonicParsing="false" onAction="#agregarProductoGeneral" prefHeight="25.0" prefWidth="115.0" text="Agregar producto" />
-            <Label fx:id="labelDescuento" layoutX="445.0" layoutY="362.0" text="Total descuento:">
+            <ComboBox fx:id="seleccionClientes" layoutX="146.0" layoutY="393.0" onAction="#seleccionarClientes" prefHeight="25.0" prefWidth="147.0" promptText="Seleccione" />
+            <Button fx:id="agregarP" layoutX="797.0" layoutY="148.0" mnemonicParsing="false" onAction="#agregarProductoGeneral" prefHeight="25.0" prefWidth="115.0" text="Agregar producto" />
+            <Button fx:id="eliminarP" layoutX="797.0" layoutY="214.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="25.0" prefWidth="115.0" text="Eliminar producto" />
+            <Button fx:id="modificarP" layoutX="797.0" layoutY="182.0" mnemonicParsing="false" onAction="#modificarProducto" prefHeight="25.0" prefWidth="115.0" text="Modif. producto" />
+            <Button fx:id="aceptarCambios" layoutX="803.0" layoutY="255.0" mnemonicParsing="false" onAction="#aceptarCambios" text="Acepta Cambios" />
+            <Button fx:id="cancelarCambios" layoutX="801.0" layoutY="287.0" mnemonicParsing="false" onAction="#cancelarCambios" prefHeight="25.0" prefWidth="107.0" text="Cancela Cambios" />
+            <Label layoutX="312.0" layoutY="376.0" text="Metodo de Pago:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="totalDescuento" editable="false" layoutX="465.0" layoutY="382.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
-            <Button fx:id="eliminarP" layoutX="688.0" layoutY="182.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="25.0" prefWidth="115.0" text="Eliminar producto" />
-            <Button fx:id="modificarP" layoutX="688.0" layoutY="148.0" mnemonicParsing="false" onAction="#modificarProducto" prefHeight="25.0" prefWidth="115.0" text="Modif. producto" />
-            <Button fx:id="aceptarCambios" layoutX="692.0" layoutY="232.0" mnemonicParsing="false" onAction="#aceptarCambios" text="Acepta Cambios" />
-            <Button fx:id="cancelarCambios" layoutX="692.0" layoutY="264.0" mnemonicParsing="false" onAction="#cancelarCambios" prefHeight="25.0" prefWidth="107.0" text="Cancela Cambios" />
-            <CheckBox fx:id="checkOpcion" layoutX="692.0" layoutY="300.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="FACTURAR">
+            <ComboBox fx:id="seleccionMetodoDePago" layoutX="312.0" layoutY="393.0" prefHeight="25.0" prefWidth="147.0" promptText="Seleccione" />
+            <Label layoutX="478.0" layoutY="376.0" text="Cuotas:">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="Arial Bold Italic" size="15.0" />
                </font>
-            </CheckBox>
+            </Label>
+            <TextField fx:id="totalPagar1" editable="false" layoutX="478.0" layoutY="393.0" prefHeight="26.0" prefWidth="63.0" promptText="      .   .   ." />
+            <Label layoutX="674.0" layoutY="436.0" text="Total con IVA:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="totalIva" editable="false" layoutX="685.0" layoutY="453.0" prefHeight="26.0" prefWidth="80.0" promptText="      .   .   ." />
          </children>
       </AnchorPane>
    </children>
