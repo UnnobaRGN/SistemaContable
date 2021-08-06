@@ -10,19 +10,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.StockController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.StockController">
    <children>
-      <ImageView fx:id="imagenIzquierda" fitHeight="488.0" fitWidth="179.0" layoutX="-53.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenIzquierda" fitHeight="712.0" fitWidth="593.0" layoutX="-53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/pep.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imagenDerecha" fitHeight="461.0" fitWidth="719.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenDerecha" fitHeight="600.0" fitWidth="874.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="400.0" prefWidth="820.0">
+      <AnchorPane prefHeight="423.0" prefWidth="981.0">
          <children>
             <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accerderFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturas" />
             <Label layoutX="346.0" layoutY="21.0" style="-fx-underline: true;" text="S T O C K">
@@ -33,7 +33,7 @@
             <Button fx:id="botonClientes" layoutX="23.0" layoutY="144.0" mnemonicParsing="false" onAction="#accederClientes" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Clientes" />
             <Button fx:id="botonCosteo" layoutX="3.0" layoutY="194.0" mnemonicParsing="false" onAction="#accederCosteo" prefHeight="32.0" prefWidth="120.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text=" Metodo de Costeo" />
             <Button fx:id="botonVentas" layoutX="23.0" layoutY="240.0" mnemonicParsing="false" onAction="#accederVentas" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Ventas" />
-            <Button fx:id="botonNuevoProducto" layoutX="144.0" layoutY="293.0" mnemonicParsing="false" onAction="#accederNuevoProducto" text="Nuevo Producto" />
+            <Button fx:id="botonNuevoProducto" layoutX="140.0" layoutY="349.0" mnemonicParsing="false" onAction="#nuevoActualizarProducto" text="Nuevo Producto" />
             <TextField fx:id="textoCodigo" layoutX="208.0" layoutY="95.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.topAnchor="95.0" />
             <Label layoutX="144.0" layoutY="99.0" text="Codigo:">
                <font>
@@ -46,36 +46,52 @@
                </font>
             </Label>
             <TextField fx:id="textoNombre" layoutX="209.0" layoutY="131.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.rightAnchor="503.8" AnchorPane.topAnchor="131.0" />
-            <Label layoutX="144.0" layoutY="171.0" text="Proveedor:">
+            <Label layoutX="140.0" layoutY="202.0" text="Proveedor:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="textoProveedor" layoutX="232.0" layoutY="167.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.topAnchor="167.0" />
-            <Label layoutX="144.0" layoutY="207.0" text="Precio:" AnchorPane.leftAnchor="144.0">
+            <TextField fx:id="textoProveedor" layoutX="224.0" layoutY="198.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.topAnchor="198.0" />
+            <Label layoutX="140.0" layoutY="241.0" text="Precio:" AnchorPane.leftAnchor="140.0">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="textoPrecio" layoutX="201.0" layoutY="213.0" prefHeight="26.0" prefWidth="62.0" AnchorPane.topAnchor="203.0" />
-            <Label layoutX="140.0" layoutY="243.0" text="Cantidad:" AnchorPane.leftAnchor="144.0">
+            <TextField fx:id="textoPrecio" layoutX="201.0" layoutY="236.0" prefHeight="26.0" prefWidth="70.0" AnchorPane.topAnchor="236.0" />
+            <Label layoutX="140.0" layoutY="272.0" text="Cantidad:" AnchorPane.leftAnchor="140.0">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="textoCantidad" layoutX="215.0" layoutY="239.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.topAnchor="239.0" />
-            <Button fx:id="botonDescarga" layoutX="161.0" layoutY="329.0" mnemonicParsing="false" onAction="#accederDescarga" text="Descargar" />
-            <TableView fx:id="tablaStock" layoutX="350.0" layoutY="94.0" prefHeight="263.0" prefWidth="458.0">
+            <TextField fx:id="textoCantidad" layoutX="218.0" layoutY="268.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.topAnchor="268.0" />
+            <TableView fx:id="tablaStock" layoutX="350.0" layoutY="94.0" prefHeight="263.0" prefWidth="615.0">
               <columns>
                 <TableColumn fx:id="columnaCodigo" prefWidth="72.79998779296875" text="Codigo" />
-                <TableColumn fx:id="columnaNombre" prefWidth="131.20001220703125" text="Nombre" />
-                  <TableColumn fx:id="columnaProveedor" prefWidth="111.20001220703125" text="Proveedor" />
-                  <TableColumn fx:id="columnaPrecio" prefWidth="62.39996337890625" text="Precio" />
-                  <TableColumn fx:id="columnaStock" prefWidth="74.4000244140625" text="Stock" />
+                <TableColumn fx:id="columnaNombre" prefWidth="110.0" text="Nombre" />
+                  <TableColumn fx:id="columnaDescripcion" prefWidth="109.0" text="Descripcion" />
+                  <TableColumn fx:id="columnaPrecio" prefWidth="70.0" text="Precio" />
+                  <TableColumn fx:id="columnaProveedor" prefWidth="129.0" text="Proveedor" />
+                  <TableColumn fx:id="columnaStock" prefWidth="53.0" text="Stock" />
+                  <TableColumn fx:id="columnaAlicuota" prefWidth="70.0" text="Alicuota" />
               </columns>
             </TableView>
-            <Button fx:id="botonBuscar" layoutX="262.0" layoutY="292.0" mnemonicParsing="false" onAction="#accederBuscar" prefHeight="26.0" prefWidth="80.0" text="Buscar" />
-            <Button fx:id="botonQuitarFiltro" layoutX="262.0" layoutY="329.0" mnemonicParsing="false" onAction="#accederQuitarFiltro" text="Quitar Filtro" />
+            <Button fx:id="botonBuscar" layoutX="262.0" layoutY="348.0" mnemonicParsing="false" onAction="#buscarProductoCodigo" prefHeight="26.0" prefWidth="80.0" text="Buscar" />
+            <Button fx:id="botonQuitarFiltro" layoutX="207.0" layoutY="387.0" mnemonicParsing="false" onAction="#accederQuitarFiltro" text="Quitar Filtro" />
+            <Label layoutX="140.0" layoutY="305.0" text="Alicuota:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textoAlicuota" layoutX="207.0" layoutY="301.0" onKeyReleased="#alicuotaCorrecta" prefHeight="25.0" prefWidth="80.0" />
+            <Label layoutX="144.0" layoutY="168.0" text="Descripcion:">
+               <font>
+                  <Font name="Arial Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="deshabilitarProducto" layoutX="828.0" layoutY="361.0" mnemonicParsing="false" onAction="#deshabilitarP" prefHeight="26.0" prefWidth="137.0" text="Deshabilitar Producto" />
+            <Button fx:id="habilitarProducto" layoutX="678.0" layoutY="361.0" mnemonicParsing="false" onAction="#habilitarP" prefHeight="26.0" prefWidth="137.0" text="Habilitar Producto" />
+            <TextField fx:id="textoDescripcion" layoutX="242.0" layoutY="164.0" prefHeight="25.0" prefWidth="91.0" />
+            <TextField fx:id="textoNombre" layoutX="213.0" layoutY="132.0" prefHeight="25.0" prefWidth="91.0" />
          </children>
       </AnchorPane>
    </children>
