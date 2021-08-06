@@ -254,8 +254,8 @@ public class VentasController implements Initializable {
         int idmediopago = buscarMedioPago(seleccionMetodoDePago.getSelectionModel().getSelectedItem().toString());
 
         //CREO LA VENTA
-        double importeIva = isRealizarIvaCliente()?Double.valueOf(totalIva.getText()):Double.valueOf(totalPagar.getText());
-        crearVenta(importeIva, Double.valueOf(totalPagar.getText()), Date.valueOf(fecha.getValue()), u.getId(), idcliente, idmediopago);
+        double importeIva = isRealizarIvaCliente()?Double.valueOf(totalIva.getText().replace(",", ".")):Double.valueOf(totalPagar.getText().replace(",", "."));
+        crearVenta(importeIva, Double.valueOf(totalPagar.getText().replace(",", ".")), Date.valueOf(fecha.getValue()), u.getId(), idcliente, idmediopago);
 
         //OBTENGO EL ID DE LA VENTA
         int idventa = ultimaVenta();
@@ -284,6 +284,24 @@ public class VentasController implements Initializable {
         cerrarVentana(event);
 
     }
+
+    @FXML
+    void cantidadCuotasMaximo(){
+        try{
+            int c = cuotas.getText().isBlank()?0:Integer.parseInt(cuotas.getText());
+            if(c < 1 || c > 12 ){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion!");
+                alert.setHeaderText("Por favor,");
+                alert.setContentText("Ingrese cuotas desde 1 a 12.");
+                alert.showAndWait();
+            }
+        }
+        catch (Exception exception){
+            System.out.println("Excepcion no conocida (mentira es en cuotas)");
+        }
+    }
+
 
     private String crearLetraFactura(int id) throws SQLException {
         return buscarIvaCliente(id)==1?"A":"B";
