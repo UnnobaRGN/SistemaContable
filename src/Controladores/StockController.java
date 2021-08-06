@@ -23,9 +23,7 @@ import sample.ConexionBD;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class StockController implements Initializable {
@@ -61,10 +59,10 @@ public class StockController implements Initializable {
     private Button botonNuevoProducto;
 
     @FXML
-    private Button deshabilitarP;
+    private Button deshabilitarProducto;
 
     @FXML
-    private Button habilitarP;
+    private Button habilitarProducto;
 
     @FXML
     private TextField textoDescripcion;
@@ -125,8 +123,8 @@ public class StockController implements Initializable {
         typedEnNumeros();
 
         if(u.getId()!=1) {
-            habilitarP.setVisible(false);
-            deshabilitarP.setVisible(false);
+            habilitarProducto.setVisible(false);
+            deshabilitarProducto.setVisible(false);
         }
 
     }
@@ -171,20 +169,19 @@ public class StockController implements Initializable {
         stage.show();
     }
 
-    public void crearProducto(String codigo, String nombre, String proveedor, String precio, String cantidad){
+    public void crearProducto(String codP, String nombre, double precio, int stock, String descripcion, String proveedor, double alicuota) throws SQLException {
 
+        String sql = "INSERT INTO producto(codigo,nombre, precio, stock, descripcion, proveedor, alicuota) VALUES (?,?,?,?,?,?,?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, codP);
+        ps.setString(2, nombre);
+        ps.setDouble(3, precio);
+        ps.setInt(4, stock);
+        ps.setString(5, descripcion);
+        ps.setString(6, proveedor);
+        ps.setDouble(6, alicuota);
+        ps.execute();
 
-
-    }
-
-    public boolean noVacios(){
-
-        if (textoCodigo.getText().isEmpty() && textoProveedor.getText().isEmpty() &&
-                textoNombre.getText().isEmpty() && textoCantidad.getText().isEmpty() &&
-                textoPrecio.getText().isEmpty()){
-            return false;
-        }
-        return true;
     }
 
     @FXML
@@ -192,11 +189,7 @@ public class StockController implements Initializable {
         try{
             float a = textoAlicuota.getText().isBlank()?0:Float.parseFloat(textoAlicuota.getText());
             if(a != 10.5 || a != 21 ){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Atencion!");
-                alert.setHeaderText("Por favor,");
-                alert.setContentText("Ingrese alicuotas de 10.5% o 21%.");
-                alert.showAndWait();
+                alerta("Ingrese alicuotas de 10.5% o 21%.");
             }
         }
         catch (Exception exception){
@@ -204,26 +197,39 @@ public class StockController implements Initializable {
         }
     }
 
-    public void accederQuitarFiltro(ActionEvent e) throws IOException{
+    public void accederQuitarFiltro(){
         //Quita los filtros
-        textoCodigo.setText(null);
-        textoNombre.setText(null);
-        textoProveedor.setText(null);
-        textoPrecio.setText(null);
-        textoCantidad.setText(null);
+        textoCodigo.setText("");
+        textoNombre.setText("");
+        textoProveedor.setText("");
+        textoPrecio.setText("");
+        textoCantidad.setText("");
+        textoAlicuota.setText("");
+        textoDescripcion.setText("");
         mostrarDatos(); //Muestra los datos predefinidos
     }
 
-    public void nuevoActualizarProducto(){
+    public void nuevoActualizarProducto() throws SQLException {
         if(!textoCodigo.getText().isBlank()){
             String codP = textoCodigo.getText();
             if(codigoExiste(codP)){
                 //Modificar producto
+                if(!algunCampoVacio()){
+                    modificarProducto(codP, textoNombre.getText(), Double.parseDouble(textoPrecio.getText()), Integer.parseInt(textoCantidad.getText()), textoDescripcion.getText(), textoProveedor.getText(), Double.parseDouble(textoAlicuota.getText()));
+                    alerta("El producto " + nombreProducto(codP) + " ha sido modificado con exito.");
+                    //Mostrar todos los datos
+                    mostrarDatos();
+                }else{
+                    alerta("Ingresar todos los campos para modificar un producto.");
+                }
             }else {
                 //Crearlo
                 //Corroborrar todos los campos
                 if(!algunCampoVacio()){
-//                        crearProducto();
+                    crearProducto(codP, textoNombre.getText(), Double.parseDouble(textoPrecio.getText()), Integer.parseInt(textoCantidad.getText()), textoDescripcion.getText(), textoProveedor.getText(), Double.parseDouble(textoAlicuota.getText()));
+                    alerta("El producto " + textoNombre.getText() + " ha sido creado con exito.");
+                    //Mostrar todos los datos
+                    mostrarDatos();
                 }else {
                     alerta("Ingresar todos los campos para crear un producto.");
                 }
@@ -231,6 +237,30 @@ public class StockController implements Initializable {
         }else{
             alerta("Ingrese un codigo para registrar un nuevo producto o modificarlo.");
         }
+    }
+
+    private String nombreProducto(String codP) throws SQLException {
+        String SQL = "SELECT p.nombre as nombre WHERE p.codigo LIKE " + "'" + codP + "'";
+        Statement statement = conn.createStatement();
+        ResultSet rs = statement.executeQuery(SQL);
+        String nombreP = "";
+        if (rs.next()) {
+            nombreP = rs.getString("nombre");
+        }
+        return nombreP;
+    }
+
+    private void modificarProducto(String codP, String nombre, double precio, int stock, String descripcion, String proveedor, double alicuota) throws SQLException {
+        String sql = "UPDATE producto SET nombre=?, precio=?, stock=?, descripcion=?, proveedor=?, alicuota=?,  WHERE idproducto=?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, nombre);
+        ps.setDouble(2, precio);
+        ps.setInt(3, stock);
+        ps.setString(4, descripcion);
+        ps.setString(5, proveedor);
+        ps.setDouble(6, alicuota);
+        ps.setString(7, codP);
+        ps.execute();
     }
 
     private boolean algunCampoVacio() {
@@ -380,5 +410,11 @@ public class StockController implements Initializable {
             }
         });
     }
+
+    @FXML
+    void habilitarP(){}
+
+    @FXML
+    void deshabilitarP(){}
 
 }

@@ -45,7 +45,7 @@
                   <Font name="Arial Bold Italic" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="textoNombre" layoutX="209.0" layoutY="131.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.rightAnchor="503.8" AnchorPane.topAnchor="131.0" />
+            <!--<TextField fx:id="textoNombre" layoutX="209.0" layoutY="131.0" prefHeight="19.0" prefWidth="107.0" AnchorPane.rightAnchor="503.8" AnchorPane.topAnchor="131.0" />-->
             <Label layoutX="140.0" layoutY="202.0" text="Proveedor:">
                <font>
                   <Font name="Arial Bold Italic" size="15.0" />
