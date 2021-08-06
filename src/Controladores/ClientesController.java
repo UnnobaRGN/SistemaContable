@@ -244,15 +244,16 @@ public class ClientesController implements Initializable{
     }
 
     public String retornarNombreYapCliente(){
-        TipoPersona tp = new TipoPersona();
-        if(tp.getId_tipopersona()==1){
-            return tablaCliente.getSelectionModel().getSelectedItem().getRazonSocial();
-        }else{
-            return tablaCliente.getSelectionModel().getSelectedItem().getNombre()+" "+tablaCliente.getSelectionModel().getSelectedItem().getApellido();
+        TipoPersona tp;
+        tp=verificarTipoPersona();
+            if (tp.getId_tipopersona() == 1) {
+                return tablaCliente.getSelectionModel().getSelectedItem().getRazonSocial().toUpperCase();
+            } else {
+                return tablaCliente.getSelectionModel().getSelectedItem().getNombre().toUpperCase() + " " + tablaCliente.getSelectionModel().getSelectedItem().getApellido().toUpperCase();
+            }
+
         }
 
-
-    }
 
 
 
@@ -1162,6 +1163,7 @@ public class ClientesController implements Initializable{
                 }//SOLUCIONADO
                 deshabilitarCampos();
                 siEsJuridica();
+                tablaCliente.getItems().clear();
 
 
             }else{
@@ -1171,6 +1173,7 @@ public class ClientesController implements Initializable{
                     }
                     deshabilitarCampos();
                     siEsFisica();
+                    tablaCliente.getItems().clear();
                 }
 
             }
