@@ -148,16 +148,16 @@ public class ClientesController implements Initializable{
 
     private UsuarioLogeado u = UsuarioLogeado.getInstance();
 
+    ClientesController clientesController;
 
     ObservableList<Cliente> list = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        clientesController=this;
         File brandingDerecha = new File("Imagenes/pep.png");
         Image brandingDer = new Image(brandingDerecha.toURI().toString());
         imagenIzquierda.setImage(brandingDer);
-
         File brandingIzquierda = new File("Imagenes/asd.png");
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
         imagenDerecha.setImage(brandingIzq);
@@ -215,6 +215,46 @@ public class ClientesController implements Initializable{
         stage.setTitle("Metodo de Costeo");
         stage.show();
     }
+
+    public void accederACuentaCorriente(ActionEvent e) throws IOException {
+        if(tablaCliente.getSelectionModel().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion");
+            alert.setHeaderText("Error!");
+            alert.setContentText("Por favor, seleccione un cliente");
+            alert.showAndWait();
+        }else {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/Vista/CuentaCorrienteCliente.fxml"));
+            Parent asiento = loader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(asiento);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle("Cuenta corriente");
+            CuentaCorrienteController cuentaCorrienteController= loader.getController();
+            cuentaCorrienteController.recibeCuit(clientesController,traerCuit(),retornarNombreYapCliente());
+            stage.show();
+        }
+    }
+
+    public String traerCuit(){
+        return tablaCliente.getSelectionModel().getSelectedItem().getCuit();
+
+    }
+
+    public String retornarNombreYapCliente(){
+        TipoPersona tp = new TipoPersona();
+        if(tp.getId_tipopersona()==1){
+            return tablaCliente.getSelectionModel().getSelectedItem().getRazonSocial();
+        }else{
+            return tablaCliente.getSelectionModel().getSelectedItem().getNombre()+" "+tablaCliente.getSelectionModel().getSelectedItem().getApellido();
+        }
+
+
+    }
+
+
 
     public void limpiarDatos1(){
         clienteDni.setText("");

@@ -9,22 +9,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturasController">
    <children>
-      <ImageView fx:id="imagenIzquierda" fitHeight="512.0" fitWidth="214.0" layoutX="-88.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenIzquierda" fitHeight="548.0" fitWidth="232.0" layoutX="-88.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/pep.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imagenDerecha" fitHeight="534.0" fitWidth="772.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenDerecha" fitHeight="519.0" fitWidth="776.0" layoutX="126.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/asd.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="1.0" prefHeight="490.0" prefWidth="897.0">
+      <AnchorPane layoutX="1.0" layoutY="1.0" prefHeight="509.0" prefWidth="898.0">
          <children>
             <Button fx:id="botonClientes" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accederCliente" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Clientes" />
-            <Label layoutX="389.0" layoutY="21.0" style="-fx-underline: true;" text="F A C T U R A S" textAlignment="CENTER">
+            <Label fx:id="facturaLabel" layoutX="372.0" layoutY="21.0" style="-fx-underline: true;" text="F A C T U R A S" textAlignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>
@@ -37,11 +37,13 @@
                 <TableColumn fx:id="columnaNumero" prefWidth="119.0" text="Numero" />
                   <TableColumn fx:id="columnaCliente" prefWidth="246.0" text="Cliente" />
                 <TableColumn fx:id="columnaFecha" minWidth="0.0" prefWidth="187.0" text="Fecha" />
-                  <TableColumn fx:id="columnaDeuda" prefWidth="75.0" text="Deuda" />
-                  <TableColumn fx:id="columnaSubtotal" prefWidth="188.0" text="Total" />
+                  <TableColumn fx:id="columnaDeuda" prefWidth="187.0" text="Deuda" />
+                  <TableColumn fx:id="columnaSubtotal" prefWidth="76.0" text="Total" />
               </columns>
             </TableView>
-            <Button layoutX="771.0" layoutY="53.0" mnemonicParsing="false" text="Facturas sin pagar" />
+            <Button layoutX="771.0" layoutY="53.0" mnemonicParsing="false" onAction="#facturasSinPagar" text="Facturas sin pagar" />
+            <Button layoutX="639.0" layoutY="53.0" mnemonicParsing="false" onAction="#facturasPagadas" prefHeight="25.0" prefWidth="120.0" text="Facturas pagadas" />
+            <Button layoutX="821.0" layoutY="470.0" mnemonicParsing="false" onAction="#verDetalle" text="Detalle" />
          </children>
       </AnchorPane>
    </children>

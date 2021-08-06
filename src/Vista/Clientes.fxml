@@ -114,6 +114,7 @@
             <TextField fx:id="BuscarCliente" layoutX="706.0" layoutY="222.0" prefHeight="26.0" prefWidth="192.0" promptText="DNI /Nombre/Razon Social" />
             <TextField fx:id="textoIdCliente" editable="false" layoutX="968.0" layoutY="57.0" prefHeight="25.0" prefWidth="40.0" visible="false" />
             <Button fx:id="botonBuscarPorTipoPersona" layoutX="1002.0" layoutY="223.0" mnemonicParsing="false" onAction="#mostrarTodosLosClientesPorTipo" prefHeight="25.0" prefWidth="141.0" text="Buscar clientes por tipo" />
+            <Button layoutX="1157.0" layoutY="82.0" mnemonicParsing="false" onAction="#accederACuentaCorriente" text="Cuenta Corriente" />
          </children>
       </AnchorPane>
       <TextField fx:id="textoHabilitar" layoutX="1057.0" layoutY="557.0" prefHeight="25.0" prefWidth="192.0" promptText="DNI/CUIT/Razon Social" />
