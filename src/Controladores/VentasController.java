@@ -943,7 +943,7 @@ public class VentasController implements Initializable {
             if (rs.next()) {
                 iva = rs.getInt("idiva");
             }
-            if (iva == 3) {
+            if (iva == 2) {
                 ocultarIva(false, false);
                 setRealizarIvaCliente(false);
             } else {
