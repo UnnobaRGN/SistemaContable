@@ -223,7 +223,7 @@ public class StockController implements Initializable {
                 //Crearlo
                 //Corroborrar todos los campos
                 if(!algunCampoVacio()){
-                        crearProducto();
+//                        crearProducto();
                 }else {
                     alerta("Ingresar todos los campos para crear un producto.");
                 }
