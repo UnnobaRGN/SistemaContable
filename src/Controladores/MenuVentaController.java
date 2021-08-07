@@ -82,7 +82,7 @@ public class MenuVentaController implements Initializable {
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Clienes");
+        stage.setTitle("Clientes");
         stage.show();
     }
 
