@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.StockController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.StockController">
    <children>
       <ImageView fx:id="imagenIzquierda" fitHeight="712.0" fitWidth="593.0" layoutX="-53.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -94,7 +94,7 @@
             <TextField fx:id="textoDescripcion" layoutX="242.0" layoutY="164.0" prefHeight="25.0" prefWidth="91.0" />
             <TextField fx:id="textoNombre" layoutX="213.0" layoutY="132.0" prefHeight="25.0" prefWidth="91.0" />
             <ComboBox fx:id="comboAlicuota" layoutX="290.0" layoutY="301.0" onAction="#seleccionarAlicuota" prefHeight="25.0" prefWidth="43.0" promptText="Seleccionar" />
-            <TextField fx:id="textoCodigoHabilitar" layoutX="561.0" layoutY="362.0" prefHeight="19.0" prefWidth="107.0" />
+            <TextField fx:id="textoCodigoHabilitar" layoutX="549.0" layoutY="362.0" prefHeight="25.0" prefWidth="129.0" promptText="Ingrese codigo" />
          </children>
       </AnchorPane>
    </children>

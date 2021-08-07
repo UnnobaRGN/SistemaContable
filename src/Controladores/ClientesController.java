@@ -1053,7 +1053,7 @@ public class ClientesController implements Initializable{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Atencion");
                 alert.setHeaderText("Error!");
-                alert.setContentText("No se pudo dar de baja a el cliente...");
+                alert.setContentText("No se pudo dar de alta al cliente...");
                 alert.showAndWait();
             }
 

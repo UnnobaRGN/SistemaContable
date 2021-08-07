@@ -144,7 +144,7 @@ public class StockController implements Initializable {
         comboAlicuota.setItems(tomarAlicuota());
         textoAlicuota.setDisable(true);
 
-        if(u.getId()!=1) {
+        if(u.getIdperfil()!=1) {
             habilitarProducto.setVisible(false);
             deshabilitarProducto.setVisible(false);
             textoCodigoHabilitar.setVisible(false);
@@ -238,6 +238,7 @@ public class StockController implements Initializable {
         textoCantidad.setText("");
         textoAlicuota.setText("");
         textoDescripcion.setText("");
+        textoCodigoHabilitar.setText("");
         //comboAlicuota.setVisible(false);
         setearProductosTablaStock(); //Muestra los datos predefinidos
     }
@@ -246,23 +247,27 @@ public class StockController implements Initializable {
         if(!textoCodigo.getText().isBlank()){
             String codP = textoCodigo.getText();
             if(codigoExiste(codP)){
-                //Modificar producto
-                if(!algunCampoVacio()){
-                    if(modificarProducto()){
-                        Double p = Double.parseDouble(textoPrecio.getText().replace("$",""));
-                        modificarProducto(codP, textoNombre.getText(), p, Integer.parseInt(textoCantidad.getText()), textoDescripcion.getText(), textoProveedor.getText(), Double.parseDouble(textoAlicuota.getText()));
-                        alerta("El producto " + nombreProducto(codP) + " ha sido modificado con exito.");
-                        //Mostrar todos los datos
-                        limpiarDatos();
+                if(codigoExisteBaja(codP)) {
+                    //Modificar producto
+                    if (!algunCampoVacio()) {
+                        if (modificarProducto()) {
+                            Double p = Double.parseDouble(textoPrecio.getText().replace("$", ""));
+                            modificarProducto(codP, textoNombre.getText(), p, Integer.parseInt(textoCantidad.getText()), textoDescripcion.getText(), textoProveedor.getText(), Double.parseDouble(textoAlicuota.getText()));
+                            alerta("El producto con codigo " + codP + " ha sido modificado con exito.");
+                            //Mostrar todos los datos
+                            limpiarDatos();
+                        }
+                    } else {
+                        alerta("Ingresar todos los campos para modificar un producto.");
                     }
                 }else{
-                    alerta("Ingresar todos los campos para modificar un producto.");
+                    alerta("El producto con codigo "+codP+" se encuentra dado de baja");
                 }
             }else {
                 //Crearlo
                 //Corroborrar todos los campos
                 if(!algunCampoVacio()){
-                    crearProducto(codP, textoNombre.getText(), Double.parseDouble(textoPrecio.getText()), Integer.parseInt(textoCantidad.getText()), textoDescripcion.getText(), textoProveedor.getText(), Double.parseDouble(textoAlicuota.getText()), true);
+                    crearProducto(codP, textoNombre.getText(), Double.parseDouble(textoPrecio.getText().replace("$","")), Integer.parseInt(textoCantidad.getText()), textoDescripcion.getText(), textoProveedor.getText(), Double.parseDouble(textoAlicuota.getText()), true);
                     alerta("El producto " + textoNombre.getText() + " ha sido creado con exito.");
                     //Mostrar todos los datos
                     limpiarDatos();
@@ -331,7 +336,7 @@ public class StockController implements Initializable {
     }
 
     public void setearProductosTablaStock(){
-        tablaStock.getItems().clear();
+        //tablaStock.getItems().clear();
         columnaCodigo.setCellValueFactory(new PropertyValueFactory("codigoProducto"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory("nombreProducto"));
         columnaStock.setCellValueFactory(new PropertyValueFactory(("stockProducto")));
@@ -382,15 +387,20 @@ public class StockController implements Initializable {
     }
 
     public void setearTablaStockProducto(String codP){
-        tablaStock.getItems().clear();
-        columnaCodigo.setCellValueFactory(new PropertyValueFactory("codigoProducto"));
-        columnaNombre.setCellValueFactory(new PropertyValueFactory("nombreProducto"));
-        columnaStock.setCellValueFactory(new PropertyValueFactory(("stockProducto")));
-        columnaPrecio.setCellValueFactory(new PropertyValueFactory("precioProducto"));
-        columnaAlicuota.setCellValueFactory(new PropertyValueFactory("alicuotaProducto"));
-        columnaProveedor.setCellValueFactory(new PropertyValueFactory("proveedorProducto"));
-        columnaDescripcion.setCellValueFactory(new PropertyValueFactory("descripcionProducto"));
-        tablaStock.setItems(traerProductosEnTabla(codP));
+        //tablaStock.getItems().clear();
+        if(traerProductosEnTabla(codP).size()==0){
+            setearProductosTablaStock();
+            limpiarDatos();
+        }else {
+            columnaCodigo.setCellValueFactory(new PropertyValueFactory("codigoProducto"));
+            columnaNombre.setCellValueFactory(new PropertyValueFactory("nombreProducto"));
+            columnaStock.setCellValueFactory(new PropertyValueFactory(("stockProducto")));
+            columnaPrecio.setCellValueFactory(new PropertyValueFactory("precioProducto"));
+            columnaAlicuota.setCellValueFactory(new PropertyValueFactory("alicuotaProducto"));
+            columnaProveedor.setCellValueFactory(new PropertyValueFactory("proveedorProducto"));
+            columnaDescripcion.setCellValueFactory(new PropertyValueFactory("descripcionProducto"));
+            tablaStock.setItems(traerProductosEnTabla(codP));
+        }
     }
 
     public void alerta(String a){
@@ -419,6 +429,27 @@ public class StockController implements Initializable {
         }
         return r;
     }
+
+    private boolean codigoExisteBaja(String codigoP) {
+        boolean r = false;
+        try {
+            String SQL = "SELECT p.codigo as codigo FROM producto AS p WHERE p.activo = true AND p.codigo LIKE " + "'" + codigoP + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+
+            if (rs.next()) {
+                r = true;
+            } else {
+                r = false;
+            }
+
+        } catch (Exception e) {
+
+        }
+        return r;
+    }
+
+
 
     public void typedEnNumeros() {
         textoCodigo.textProperty().addListener(new ChangeListener<String>() {
@@ -479,21 +510,25 @@ public class StockController implements Initializable {
         ObservableList<StockTabla> lista = FXCollections.observableArrayList();
 
         try {
-            String SQL = "SELECT p.codigo as codigo, p.nombre as nombre, p.precio as precio, p.stock as stock, p.descripcion as descripcion, p.proveedor as proveedor, p.alicuota as alicuota FROM producto AS p WHERE p.activo=true AND p.codigo LIKE " + "'" + codP + "'";
+            String SQL = "SELECT p.activo, p.codigo as codigo, p.nombre as nombre, p.precio as precio, p.stock as stock, p.descripcion as descripcion, p.proveedor as proveedor, p.alicuota as alicuota FROM producto AS p WHERE p.codigo LIKE " + "'" + codP + "'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
 
             while(rs.next()){
-                StockTabla p = new StockTabla();
-                p.setCodigoProducto(rs.getString("codigo"));
-                p.setNombreProducto(rs.getString("nombre"));
-                p.setPrecioProducto("$" + rs.getString("precio"));
-                p.setStockProducto(rs.getString("stock"));
-                p.setDescripcionProducto(rs.getString("descripcion"));
-                p.setProveedorProducto(rs.getString("proveedor"));
-                p.setAlicuotaProducto(rs.getString("alicuota"));
-                completarTextField(p.getNombreProducto(), p.getPrecioProducto(), p.getAlicuotaProducto(), p.getStockProducto(), p.getDescripcionProducto(), p.getProveedorProducto());
-                lista.add(p);
+                if(rs.getBoolean("activo")) {
+                    StockTabla p = new StockTabla();
+                    p.setCodigoProducto(rs.getString("codigo"));
+                    p.setNombreProducto(rs.getString("nombre"));
+                    p.setPrecioProducto("$" + rs.getString("precio"));
+                    p.setStockProducto(rs.getString("stock"));
+                    p.setDescripcionProducto(rs.getString("descripcion"));
+                    p.setProveedorProducto(rs.getString("proveedor"));
+                    p.setAlicuotaProducto(rs.getString("alicuota"));
+                    completarTextField(p.getNombreProducto(), p.getPrecioProducto(), p.getAlicuotaProducto(), p.getStockProducto(), p.getDescripcionProducto(), p.getProveedorProducto());
+                    lista.add(p);
+                }else {
+                    alerta("El producto con codigo "+codP+" se enucuentra dado de baja");
+                }
             }
         } catch (SQLException throwables) {
 
@@ -525,10 +560,143 @@ public class StockController implements Initializable {
         }
     }
 
-    @FXML
-    void habilitarP(){}
+    public void deshabilitarProducto(String codigo) throws SQLException {
+        String s=nombreProducto(codigo);
+        ButtonType Confirmar = new ButtonType("Confirmar", ButtonBar.ButtonData.OK_DONE);
+        ButtonType Cancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert2 = new Alert(Alert.AlertType.INFORMATION,"",Confirmar,Cancelar);
+        alert2.setTitle("Atencion");
+        alert2.setContentText("Está seguro que desea dar de baja al producto con codigo "+codigo+"?");
+        Optional<ButtonType> result = alert2.showAndWait();
+        if(result.get()==Confirmar){
+            try {
+                String sql = "UPDATE producto SET activo=false WHERE codigo=" + "'" + codigo + "'";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.execute();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion");
+                alert.setHeaderText("Operacion exitosa!");
+                alert.setContentText("Se ha dado de baja al producto "+s);
+                alert.showAndWait();
+
+            } catch (SQLException throwables) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion");
+                alert.setHeaderText("Error!");
+                alert.setContentText("No se pudo dar de baja al producto...");
+                alert.showAndWait();
+            }
+
+        }
+
+    }
+
+
+    public void habilitarProducto(String codigo) throws SQLException {
+        String s=nombreProducto(codigo);
+        ButtonType Confirmar = new ButtonType("Confirmar", ButtonBar.ButtonData.OK_DONE);
+        ButtonType Cancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert2 = new Alert(Alert.AlertType.INFORMATION,"",Confirmar,Cancelar);
+        alert2.setTitle("Atencion");
+        alert2.setContentText("Está seguro que desea dar de alta al producto con codigo "+codigo+"?");
+        Optional<ButtonType> result = alert2.showAndWait();
+        if (result.get()==Confirmar) {
+            try {
+                String sql = "UPDATE producto SET activo=true WHERE codigo=" + "'" + codigo + "'";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.execute();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion");
+                alert.setHeaderText("Operacion exitosa!");
+                alert.setContentText("Se ha dado de alta al producto "+s);
+                alert.showAndWait();
+            } catch (SQLException throwables) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion");
+                alert.setHeaderText("Error!");
+                alert.setContentText("No se pudo dar de alta al producto..");
+                alert.showAndWait();
+            }
+
+        }
+
+
+    }
+
+    public void altaProducto(String s) throws SQLException {
+        if(nombreProducto(s).equals("")){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion");
+            alert.setHeaderText("Error!");
+            alert.setContentText("No se ha encontrado el producto especificado, por favor, realize una nueva busqueda");
+            alert.showAndWait();
+        }else{
+            habilitarProducto(s);
+        }
+
+
+
+
+    }
+
+    public boolean retornarEstadoProducto(String s){
+        boolean estado = false;
+        try {
+            String SQL = "SELECT p.activo FROM producto p WHERE p.codigo=" + "'" + s + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+            if(rs.next()){
+                estado=rs.getBoolean("activo");
+            }
+        }catch (Exception e){
+
+        }
+        return estado;
+    }
+
+
+
+
+
 
     @FXML
-    void deshabilitarP(){}
+    void habilitarP(ActionEvent actionEvent) throws SQLException {
+        if(!textoCodigoHabilitar.getText().isEmpty()){
+            if(!retornarEstadoProducto(textoCodigoHabilitar.getText())){
+                altaProducto(textoCodigoHabilitar.getText());
+                setearProductosTablaStock();
+                limpiarDatos();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion");
+                alert.setHeaderText("Error!");
+                alert.setContentText("Este producto ya se encuentra habilitado en el sistema");
+                alert.showAndWait();
+                limpiarDatos();
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion");
+            alert.setHeaderText("Error!");
+            alert.setContentText("Por favor, ingrese el codigo del producto que desea habilitar");
+            alert.showAndWait();
+        }
+
+
+
+
+    }
+
+    @FXML
+    void deshabilitarP(ActionEvent actionEvent) throws SQLException {
+        if(!tablaStock.getSelectionModel().isEmpty()){
+            deshabilitarProducto(tablaStock.getSelectionModel().getSelectedItem().getCodigoProducto());
+            setearProductosTablaStock();
+            limpiarDatos();
+        }else{
+            alerta("Seleccione un producto a dar de baja");
+        }
+
+    }
 
 }
