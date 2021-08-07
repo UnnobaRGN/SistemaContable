@@ -250,40 +250,50 @@ public class VentasController implements Initializable {
 
     public void confirmarVenta(ActionEvent event) throws SQLException {
         //Persistir datos
-        int idcliente = buscarCliente(seleccionClientes.getSelectionModel().getSelectedItem().toString());
-        int idmediopago = buscarMedioPago(seleccionMetodoDePago.getSelectionModel().getSelectedItem().toString());
+        if(!seleccionClientes.getSelectionModel().isEmpty() && !seleccionMetodoDePago.getSelectionModel().isEmpty()) {
+            int idcliente = buscarCliente(seleccionClientes.getSelectionModel().getSelectedItem().toString());
+            int idmediopago = buscarMedioPago(seleccionMetodoDePago.getSelectionModel().getSelectedItem().toString());
 
-        //CREO LA VENTA
-        double importeIva = isRealizarIvaCliente()?Double.valueOf(totalIva.getText().replace(",", ".")):Double.valueOf(totalPagar.getText().replace(",", "."));
-        crearVenta(importeIva, Double.valueOf(totalPagar.getText().replace(",", ".")), Date.valueOf(fecha.getValue()), u.getId(), idcliente, idmediopago);
+            //CREO LA VENTA
+            double importeIva = isRealizarIvaCliente() ? Double.valueOf(totalIva.getText().replace(",", ".")) : Double.valueOf(totalPagar.getText().replace(",", "."));
+            crearVenta(importeIva, Double.valueOf(totalPagar.getText().replace(",", ".")), Date.valueOf(fecha.getValue()), u.getId(), idcliente, idmediopago);
 
-        //OBTENGO EL ID DE LA VENTA
-        int idventa = ultimaVenta();
-        //CREO LA RELACION VENTA PRODUCTO Y ACTUALIZO STOCK
-        for (Producto p : listaProductos) {
-            crearVentaProducto(idventa, p.getIdProducto());
-            actualizarStock(p.getIdProducto(), p.getCantidad(), Integer.parseInt(p.getStock()));
+            //OBTENGO EL ID DE LA VENTA
+            int idventa = ultimaVenta();
+            //CREO LA RELACION VENTA PRODUCTO Y ACTUALIZO STOCK
+            for (Producto p : listaProductos) {
+                crearVentaProducto(idventa, p.getIdProducto());
+                actualizarStock(p.getIdProducto(), p.getCantidad(), Integer.parseInt(p.getStock()));
+            }
+
+            //OBTENER LETRA DE FACTURA
+            String letraFactura = crearLetraFactura(idcliente);
+
+            //CREO LA FACTURA Y MANDO MENSAJE
+            Date hoy = Date.valueOf(fecha.getValue());
+            if (idmediopago == 2) {
+                crearFactura(idventa, true, hoy, 1, 1, 0, importeIva, importeIva, hoy, crearNumeroFactura(), letraFactura);
+                avisoCompraConcretada("Efectivo");
+            } else {
+                int cantidadCuotas = Integer.parseInt(cuotas.getText());
+                double valorCuota = importeIva / cantidadCuotas;
+                crearFactura(idventa, false, null, cantidadCuotas, 0, importeIva, 0, valorCuota, hoy, crearNumeroFactura(), letraFactura);
+                avisoCompraConcretada("Credito");
+            }
+
+            //Cerrar ventana
+            cerrarVentana(event);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Atencion!");
+            alert.setHeaderText("Por favor,");
+            alert.setContentText("Complete todos los campos requeridos");
+            alert.showAndWait();
         }
-
-        //OBTENER LETRA DE FACTURA
-        String letraFactura = crearLetraFactura(idcliente);
-
-        //CREO LA FACTURA Y MANDO MENSAJE
-        Date hoy = Date.valueOf(fecha.getValue());
-        if (idmediopago == 2) {
-            crearFactura(idventa, true, hoy, 1, 1, 0, importeIva, importeIva, hoy, crearNumeroFactura(), letraFactura);
-            avisoCompraConcretada("Efectivo");
-        } else {
-            int cantidadCuotas = Integer.parseInt(cuotas.getText());
-            double valorCuota = importeIva / cantidadCuotas;
-            crearFactura(idventa, false, null, cantidadCuotas, 0, importeIva, 0, valorCuota, hoy, crearNumeroFactura(), letraFactura);
-            avisoCompraConcretada("Credito");
-        }
-
-        //Cerrar ventana
-        cerrarVentana(event);
 
     }
+
+
 
     @FXML
     void cantidadCuotasMaximo(){

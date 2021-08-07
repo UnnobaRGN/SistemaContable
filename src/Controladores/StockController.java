@@ -138,6 +138,7 @@ public class StockController implements Initializable {
         imagenDerecha.setImage(brandingIzq);
 
         typedEnNumeros();
+        typedEnLetras();
 
         setearProductosTablaStock();
 
@@ -261,7 +262,11 @@ public class StockController implements Initializable {
                         alerta("Ingresar todos los campos para modificar un producto.");
                     }
                 }else{
-                    alerta("El producto con codigo "+codP+" se encuentra dado de baja");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Atencion!");
+                    alert.setHeaderText("Error!");
+                    alert.setContentText("El producto con codigo "+codP+" se encuentra dado de baja");
+                    alert.showAndWait();
                 }
             }else {
                 //Crearlo
@@ -449,7 +454,23 @@ public class StockController implements Initializable {
         return r;
     }
 
-
+    public void typedEnLetras() {
+        textoNombre.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z*")) {
+                textoNombre.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            }
+        });
+        textoDescripcion.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z*")) {
+                textoDescripcion.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            }
+        });
+        textoProveedor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z*")) {
+                textoProveedor.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            }
+        });
+    }
 
     public void typedEnNumeros() {
         textoCodigo.textProperty().addListener(new ChangeListener<String>() {
@@ -527,7 +548,11 @@ public class StockController implements Initializable {
                     completarTextField(p.getNombreProducto(), p.getPrecioProducto(), p.getAlicuotaProducto(), p.getStockProducto(), p.getDescripcionProducto(), p.getProveedorProducto());
                     lista.add(p);
                 }else {
-                    alerta("El producto con codigo "+codP+" se enucuentra dado de baja");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Atencion");
+                    alert.setHeaderText("Error!");
+                    alert.setContentText("El producto con codigo "+codP+" se encuentra dado de baja");
+                    alert.showAndWait();
                 }
             }
         } catch (SQLException throwables) {
