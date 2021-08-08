@@ -353,9 +353,8 @@ public class VentasController implements Initializable {
 
     public String crearNumeroFactura() throws SQLException {
         int numFactura = ultimaFactura();
-        String numA = String.format("%04d",numFactura);
         String numB = String.format("%08d", numFactura);
-        return numA + "-" + numB;
+        return "0002-" + numB;
     }
 
     private void crearFactura(int idventa, boolean facturada, Date fecha_pago, int cuotas_totales, int cuotas_pagadas, double total_debe, double total_pagado, double valor_cuota, Date fecha_emision, String numFactura, String letra_factura) throws SQLException {
