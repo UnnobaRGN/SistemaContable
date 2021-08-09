@@ -20,7 +20,7 @@
       <AnchorPane prefHeight="508.0" prefWidth="936.0">
          <children>
             <Button fx:id="botonFacturacion" layoutX="23.0" layoutY="92.0" mnemonicParsing="false" onAction="#accederFacturacion" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 90; -fx-background-color: #71B4F5;" text="Facturas" />
-            <Label layoutX="501.0" layoutY="23.0" style="-fx-underline: true;" text="V E N T A S">
+            <Label layoutX="461.0" layoutY="23.0" style="-fx-underline: true;" text="V E N T A S">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>

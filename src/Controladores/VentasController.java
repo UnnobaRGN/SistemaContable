@@ -262,7 +262,7 @@ public class VentasController implements Initializable {
             int idventa = ultimaVenta();
             //CREO LA RELACION VENTA PRODUCTO Y ACTUALIZO STOCK
             for (Producto p : listaProductos) {
-                crearVentaProducto(idventa, p.getIdProducto());
+                crearVentaProducto(idventa, p.getIdProducto(), p.getCantidad(), isRealizarIvaCliente()?calcularPrecioFinalIva(calcularIvaProducto(p.getCantidad(), p.getPrecio(), p.getAlicuota()),p.getPrecio(),p.getCantidad()):p.getPrecio()*p.getCantidad());
                 actualizarStock(p.getIdProducto(), p.getCantidad(), Integer.parseInt(p.getStock()));
             }
 
@@ -293,6 +293,10 @@ public class VentasController implements Initializable {
 
     }
 
+    public double calcularPrecioFinalIva(double precioAli, double precio, int cantidad){
+        double p = precio*cantidad;
+        return p + precioAli;
+    }
 
 
     @FXML
@@ -451,11 +455,13 @@ public class VentasController implements Initializable {
         ps.execute();
     }
 
-    public void crearVentaProducto(int idventa, int idproducto) throws SQLException {
-        String sql = "INSERT INTO venta_producto(idventa,idproducto) VALUES (?,?)";
+    public void crearVentaProducto(int idventa, int idproducto, int cantidad, double total) throws SQLException {
+        String sql = "INSERT INTO venta_producto(idventa,idproducto, cantidad, precio_calc) VALUES (?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, idventa);
         ps.setInt(2, idproducto);
+        ps.setInt(3, cantidad);
+        ps.setDouble(4,total);
         ps.execute();
     }
 
@@ -1139,7 +1145,7 @@ public class VentasController implements Initializable {
             labelIva.setVisible(false);
             totalIva.setVisible(false);
         }else {
-            labelIva.setVisible(false);
+            labelIva.setVisible(true);
             totalIva.setVisible(true);
         }
 

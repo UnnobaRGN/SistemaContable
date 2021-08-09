@@ -223,7 +223,7 @@ public class LibroDiarioController implements Initializable {
     }
 
    public void nombreEmpresa() {
-        NombreEmpresa.setText("Urano's Contability");
+        NombreEmpresa.setText("RGN - Systems");
         NombreEmpresa.setDisable(true);
 
     }
