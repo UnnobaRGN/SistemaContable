@@ -130,6 +130,11 @@ public class FacturasController implements Initializable {
         stage.show();
     }
 
+    public static String upperCaseFirst(String val) {
+        char[] arr = val.toCharArray();
+        arr[0] = Character.toUpperCase(arr[0]);
+        return new String(arr);
+    }
 
     public ObservableList<FacturaVentas> traerDatosAtabla(boolean t) {
         String pattern = "dd/MM/yyyy";
@@ -142,7 +147,7 @@ public class FacturasController implements Initializable {
             while (rs.next()) {
                 if (rs.getString("nombre") == null) {
                     FacturaVentas f = new FacturaVentas();
-                    f.setCliente(rs.getString("razonsocial"));
+                    f.setCliente(upperCaseFirst(rs.getString("razonsocial")));
                     f.setNumero(rs.getString("letra")+"-"+rs.getString("numero_factura"));
                     f.setFecha(df.format(rs.getDate("fecha_emision")));
                     f.setTotal("$"+ rs.getFloat("total"));
@@ -150,7 +155,7 @@ public class FacturasController implements Initializable {
                     lista.add(f);
                 } else {
                     FacturaVentas f = new FacturaVentas();
-                    f.setCliente(rs.getString("nombre") + " " + rs.getString("apellido"));
+                    f.setCliente(upperCaseFirst(rs.getString("nombre")) + " " + upperCaseFirst(rs.getString("apellido")));
                     f.setNumero(rs.getString("letra")+"-"+rs.getString("numero_factura"));
                     f.setFecha(df.format(rs.getDate("fecha_emision")));
                     f.setTotal("$"+rs.getFloat("total"));
