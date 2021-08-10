@@ -18,7 +18,7 @@ public class Reporte {
 
 
     public void crearPDF(String numF) throws JRException {
-        JasperReport archivo = JasperCompileManager.compileReport("C:\\Users\\German\\IdeaProjects\\SistemaContable\\src\\Reporte\\reportefacturacion.jrxml");
+        JasperReport archivo = JasperCompileManager.compileReport("C:\\Users\\ramig\\IdeaProjects\\SistemaContable\\src\\Reporte\\reportefacturacion.jrxml");
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("numF", numF);
         Connection conn = ConexionBD.getConnection();
