@@ -196,7 +196,6 @@ public class PrincipalController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Crear Usuario");
         stage.show();
-
     }
 
 }

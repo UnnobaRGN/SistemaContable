@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FacturasController">
    <children>
       <ImageView fx:id="imagenIzquierda" fitHeight="548.0" fitWidth="232.0" layoutX="-88.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -41,9 +37,9 @@
                   <TableColumn fx:id="columnaSubtotal" prefWidth="76.0" text="Total" />
               </columns>
             </TableView>
-            <Button layoutX="771.0" layoutY="53.0" mnemonicParsing="false" onAction="#facturasSinPagar" text="Facturas sin pagar" />
-            <Button layoutX="639.0" layoutY="53.0" mnemonicParsing="false" onAction="#facturasPagadas" prefHeight="25.0" prefWidth="120.0" text="Facturas pagadas" />
-            <Button layoutX="821.0" layoutY="470.0" mnemonicParsing="false" onAction="#verDetalle" text="Detalle" />
+            <Button fx:id="botonNoPagadas" layoutX="771.0" layoutY="53.0" mnemonicParsing="false" onAction="#facturasSinPagar" text="Facturas sin pagar" />
+            <Button fx:id="botonPagadas" layoutX="769.0" layoutY="53.0" mnemonicParsing="false" onAction="#facturasPagadas" prefHeight="25.0" prefWidth="112.0" text="Facturas pagadas" />
+            <Button fx:id="botonImprimir" layoutX="821.0" layoutY="470.0" mnemonicParsing="false" onAction="#imprimirFactura" text="Imprimir" />
          </children>
       </AnchorPane>
    </children>
