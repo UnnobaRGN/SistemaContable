@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,6 +18,20 @@
       </ImageView>
       <AnchorPane fx:id="anchor2" prefHeight="278.0" prefWidth="475.0">
          <children>
+            <MenuBar fx:id="menuBar" prefHeight="33.0" prefWidth="475.0" style="-fx-background-color: #cfd8dc; -fx-border-color: #263238;">
+              <menus>
+                <Menu fx:id="menuInterno" mnemonicParsing="false">
+                  <items>
+                    <MenuItem fx:id="menuUsuario" mnemonicParsing="false" onAction="#abrirDatosEmpresa" text="Datos Empresa" />
+                        <MenuItem fx:id="datosEmpresa" mnemonicParsing="false" onAction="#crearUsuario" text="Crear Usuario" />
+                        <MenuItem fx:id="menuAcercaDe" mnemonicParsing="false" onAction="#abrirAcercaDe" text="Acerca de ..." />
+                  </items>
+                     <graphic>
+                        <TextField fx:id="textoUsuario" disable="true" editable="false" prefHeight="25.0" prefWidth="207.0" />
+                     </graphic>
+                </Menu>
+              </menus>
+            </MenuBar>
             <ImageView fx:id="imagenAdministracion" fitHeight="124.0" fitWidth="180.0" layoutX="263.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="40.0">
                <image>
                   <Image url="@../../Imagenes/MenuPrincipalAdm.jpg" />

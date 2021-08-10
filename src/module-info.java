@@ -5,6 +5,7 @@ module SistemaContable {
     requires javafx.controls;
     requires java.sql;
     requires org.postgresql.jdbc;
+    requires jasperreports;
 
     opens sample;
     opens Controladores;

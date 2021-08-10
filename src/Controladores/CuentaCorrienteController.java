@@ -2,6 +2,7 @@ package Controladores;
 
 import Modelo.FacturaVentas;
 import Modelo.cuentaCorrienteCliente;
+import Reporte.Reporte;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -293,6 +294,9 @@ public class CuentaCorrienteController implements Initializable {
                 ps.setDate(4,sqlDate);
                 ps.setBoolean(5,true);
                 ps.execute();
+
+                Reporte r = new Reporte();
+                r.crearPDF(cliente.getNumero());
 
                 }catch (Exception e){
 

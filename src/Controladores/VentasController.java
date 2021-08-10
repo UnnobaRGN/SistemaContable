@@ -1,6 +1,7 @@
 package Controladores;
 
 import Modelo.*;
+import Reporte.Reporte;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 import org.postgresql.core.Utils;
 import sample.ConexionBD;
 
@@ -248,7 +250,7 @@ public class VentasController implements Initializable {
         return false;
     }
 
-    public void confirmarVenta(ActionEvent event) throws SQLException {
+    public void confirmarVenta(ActionEvent event) throws SQLException, JRException {
         //Persistir datos
         if(!seleccionClientes.getSelectionModel().isEmpty() && !seleccionMetodoDePago.getSelectionModel().isEmpty()) {
             int idcliente = buscarCliente(seleccionClientes.getSelectionModel().getSelectedItem().toString());
@@ -262,7 +264,7 @@ public class VentasController implements Initializable {
             int idventa = ultimaVenta();
             //CREO LA RELACION VENTA PRODUCTO Y ACTUALIZO STOCK
             for (Producto p : listaProductos) {
-                crearVentaProducto(idventa, p.getIdProducto(), p.getCantidad(), isRealizarIvaCliente()?calcularPrecioFinalIva(calcularIvaProducto(p.getCantidad(), p.getPrecio(), p.getAlicuota()),p.getPrecio(),p.getCantidad()):p.getPrecio()*p.getCantidad());
+                crearVentaProducto(idventa, p.getIdProducto(), p.getCantidad(), isRealizarIvaCliente()?calcularPrecioFinalIva(calcularIvaProducto(p.getCantidad(), p.getPrecio(), p.getAlicuota()),p.getPrecio(),p.getCantidad()):p.getPrecio()*p.getCantidad(), isRealizarIvaCliente()?p.getAlicuota():0);
                 actualizarStock(p.getIdProducto(), p.getCantidad(), Integer.parseInt(p.getStock()));
             }
 
@@ -271,13 +273,16 @@ public class VentasController implements Initializable {
 
             //CREO LA FACTURA Y MANDO MENSAJE
             Date hoy = Date.valueOf(fecha.getValue());
+            String numF = crearNumeroFactura();
             if (idmediopago == 2) {
-                crearFactura(idventa, true, hoy, 1, 1, 0, importeIva, importeIva, hoy, crearNumeroFactura(), letraFactura);
+                crearFactura(idventa, true, hoy, 1, 1, 0, importeIva, importeIva, hoy, numF, letraFactura);
                 avisoCompraConcretada("Efectivo");
+                Reporte r = new Reporte();
+                r.crearPDF(numF);
             } else {
                 int cantidadCuotas = Integer.parseInt(cuotas.getText());
                 double valorCuota = importeIva / cantidadCuotas;
-                crearFactura(idventa, false, null, cantidadCuotas, 0, importeIva, 0, valorCuota, hoy, crearNumeroFactura(), letraFactura);
+                crearFactura(idventa, false, null, cantidadCuotas, 0, importeIva, 0, valorCuota, hoy, numF, letraFactura);
                 avisoCompraConcretada("Credito");
             }
 
@@ -329,7 +334,7 @@ public class VentasController implements Initializable {
         if (rs.next()) {
             idiva = rs.getInt("id");
         }
-        return idiva;
+        return idiva + 1;
     }
 
     private void cerrarVentana(ActionEvent event) {
@@ -455,13 +460,14 @@ public class VentasController implements Initializable {
         ps.execute();
     }
 
-    public void crearVentaProducto(int idventa, int idproducto, int cantidad, double total) throws SQLException {
-        String sql = "INSERT INTO venta_producto(idventa,idproducto, cantidad, precio_calc) VALUES (?,?,?,?)";
+    public void crearVentaProducto(int idventa, int idproducto, int cantidad, double total, double producto_alicuota) throws SQLException {
+        String sql = "INSERT INTO venta_producto(idventa,idproducto, cantidad, precio_calc, producto_alicuota) VALUES (?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, idventa);
         ps.setInt(2, idproducto);
         ps.setInt(3, cantidad);
         ps.setDouble(4,total);
+        ps.setDouble(5,producto_alicuota);
         ps.execute();
     }
 

@@ -2,6 +2,7 @@ package Controladores;
 
 import Modelo.FacturaVentas;
 
+import Reporte.Reporte;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,13 +12,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 import sample.ConexionBD;
 
 import java.io.File;
@@ -39,7 +39,16 @@ public class FacturasController implements Initializable {
     private ImageView imagenDerecha = new ImageView();
 
     @FXML
-    private TableView tablaFactura;
+    private TableView<FacturaVentas> tablaFactura;
+
+    @FXML
+    private Button botonPagadas;
+
+    @FXML
+    private Button botonNoPagadas;
+
+    @FXML
+    private Button botonImprimir;
 
     @FXML
     private TableColumn<FacturaVentas, String> columnaNumero;
@@ -75,6 +84,9 @@ public class FacturasController implements Initializable {
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
         imagenDerecha.setImage(brandingIzq);
         mostrarFacturasPagas();
+
+        botonPagadas.setVisible(false);
+        botonNoPagadas.setVisible(true);
 
     }
 
@@ -167,6 +179,9 @@ public class FacturasController implements Initializable {
             lista=traerDatosAtabla(true);
             tablaFactura.setItems(lista);
 
+            botonPagadas.setVisible(false);
+            botonNoPagadas.setVisible(true);
+
         }
 
 
@@ -182,6 +197,8 @@ public class FacturasController implements Initializable {
             lista=traerDatosAtabla(false);
             tablaFactura.setItems(lista);
 
+            botonNoPagadas.setVisible(false);
+            botonPagadas.setVisible(true);
         }
 
 
@@ -201,8 +218,18 @@ public class FacturasController implements Initializable {
         }
 
 
-        public void verDetalle(ActionEvent e){
-
+        public void imprimirFactura(ActionEvent e) throws JRException {
+            if(!tablaFactura.getSelectionModel().isEmpty()){
+                String numF = tablaFactura.getSelectionModel().getSelectedItem().getNumero().substring(2);
+                Reporte r = new Reporte();
+                r.crearPDF(numF);
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion!");
+                alert.setHeaderText("Por favor,");
+                alert.setContentText("Seleccione una factura para imprimir");
+                alert.showAndWait();
+            }
         }
 
 
