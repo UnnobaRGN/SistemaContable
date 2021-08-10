@@ -182,6 +182,8 @@ public class FacturasController implements Initializable {
             botonPagadas.setVisible(false);
             botonNoPagadas.setVisible(true);
 
+            botonImprimir.setVisible(true);
+
         }
 
 
@@ -199,6 +201,8 @@ public class FacturasController implements Initializable {
 
             botonNoPagadas.setVisible(false);
             botonPagadas.setVisible(true);
+
+            botonImprimir.setVisible(false);
         }
 
 
