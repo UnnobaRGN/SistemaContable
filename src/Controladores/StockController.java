@@ -495,19 +495,6 @@ public class StockController implements Initializable {
                 }
             }
         });
-        /*textoAlicuota.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (newValue == null) {
-                    textoAlicuota.setText(null);
-                } else {
-                    if (!newValue.matches("\\d*")) {
-                        textoAlicuota.setText(newValue.replaceAll("[^\\d]", ""));
-                    }
-                }
-            }
-        });*/
         textoCantidad.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -521,19 +508,19 @@ public class StockController implements Initializable {
                 }
             }
         });
-        /*textoPrecio.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (newValue == null) {
-                    textoPrecio.setText(null);
-                } else {
-                    if (!newValue.matches("\\d*")) {
-                        textoPrecio.setText(newValue.replaceAll("[^\\d]", ""));
-                    }
-                }
-            }
-        });*/
+//        textoPrecio.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue,
+//                                String newValue) {
+//                if (newValue == null) {
+//                    textoPrecio.setText(null);
+//                } else {
+//                    if (!newValue.matches("-?\\d+(\\.\\d+)?")) {
+//                        textoPrecio.setText(newValue.replaceAll("[^\\d]", ""));
+//                    }
+//                }
+//            }
+//        });
     }
 
     public ObservableList<StockTabla> traerProductosEnTabla(String codP){

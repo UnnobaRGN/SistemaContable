@@ -96,7 +96,7 @@ public class MetodoCosteoController implements Initializable {
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Facturacion");
+        stage.setTitle("Clientes");
         stage.show();
         cerrarVentana(event);
     }
@@ -107,7 +107,7 @@ public class MetodoCosteoController implements Initializable {
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Facturacion");
+        stage.setTitle("Stock");
         stage.show();
         cerrarVentana(event);
     }
@@ -118,7 +118,7 @@ public class MetodoCosteoController implements Initializable {
         Scene scene = new Scene(asiento);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Facturacion");
+        stage.setTitle("Ventas");
         stage.show();
         cerrarVentana(event);
     }

@@ -261,12 +261,8 @@ public class CuentaCorrienteController implements Initializable {
                 alert.showAndWait();
             } else {
                 realizarCalculos(cuentaCorrienteCliente);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Atencion");
-                alert.setHeaderText("Operación exitosa!");
                 int var = cuentaCorrienteCliente.getCuotasPagadas() + 1;
-                alert.setContentText("Se ha realizado el pago de la cuota " + var + " correspondiente a la factura " + cuentaCorrienteCliente.getLetra_factura() + "-" + cuentaCorrienteCliente.getNumero());
-                alert.showAndWait();
+                avisoPagoConcretada("Se ha realizado el pago de la cuota " + var + " correspondiente a la factura " + cuentaCorrienteCliente.getLetra_factura() + "-" + cuentaCorrienteCliente.getNumero());
                 mostrarDatosEnTabla();
             }
         } else {
@@ -276,8 +272,14 @@ public class CuentaCorrienteController implements Initializable {
             alert.setContentText("Por favor, seleccione una factura");
             alert.showAndWait();
         }
+    }
 
-
+    public void avisoPagoConcretada(String metodoPago){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Atencion!");
+        alert.setHeaderText("Venta Concretada");
+        alert.setContentText("La venta a " + metodoPago + " fue realizada con exito.");
+        alert.showAndWait();
     }
 
 
@@ -297,8 +299,6 @@ public class CuentaCorrienteController implements Initializable {
                 ps.setDate(4, sqlDate);
                 ps.setBoolean(5, true);
                 ps.execute();
-
-                cargaProgressBar();
 
                 Reporte r = new Reporte();
                 r.crearPDF(cliente.getNumero());
