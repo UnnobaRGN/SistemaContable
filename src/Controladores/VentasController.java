@@ -189,6 +189,10 @@ public class VentasController implements Initializable {
         totalIva.setVisible(false);
         labelIva.setVisible(false);
 
+        codigo.setDisable(true);
+        precio.setDisable(true);
+        stock.setDisable(true);
+
         typedEnNumeros();
 
         progressBar.setVisible(false);
@@ -786,13 +790,12 @@ public class VentasController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Atencion!");
                 alert.setHeaderText("Por favor,");
-                alert.setContentText("Seleccione un producto o ingrese un codigo para la busqueda.");
+                alert.setContentText("Seleccione un producto para agregar al carrito.");
                 alert.showAndWait();
             }
         } catch (Exception e) {
             System.out.println("La busqueda genero una excepcion");
         }
-
     }
 
     private boolean avisoAgregarCantidad() {
@@ -899,20 +902,28 @@ public class VentasController implements Initializable {
 //    }
 
     public void eliminarProducto() {
+        final Producto producto = getTablaProductoSeleccionada();
         try {
-            final Producto producto = getTablaProductoSeleccionada();
-            posicionEnTabla = list.indexOf(producto);
+            if(producto != null) {
+                posicionEnTabla = list.indexOf(producto);
 
-            list.remove(posicionEnTabla);
-            listaProductos.remove(posicionEnTabla);
-            totalPagar.setText(String.valueOf(decimalFormat.format(calcularPrecioTotal())));
-            totalIva.setText(String.valueOf(decimalFormat.format(calcularPrecioTotalIva())));
-            if (!isRealizarIvaCliente()) {
-                labelIva.setVisible(false);
-                totalIva.setVisible(false);
-            }else {
-                labelIva.setVisible(false);
-                totalIva.setVisible(true);
+                list.remove(posicionEnTabla);
+                listaProductos.remove(posicionEnTabla);
+                totalPagar.setText(String.valueOf(decimalFormat.format(calcularPrecioTotal())));
+                totalIva.setText(String.valueOf(decimalFormat.format(calcularPrecioTotalIva())));
+                if (!isRealizarIvaCliente()) {
+                    labelIva.setVisible(false);
+                    totalIva.setVisible(false);
+                } else {
+                    labelIva.setVisible(false);
+                    totalIva.setVisible(true);
+                }
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion!");
+                alert.setHeaderText("Por favor,");
+                alert.setContentText("Seleccione un producto para eliminar del carrito.");
+                alert.showAndWait();
             }
         } catch (Exception e) {
             System.out.println("Eliminar Genero una Excepcion");
@@ -1127,24 +1138,31 @@ public class VentasController implements Initializable {
     }
 
     public void modificarProducto() {
+        final Producto producto = getTablaProductoSeleccionada();
         try {
-            final Producto producto = getTablaProductoSeleccionada();
-            posicionEnTabla = list.indexOf(producto);
-            aceptarCambios.setVisible(true);
-            aceptarCambios.setDisable(false);
-            cancelarCambios.setVisible(true);
-            cancelarCambios.setDisable(false);
-            confirmarVenta.setVisible(false);
-            cancelarVenta.setVisible(false);
+            if(producto != null) {
+                posicionEnTabla = list.indexOf(producto);
+                aceptarCambios.setVisible(true);
+                aceptarCambios.setDisable(false);
+                cancelarCambios.setVisible(true);
+                cancelarCambios.setDisable(false);
+                confirmarVenta.setVisible(false);
+                cancelarVenta.setVisible(false);
 
-            datosAceptarCambios(producto);
+                datosAceptarCambios(producto);
 
-            agregarP.setVisible(false);
-            modificarP.setVisible(false);
-            eliminarP.setVisible(false);
-            confirmarVenta.setVisible(false);
-            cancelarVenta.setVisible(false);
-
+                agregarP.setVisible(false);
+                modificarP.setVisible(false);
+                eliminarP.setVisible(false);
+                confirmarVenta.setVisible(false);
+                cancelarVenta.setVisible(false);
+            }else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Atencion!");
+                alert.setHeaderText("Por favor,");
+                alert.setContentText("Seleccione un producto para modificar.");
+                alert.showAndWait();
+            }
 
         } catch (Exception e) {
             System.out.println("Modificar Genero una Excepcion");
