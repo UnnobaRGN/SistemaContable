@@ -205,6 +205,7 @@ public class VentasController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Facturas");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederClientes(ActionEvent e) throws IOException {
@@ -215,6 +216,7 @@ public class VentasController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Clientes");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederStock(ActionEvent e) throws IOException {
@@ -225,6 +227,7 @@ public class VentasController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Stock");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederCosteo(ActionEvent e) throws IOException {
@@ -235,6 +238,7 @@ public class VentasController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Metodo de Costeo");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void condicionFecha() {
@@ -992,6 +996,12 @@ public class VentasController implements Initializable {
         totalIva.setVisible(b2);
     }
 
+    public static String upperCaseFirst(String val) {
+        char[] arr = val.toCharArray();
+        arr[0] = Character.toUpperCase(arr[0]);
+        return new String(arr);
+    }
+
     public ObservableList<String> tomarClientes() {
         ObservableList<String> list = FXCollections.observableArrayList();
 
@@ -1002,7 +1012,7 @@ public class VentasController implements Initializable {
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(rs.getString("nombre") + " - " + rs.getString("cuit"));
+                list.add(upperCaseFirst(rs.getString("nombre")) + " - " + rs.getString("cuit"));
             }
 
         } catch (Exception e) {
@@ -1027,7 +1037,7 @@ public class VentasController implements Initializable {
             ResultSet rs = statement.executeQuery(SQL);
 
             while (rs.next()) {
-                list.add(rs.getString("nombre") + " - " + rs.getString("cuit"));
+                list.add(upperCaseFirst(rs.getString("nombre")) + " - " + rs.getString("cuit"));
             }
 
         } catch (Exception e) {

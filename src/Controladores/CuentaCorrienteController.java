@@ -74,9 +74,9 @@ public class CuentaCorrienteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        File brandingDerecha = new File("Imagenes/pep.png");
-        Image brandingDer = new Image(brandingDerecha.toURI().toString());
-        imagenIzquierda.setImage(brandingDer);
+//        File brandingDerecha = new File("Imagenes/pep.png");
+//        Image brandingDer = new Image(brandingDerecha.toURI().toString());
+//        imagenIzquierda.setImage(brandingDer);
 
         File brandingIzquierda = new File("Imagenes/asd.png");
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
@@ -86,55 +86,55 @@ public class CuentaCorrienteController implements Initializable {
     }
 
 
-    public void accederCliente(ActionEvent event) throws IOException {
-        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Clientes.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(asiento);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("Clientes");
-        stage.show();
-    }
-
-    public void accederVentas(ActionEvent e) throws IOException {
-        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Ventas.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(asiento);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("Ventas");
-        stage.show();
-    }
-
-    public void accederFacturacion(ActionEvent e) throws IOException{
-        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Facturas.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(asiento);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("Facturas");
-        stage.show();
-    }
-
-    public void accederStock(ActionEvent e) throws IOException{
-        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Stock.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(asiento);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("Stock");
-        stage.show();
-    }
-
-    public void accederCosteo(ActionEvent e) throws IOException{
-        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/MetodoCosteo.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(asiento);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("Metodo de Costeo");
-        stage.show();
-    }
+//    public void accederCliente(ActionEvent event) throws IOException {
+//        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Clientes.fxml"));
+//        Stage stage = new Stage();
+//        Scene scene = new Scene(asiento);
+//        stage.setScene(scene);
+//        stage.setResizable(false);
+//        stage.setTitle("Clientes");
+//        stage.show();
+//    }
+//
+//    public void accederVentas(ActionEvent e) throws IOException {
+//        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Ventas.fxml"));
+//        Stage stage = new Stage();
+//        Scene scene = new Scene(asiento);
+//        stage.setScene(scene);
+//        stage.setResizable(false);
+//        stage.setTitle("Ventas");
+//        stage.show();
+//    }
+//
+//    public void accederFacturacion(ActionEvent e) throws IOException{
+//        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Facturas.fxml"));
+//        Stage stage = new Stage();
+//        Scene scene = new Scene(asiento);
+//        stage.setScene(scene);
+//        stage.setResizable(false);
+//        stage.setTitle("Facturas");
+//        stage.show();
+//    }
+//
+//    public void accederStock(ActionEvent e) throws IOException{
+//        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Stock.fxml"));
+//        Stage stage = new Stage();
+//        Scene scene = new Scene(asiento);
+//        stage.setScene(scene);
+//        stage.setResizable(false);
+//        stage.setTitle("Stock");
+//        stage.show();
+//    }
+//
+//    public void accederCosteo(ActionEvent e) throws IOException{
+//        Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/MetodoCosteo.fxml"));
+//        Stage stage = new Stage();
+//        Scene scene = new Scene(asiento);
+//        stage.setScene(scene);
+//        stage.setResizable(false);
+//        stage.setTitle("Metodo de Costeo");
+//        stage.show();
+//    }
 
     public void recibeCuit(ClientesController clientesController,String cuit,String nombreOrazon){
         CUITcliente.setText(cuit);

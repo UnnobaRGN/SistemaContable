@@ -173,7 +173,9 @@ public class ClientesController implements Initializable{
         //llenarClientes();
     }
 
-
+    private void cerrarVentana(ActionEvent event) {
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
 
 
     public void accederVentas(ActionEvent e) throws IOException{
@@ -184,6 +186,7 @@ public class ClientesController implements Initializable{
         stage.setResizable(false);
         stage.setTitle("Ventas");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederFacturacion(ActionEvent e) throws IOException{
@@ -194,6 +197,7 @@ public class ClientesController implements Initializable{
         stage.setResizable(false);
         stage.setTitle("Facturas");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederStock(ActionEvent e) throws IOException{
@@ -204,6 +208,7 @@ public class ClientesController implements Initializable{
         stage.setResizable(false);
         stage.setTitle("Stock");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederCosteo(ActionEvent e) throws IOException{
@@ -214,6 +219,7 @@ public class ClientesController implements Initializable{
         stage.setResizable(false);
         stage.setTitle("Metodo de Costeo");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederACuentaCorriente(ActionEvent e) throws IOException {

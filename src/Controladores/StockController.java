@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -159,6 +160,10 @@ public class StockController implements Initializable {
         return list;
     }
 
+    private void cerrarVentana(ActionEvent event) {
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
     public void accerderFacturacion(ActionEvent e) throws IOException {
         Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Facturas.fxml"));
         Stage stage = new Stage();
@@ -167,6 +172,7 @@ public class StockController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Facturas");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederClientes(ActionEvent e) throws IOException{
@@ -177,6 +183,7 @@ public class StockController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Clientes");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederCosteo(ActionEvent e) throws IOException{
@@ -187,6 +194,7 @@ public class StockController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Metodo de Costeo");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void accederVentas(ActionEvent e) throws IOException{
@@ -197,6 +205,7 @@ public class StockController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Ventas");
         stage.show();
+        cerrarVentana(e);
     }
 
     public void crearProducto(String codP, String nombre, double precio, int stock, String descripcion, String proveedor, double alicuota, boolean activo) throws SQLException {

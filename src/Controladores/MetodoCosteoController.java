@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -74,6 +75,10 @@ public class MetodoCosteoController implements Initializable {
 
     }
 
+    private void cerrarVentana(ActionEvent event) {
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
     public void accederFacturacion(ActionEvent event) throws IOException {
         Parent asiento = FXMLLoader.load(getClass().getResource("/Vista/Facturas.fxml"));
         Stage stage = new Stage();
@@ -82,6 +87,7 @@ public class MetodoCosteoController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Facturas");
         stage.show();
+        cerrarVentana(event);
     }
 
     public void accederClientes(ActionEvent event) throws IOException {
@@ -92,6 +98,7 @@ public class MetodoCosteoController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Facturacion");
         stage.show();
+        cerrarVentana(event);
     }
 
     public void accederStock(ActionEvent event) throws IOException {
@@ -102,6 +109,7 @@ public class MetodoCosteoController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Facturacion");
         stage.show();
+        cerrarVentana(event);
     }
 
     public void accederVentas(ActionEvent event) throws IOException {
@@ -112,6 +120,7 @@ public class MetodoCosteoController implements Initializable {
         stage.setResizable(false);
         stage.setTitle("Facturacion");
         stage.show();
+        cerrarVentana(event);
     }
 
     public void accederMetodoAbsorbente(ActionEvent event) {
