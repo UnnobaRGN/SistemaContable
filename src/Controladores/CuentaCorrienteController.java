@@ -43,29 +43,32 @@ public class CuentaCorrienteController implements Initializable {
     private TableView<cuentaCorrienteCliente> tablaCuentaCorriente;
 
     @FXML
-    private TableColumn<cuentaCorrienteCliente,String> columnaNumero;
+    private TableColumn<cuentaCorrienteCliente, String> columnaNumero;
 
     @FXML
-    private TableColumn<cuentaCorrienteCliente,String> columnaFechaPago;
+    private TableColumn<cuentaCorrienteCliente, String> columnaFechaPago;
 
     @FXML
-    private TableColumn<cuentaCorrienteCliente,String> columnaFechaEmi;
+    private TableColumn<cuentaCorrienteCliente, String> columnaFechaEmi;
 
     @FXML
-    private TableColumn<cuentaCorrienteCliente,String> columnaCobrado;
+    private TableColumn<cuentaCorrienteCliente, String> columnaCobrado;
 
 
     @FXML
-    private TableColumn<cuentaCorrienteCliente,String> columnaDeuda;
+    private TableColumn<cuentaCorrienteCliente, String> columnaDeuda;
 
     @FXML
-    private TableColumn<cuentaCorrienteCliente,Integer> columnaCuotasTotales;
+    private TableColumn<cuentaCorrienteCliente, Integer> columnaCuotasTotales;
 
     @FXML
-    private TableColumn<cuentaCorrienteCliente,Integer> columnaCuotasPagadas;
+    private TableColumn<cuentaCorrienteCliente, Integer> columnaCuotasPagadas;
 
     @FXML
     private Text lblNombreYapellido;
+
+    @FXML
+    private ProgressBar progressBar;
 
 
     @FXML
@@ -82,7 +85,7 @@ public class CuentaCorrienteController implements Initializable {
         Image brandingIzq = new Image(brandingIzquierda.toURI().toString());
         imagenDerecha.setImage(brandingIzq);
 
-
+        progressBar.setVisible(false);
     }
 
 
@@ -136,16 +139,18 @@ public class CuentaCorrienteController implements Initializable {
 //        stage.show();
 //    }
 
-    public void recibeCuit(ClientesController clientesController,String cuit,String nombreOrazon){
+    public void recibeCuit(ClientesController clientesController, String cuit, String nombreOrazon) {
         CUITcliente.setText(cuit);
         lblNombreYapellido.setText(nombreOrazon);
-        clientesController1=clientesController;
+        clientesController1 = clientesController;
 
     }
 
+    public void cargaProgressBar() {
+        progressBar.setVisible(true);
+    }
 
-    public ObservableList<cuentaCorrienteCliente> BuscarFacturas(){
-
+    public ObservableList<cuentaCorrienteCliente> BuscarFacturas() {
 
 
         String pattern = "dd/MM/yyyy";
@@ -156,20 +161,20 @@ public class CuentaCorrienteController implements Initializable {
                     "FROM venta v " +
                     " INNER JOIN cliente c ON c.idcliente = v.idcliente " +
                     " INNER JOIN factura f ON f.idventa=v.idventa " +
-                    "WHERE c.cuit="+"'"+CUITcliente.getText()+"'";
+                    "WHERE c.cuit=" + "'" + CUITcliente.getText() + "'";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
             while (rs.next()) {
                 cuentaCorrienteCliente cuentaCorrienteCliente = new cuentaCorrienteCliente();
-                if(rs.getDate("fecha_pago")==null){
+                if (rs.getDate("fecha_pago") == null) {
                     cuentaCorrienteCliente.setFechaDePago(" ");
-                }else{
+                } else {
                     cuentaCorrienteCliente.setFechaDePago(df.format(rs.getDate("fecha_pago")));
                 }
-                cuentaCorrienteCliente.setNumero(rs.getString("letra_factura")+"-"+rs.getString("numero_factura"));
+                cuentaCorrienteCliente.setNumero(rs.getString("letra_factura") + "-" + rs.getString("numero_factura"));
                 cuentaCorrienteCliente.setFechaEmision(df.format(rs.getDate("fecha_emision")));
-                cuentaCorrienteCliente.setCobrado("$"+rs.getFloat("total_pagado"));
-                cuentaCorrienteCliente.setDeuda("$"+rs.getFloat("total_debe"));
+                cuentaCorrienteCliente.setCobrado("$" + rs.getFloat("total_pagado"));
+                cuentaCorrienteCliente.setDeuda("$" + rs.getFloat("total_debe"));
                 cuentaCorrienteCliente.setCuotasTotales(rs.getInt("cuotas_totales"));
                 cuentaCorrienteCliente.setCuotasPagadas(rs.getInt("cuotas_pagadas"));
                 lista.add(cuentaCorrienteCliente);
@@ -182,7 +187,7 @@ public class CuentaCorrienteController implements Initializable {
     }
 
 
-    public void Buscar(ActionEvent event){
+    public void Buscar(ActionEvent event) {
         mostrarDatosEnTabla();
     }
 
@@ -214,9 +219,9 @@ public class CuentaCorrienteController implements Initializable {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
             while (rs.next()) {
-                if(rs.getDate("fecha_pago")==null){
+                if (rs.getDate("fecha_pago") == null) {
                     cuentaCorrienteCliente.setFechaDePago(" ");
-                }else{
+                } else {
                     cuentaCorrienteCliente.setFechaDePago(df.format(rs.getDate("fecha_pago")));
                 }
                 cuentaCorrienteCliente.setLetra_factura(rs.getString("letra_factura"));
@@ -242,29 +247,29 @@ public class CuentaCorrienteController implements Initializable {
 
 
     @FXML
-    private void cobrarFact(ActionEvent event){
+    private void cobrarFact(ActionEvent event) {
 
-        if(!tablaCuentaCorriente.getSelectionModel().isEmpty()) {
+        if (!tablaCuentaCorriente.getSelectionModel().isEmpty()) {
             String s;
             s = tablaCuentaCorriente.getSelectionModel().getSelectedItem().getNumero().substring(2);
             cuentaCorrienteCliente cuentaCorrienteCliente = retornarCuentaDeCliente(s);
-            if(cuentaCorrienteCliente.getCuotasTotales() == cuentaCorrienteCliente.getCuotasPagadas()){
+            if (cuentaCorrienteCliente.getCuotasTotales() == cuentaCorrienteCliente.getCuotasPagadas()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Atencion");
                 alert.setHeaderText("Error!");
                 alert.setContentText("La factura ya se encuentra en estado cobrada!");
                 alert.showAndWait();
-            }else{
+            } else {
                 realizarCalculos(cuentaCorrienteCliente);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Atencion");
                 alert.setHeaderText("Operación exitosa!");
-                int var = cuentaCorrienteCliente.getCuotasPagadas()+1;
-                alert.setContentText("Se ha realizado el pago de la cuota "+var+" correspondiente a la factura "+cuentaCorrienteCliente.getLetra_factura()+"-"+cuentaCorrienteCliente.getNumero());
+                int var = cuentaCorrienteCliente.getCuotasPagadas() + 1;
+                alert.setContentText("Se ha realizado el pago de la cuota " + var + " correspondiente a la factura " + cuentaCorrienteCliente.getLetra_factura() + "-" + cuentaCorrienteCliente.getNumero());
                 alert.showAndWait();
                 mostrarDatosEnTabla();
             }
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Atencion");
             alert.setHeaderText("Error!");
@@ -276,44 +281,42 @@ public class CuentaCorrienteController implements Initializable {
     }
 
 
-
-
     public void realizarCalculos(cuentaCorrienteCliente cliente) {
 
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        int VarAux=cliente.getCuotasPagadas()+1;
-        if(VarAux==cliente.getCuotasTotales()) {
+        int VarAux = cliente.getCuotasPagadas() + 1;
+        if (VarAux == cliente.getCuotasTotales()) {
             try {
 
-                String SQL = "  UPDATE factura SET cuotas_pagadas=?,total_debe=?,total_pagado=?,fecha_pago=?,facturada=? WHERE numero_factura="+"'"+cliente.getNumero()+"'";
+                String SQL = "  UPDATE factura SET cuotas_pagadas=?,total_debe=?,total_pagado=?,fecha_pago=?,facturada=? WHERE numero_factura=" + "'" + cliente.getNumero() + "'";
                 PreparedStatement ps = conn.prepareStatement(SQL);
-                ps.setInt(1,cliente.getCuotasTotales());
-                ps.setFloat(2,0);
-                ps.setFloat(3,cliente.getTotal_IVA());
-                ps.setDate(4,sqlDate);
-                ps.setBoolean(5,true);
+                ps.setInt(1, cliente.getCuotasTotales());
+                ps.setFloat(2, 0);
+                ps.setFloat(3, cliente.getTotal_IVA());
+                ps.setDate(4, sqlDate);
+                ps.setBoolean(5, true);
                 ps.execute();
+
+                cargaProgressBar();
 
                 Reporte r = new Reporte();
                 r.crearPDF(cliente.getNumero());
 
-                }catch (Exception e){
+            } catch (Exception e) {
 
             }
-        }else{
+        } else {
             try {
                 String SQL = "UPDATE factura SET cuotas_pagadas=?,total_debe=?,total_pagado=?,fecha_pago=? WHERE numero_factura=" + "'" + cliente.getNumero() + "'";
                 PreparedStatement ps = conn.prepareStatement(SQL);
-                ps.setInt(1,cliente.getCuotasPagadas()+1);
-                ps.setFloat(2,Float.parseFloat(cliente.getDeuda())-cliente.getTotalcuotas());
-                ps.setFloat(3,Float.parseFloat(cliente.getCobrado())+cliente.getTotalcuotas());
-                ps.setDate(4,sqlDate);
+                ps.setInt(1, cliente.getCuotasPagadas() + 1);
+                ps.setFloat(2, Float.parseFloat(cliente.getDeuda()) - cliente.getTotalcuotas());
+                ps.setFloat(3, Float.parseFloat(cliente.getCobrado()) + cliente.getTotalcuotas());
+                ps.setDate(4, sqlDate);
                 ps.execute();
 
-            }catch (Exception e){
-
-
+            } catch (Exception e) {
 
 
             }

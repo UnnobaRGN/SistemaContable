@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 import org.postgresql.core.Utils;
@@ -26,6 +28,7 @@ import sample.ConexionBD;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.sql.*;
@@ -140,6 +143,9 @@ public class VentasController implements Initializable {
     @FXML
     private Label labelIva;
 
+    @FXML
+    private ProgressBar progressBar;
+
     List<Producto> listaProductos = new ArrayList<>();
 
     private ObservableList<Producto> list;
@@ -184,6 +190,8 @@ public class VentasController implements Initializable {
         labelIva.setVisible(false);
 
         typedEnNumeros();
+
+        progressBar.setVisible(false);
 
         /*try {
             confirmarVenta();
@@ -256,7 +264,7 @@ public class VentasController implements Initializable {
 
     public void confirmarVenta(ActionEvent event) throws SQLException, JRException {
         //Persistir datos
-        if(!seleccionClientes.getSelectionModel().isEmpty() && !seleccionMetodoDePago.getSelectionModel().isEmpty()) {
+        if(!seleccionClientes.getSelectionModel().isEmpty() && !seleccionMetodoDePago.getSelectionModel().isEmpty() && listaProductos.size()>0) {
             int idcliente = buscarCliente(seleccionClientes.getSelectionModel().getSelectedItem().toString());
             int idmediopago = buscarMedioPago(seleccionMetodoDePago.getSelectionModel().getSelectedItem().toString());
 
@@ -280,6 +288,7 @@ public class VentasController implements Initializable {
             String numF = crearNumeroFactura();
             if (idmediopago == 2) {
                 crearFactura(idventa, true, hoy, 1, 1, 0, importeIva, importeIva, hoy, numF, letraFactura);
+                cargaProgressBar();
                 avisoCompraConcretada("Efectivo");
                 Reporte r = new Reporte();
                 r.crearPDF(numF);
@@ -287,6 +296,7 @@ public class VentasController implements Initializable {
                 int cantidadCuotas = Integer.parseInt(cuotas.getText());
                 double valorCuota = importeIva / cantidadCuotas;
                 crearFactura(idventa, false, null, cantidadCuotas, 0, importeIva, 0, valorCuota, hoy, numF, letraFactura);
+                cargaProgressBar();
                 avisoCompraConcretada("Credito");
             }
 
@@ -300,6 +310,10 @@ public class VentasController implements Initializable {
             alert.showAndWait();
         }
 
+    }
+
+    public void cargaProgressBar() {
+        progressBar.setVisible(true);
     }
 
     public double calcularPrecioFinalIva(double precioAli, double precio, int cantidad){
